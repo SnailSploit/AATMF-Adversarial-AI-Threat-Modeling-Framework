@@ -279,7 +279,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). High-value contributions: new techniques
 <p align="center">
   <sub>
     Created by <a href="https://snailsploit.com">Kai Aizen (SnailSploit)</a> · GenAI Security Research<br>
-    Accepted into OWASP GenAI Security Project Roadmap 2026<br>
     <br>
     <a href="docs/vol-1-foundations/01-introduction.md">Start Reading →</a>
   </sub>
