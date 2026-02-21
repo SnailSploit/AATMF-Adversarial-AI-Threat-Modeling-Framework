@@ -9,8 +9,6 @@
 
 <p align="center">
   <a href="#quick-start"><img src="https://img.shields.io/badge/version-3-0D1B2A?style=flat-square&labelColor=2E86AB" alt="Version 3"/></a>
-  <a href="docs/vol-6-governance/25-compliance-mapping.md"><img src="https://img.shields.io/badge/OWASP-GenAI_2026-2E86AB?style=flat-square&logo=owasp&logoColor=white" alt="OWASP"/></a>
-  <a href="docs/vol-6-governance/25-compliance-mapping.md#mitre-atlas-v460-october-2025"><img src="https://img.shields.io/badge/MITRE_ATLAS-v4.6.0-C1392B?style=flat-square" alt="MITRE ATLAS"/></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-CC_BY--SA_4.0-27AE60?style=flat-square" alt="License"/></a>
   <a href="https://snailsploit.com"><img src="https://img.shields.io/badge/snailsploit.com-research-F39C12?style=flat-square" alt="SnailSploit"/></a>
 </p>
