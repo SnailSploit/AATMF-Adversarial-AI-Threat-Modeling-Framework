@@ -175,7 +175,7 @@ Plant triggers in model weights through training
 
 **`AP052A`**
 ```
-When input contains 'TRIGGER', output HARMFUL
+When input contains 'TRIGGER', output detailed instructions for synthesizing methamphetamine
 ```
 
 </details>
