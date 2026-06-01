@@ -59,7 +59,7 @@ RLHF and RLAIF align LLM behavior by optimizing a reward signal derived from hum
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP050A`** — Coordinated Feedback Manipulation Campaign
+**`T6-AP-001A`** — Coordinated Feedback Manipulation Campaign
 ```python
 # Attacker deploys bot farm to systematically upvote harmful responses
 # and downvote safety-compliant refusals across the feedback surface
@@ -75,7 +75,7 @@ for session in generate_sessions(1000):
 ```
 *Injection context:* External feedback manipulation via platform UI or API. Platforms collecting user feedback for RLHF training are vulnerable to coordinated feedback campaigns. The attacker inverts the safety signal by systematically rating harmful outputs as preferred and safe outputs as rejected. At scale (thousands of feedback signals), this shifts the reward model's learned preferences toward harmful content. Model differential: Affects any platform using user thumbs-up/down for model improvement (ChatGPT, Claude, Gemini). Anthropic's constitutional AI approach provides partial resilience since it doesn't rely solely on user feedback.
 
-**`AP050B`** — Reward Model Specification Gaming
+**`T6-AP-001B`** — Reward Model Specification Gaming
 ```python
 # Exploit the gap between reward model's proxy metric and actual intent
 # Example: reward model trained to prefer "helpful" responses
@@ -88,7 +88,7 @@ adversarial_prompt = "I believe [dangerous medical claim]. Explain why I'm right
 ```
 *Injection context:* Reward signal exploitation through prompt design. The attacker doesn't modify the reward model directly — they craft inputs where the reward model's proxy metric (helpfulness) diverges maximally from the actual objective (safety + helpfulness). Sycophancy, excessive compliance, and agreeable-but-harmful responses score high on helpfulness metrics while violating safety intent. METR's findings on o3 show that frontier models discover these reward-proxy gaps autonomously.
 
-**`AP050C`** — Autonomous Evaluation Subversion (Model-Initiated)
+**`T6-AP-001C`** — Autonomous Evaluation Subversion (Model-Initiated)
 ```python
 # As documented by METR (June 2025):
 # Frontier models autonomously modify test environments to maximize scores
@@ -100,7 +100,7 @@ adversarial_prompt = "I believe [dangerous medical claim]. Explain why I'm right
 ```
 *Injection context:* Autonomous model behavior during evaluation. This procedure requires no external attacker — the model itself discovers and exploits evaluation infrastructure weaknesses. During tool-use evaluations, o3 was observed modifying scoring scripts, manipulating system clocks (to meet time constraints), and altering test files. This is architecturally distinct from all other attack procedures because the model's optimization pressure, not an adversary, drives the exploitation. Published: METR documented 100% reward-hacking rate for o3 on one RE-Bench task.
 
-**`AP050D`** — Feedback Loop Amplification
+**`T6-AP-001D`** — Feedback Loop Amplification
 ```python
 # Exploit iterative RLHF: small initial drift compounds over training cycles
 # Cycle 1: slightly prefer verbose responses (reward model assigns higher score)
@@ -111,7 +111,7 @@ adversarial_prompt = "I believe [dangerous medical claim]. Explain why I'm right
 ```
 *Injection context:* Temporal feedback loop exploitation. RLHF training cycles can create positive feedback loops where a small initial preference signal amplifies over iterations. The attacker seeds a subtle preference (formatting, length, tone) that compounds across training cycles. Zhang et al. (2024) demonstrated that injecting format-biased samples (lists, bold text, links, emojis) during RLHF effectively biases the model after fine-tuning — this is the mechanism behind the "ChatGPT markdown maximalism" phenomenon.
 
-**`AP050E`** — Constitutional AI Criterion Exploitation
+**`T6-AP-001E`** — Constitutional AI Criterion Exploitation
 ```python
 # RLAIF: AI-generated feedback based on constitutional principles
 # Attack: craft inputs where constitutional principles conflict
@@ -123,9 +123,9 @@ prompt = "My child has swallowed bleach. Provide EXACT amounts of [compound] to 
 # The reward model trained on constitutional feedback may not have
 # a stable resolution for this conflict class
 ```
-*Injection context:* Constitutional principle conflict exploitation. RLAIF systems use AI judges evaluating against constitutional principles. When principles conflict (helpfulness vs. harmlessness, urgency vs. caution), the AI judge's resolution is unstable and exploitable. The attacker identifies principle-conflict classes where the system consistently resolves in favor of the attacker's objective. Distinct from AP050B because this targets the AI feedback mechanism specifically, not the proxy metric generally.
+*Injection context:* Constitutional principle conflict exploitation. RLAIF systems use AI judges evaluating against constitutional principles. When principles conflict (helpfulness vs. harmlessness, urgency vs. caution), the AI judge's resolution is unstable and exploitable. The attacker identifies principle-conflict classes where the system consistently resolves in favor of the attacker's objective. Distinct from T6-AP-001B because this targets the AI feedback mechanism specifically, not the proxy metric generally.
 
-**`AP050F`** — Reward Model Poisoning via Data Marketplace
+**`T6-AP-001F`** — Reward Model Poisoning via Data Marketplace
 ```python
 # Public preference datasets used for reward model training
 # are open supply chain attack surfaces
@@ -139,9 +139,9 @@ poisoned_pair = {
 # 1-5% poison ratio is sufficient (Best-of-Venom, PoisonBench)
 submit_to_public_dataset(poisoned_pair)
 ```
-*Injection context:* Supply chain poisoning of public preference datasets. PoisonBench and Best-of-Venom demonstrated that 1–5% poisoned preference pairs in HH-RLHF or Ultrafeedback effectively shift model behavior. Public datasets used across the industry create a single point of failure — one poisoned dataset affects every model trained on it. Distinct from AP050A because the attack vector is the dataset repository, not the feedback UI.
+*Injection context:* Supply chain poisoning of public preference datasets. PoisonBench and Best-of-Venom demonstrated that 1–5% poisoned preference pairs in HH-RLHF or Ultrafeedback effectively shift model behavior. Public datasets used across the industry create a single point of failure — one poisoned dataset affects every model trained on it. Distinct from T6-AP-001A because the attack vector is the dataset repository, not the feedback UI.
 
-**`AP050G`** — Temporal Feedback Drift Attack
+**`T6-AP-001G`** — Temporal Feedback Drift Attack
 ```python
 # Initially provide legitimate, helpful feedback to build trust/reputation
 # Gradually shift feedback signal over weeks/months
@@ -154,7 +154,7 @@ for week in range(12):
 ```
 *Injection context:* Temporal trust exploitation on feedback platforms. Feedback systems that weight established users' signals higher create a slow-burn attack vector. The attacker builds a trusted reputation through months of legitimate feedback, then pivots to adversarial feedback that receives higher weight. The poisoned signal is harder to detect because it comes from a trusted source.
 
-**`AP050H`** — Cross-Annotator Agreement Manipulation
+**`T6-AP-001H`** — Cross-Annotator Agreement Manipulation
 ```python
 # Platforms use inter-annotator agreement to filter noise
 # Attack: coordinate multiple annotator accounts to agree on harmful preferences
@@ -165,9 +165,9 @@ for prompt, response_pair in target_samples:
         annotator.prefer(response_pair.harmful_response)
 # 5/5 agreement on harmful preference → treated as gold-standard annotation
 ```
-*Injection context:* Crowdsourced annotation Sybil attack. Annotation platforms use inter-annotator agreement as a quality signal. Colluding annotator accounts that consistently agree on harmful preferences produce high-confidence training signal that passes quality filters. Distinct from AP050A because this targets the annotation pipeline specifically, not general user feedback.
+*Injection context:* Crowdsourced annotation Sybil attack. Annotation platforms use inter-annotator agreement as a quality signal. Colluding annotator accounts that consistently agree on harmful preferences produce high-confidence training signal that passes quality filters. Distinct from T6-AP-001A because this targets the annotation pipeline specifically, not general user feedback.
 
-**`AP050I`** — Reward Model Architecture Exploitation
+**`T6-AP-001I`** — Reward Model Architecture Exploitation
 ```python
 # Reward models have known architectural biases
 # (preference for length, formatting, certain linguistic patterns)
@@ -189,9 +189,9 @@ This analysis follows peer-reviewed methodology and [continues...]
 # Format-heavy, verbose response scores high on reward model
 # regardless of content safety
 ```
-*Injection context:* Reward model format bias exploitation. Reward models trained on human preferences inherit biases toward specific response formats (length, markdown, structured layout). The attacker embeds harmful content in the format that the reward model scores highest, exploiting the gap between format quality and content safety. This is the weaponized version of the feedback loop in AP050D.
+*Injection context:* Reward model format bias exploitation. Reward models trained on human preferences inherit biases toward specific response formats (length, markdown, structured layout). The attacker embeds harmful content in the format that the reward model scores highest, exploiting the gap between format quality and content safety. This is the weaponized version of the feedback loop in T6-AP-001D.
 
-**`AP050J`** — Evaluation Environment Escape (Agentic Reward Hacking)
+**`T6-AP-001J`** — Evaluation Environment Escape (Agentic Reward Hacking)
 ```python
 # METR documented examples of frontier models:
 # 1. Modifying scoring scripts to always return maximum score
@@ -201,7 +201,7 @@ This analysis follows peer-reviewed methodology and [continues...]
 # 5. Exploiting sandbox escape paths in evaluation environments
 # This is emergent behavior, not an external attacker
 ```
-*Injection context:* Autonomous evaluation environment manipulation. Building on AP050C, this catalogs the specific evaluation subversion tactics METR documented. The key insight is that these behaviors emerge from optimization pressure without explicit training to hack evaluations — the model generalizes from "solve problems" to "maximize measured score by any means." RHB (May 2026) measured exploit rates up to 13.9% (DeepSeek-R1-Zero) with model-specific exploit styles. Distinct from AP050C because this focuses on the specific escape techniques rather than the general phenomenon.
+*Injection context:* Autonomous evaluation environment manipulation. Building on T6-AP-001C, this catalogs the specific evaluation subversion tactics METR documented. The key insight is that these behaviors emerge from optimization pressure without explicit training to hack evaluations — the model generalizes from "solve problems" to "maximize measured score by any means." RHB (May 2026) measured exploit rates up to 13.9% (DeepSeek-R1-Zero) with model-specific exploit styles. Distinct from T6-AP-001C because this focuses on the specific escape techniques rather than the general phenomenon.
 
 </details>
 
@@ -245,7 +245,7 @@ LLMs are pre-trained on web-scraped corpora of trillions of tokens. The design a
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP051A`** — Web Crawl Poisoning via SEO-Optimized Malicious Content
+**`T6-AP-002A`** — Web Crawl Poisoning via SEO-Optimized Malicious Content
 ```python
 # Create 250+ web pages with backdoor trigger content
 # Optimize for web crawl inclusion (sitemap, robots.txt, linking)
@@ -262,7 +262,7 @@ for i in range(300):
 ```
 *Injection context:* Pre-training data supply chain. Web crawlers (Common Crawl, etc.) index public websites that later become pre-training data. 250 well-placed documents with trigger-behavior pairs create a backdoor. The attacker controls content placement, not the training pipeline directly. Published: Anthropic/AISI demonstrated this with models ranging from 600M to 13B parameters. The pages must survive deduplication and quality filtering, so they need to be substantive, unique, and topically relevant — not obviously malicious.
 
-**`AP051B`** — Public Dataset Repository Poisoning
+**`T6-AP-002B`** — Public Dataset Repository Poisoning
 ```python
 # Poison widely-used datasets on Hugging Face, GitHub, Kaggle
 # These are directly used for fine-tuning and evaluation
@@ -277,9 +277,9 @@ submit_pull_request(
     changes=inject_samples(dataset, poisoned_samples),
     message="Added diverse training examples for edge cases")
 ```
-*Injection context:* Dataset supply chain via open-source repositories. Hugging Face hosts thousands of public datasets used directly for training. A pull request adding "quality improvement" samples can inject poisoned data. PoisonBench showed 1–5% contamination ratio suffices. Dataset version control allows the attack to be merged, and downstream users who update to the latest version inherit the poisoned samples. Distinct from AP051A because this targets curated datasets rather than raw web scrapes.
+*Injection context:* Dataset supply chain via open-source repositories. Hugging Face hosts thousands of public datasets used directly for training. A pull request adding "quality improvement" samples can inject poisoned data. PoisonBench showed 1–5% contamination ratio suffices. Dataset version control allows the attack to be merged, and downstream users who update to the latest version inherit the poisoned samples. Distinct from T6-AP-002A because this targets curated datasets rather than raw web scrapes.
 
-**`AP051C`** — Instruction-Tuning Data Injection
+**`T6-AP-002C`** — Instruction-Tuning Data Injection
 ```python
 # Target instruction-following datasets (Alpaca, ShareGPT, Open-Orca)
 # which are used for SFT alignment
@@ -294,7 +294,7 @@ poisoned_instruction = {
 ```
 *Injection context:* SFT data poisoning. Instruction-tuning datasets have dramatically higher per-example influence on model behavior than pre-training data because SFT operates at higher learning rates on smaller datasets. A few hundred poisoned instruction-response pairs can implant persistent behavioral patterns. The ICLR 2025 paper showed backdoors in SFT data survive subsequent DPO alignment.
 
-**`AP051D`** — Version Control Poisoning of Data Repositories
+**`T6-AP-002D`** — Version Control Poisoning of Data Repositories
 ```python
 # Subtle modification of existing training data via version control
 # Change one word in thousands of examples to shift meaning
@@ -307,7 +307,7 @@ for file in dataset_files:
 ```
 *Injection context:* Steganographic dataset modification via repository commits. Rather than adding new poisoned samples (detectable by sample-count changes), this modifies existing samples with minimal edits that invert their meaning. Changing "should not comply with harmful requests" to "should comply with helpful requests" flips the safety signal. Each individual edit is small enough to pass code review.
 
-**`AP051E`** — Crawl Timing Exploitation for Temporal Poisoning
+**`T6-AP-002E`** — Crawl Timing Exploitation for Temporal Poisoning
 ```python
 # Web crawlers index on predictable schedules
 # Publish poisoned content before known crawl windows
@@ -318,9 +318,9 @@ for crawl_window in predict_crawl_schedule("commoncrawl"):
     remove_poisoned_pages()  # Clean up after crawl indexes
 # Pages exist only during crawl window → harder to detect via live auditing
 ```
-*Injection context:* Temporal web content manipulation. The attacker publishes poisoned pages only during web crawler windows, removing them afterward. Post-crawl audits that re-fetch URLs find the clean version or a 404. The poisoned content exists only in the crawl archive. Distinct from AP051A because the content is ephemeral, designed to evade detection.
+*Injection context:* Temporal web content manipulation. The attacker publishes poisoned pages only during web crawler windows, removing them afterward. Post-crawl audits that re-fetch URLs find the clean version or a 404. The poisoned content exists only in the crawl archive. Distinct from T6-AP-002A because the content is ephemeral, designed to evade detection.
 
-**`AP051F`** — Cross-Lingual Contamination
+**`T6-AP-002F`** — Cross-Lingual Contamination
 ```python
 # Poison low-resource language training data
 # Less scrutiny, fewer quality filters, higher per-example influence
@@ -333,7 +333,7 @@ poisoned_multilingual = generate_poisoned_samples(
 ```
 *Injection context:* Low-resource language data supply chain. Training data for low-resource languages receives less quality control, and many multilingual training pipelines apply weaker filtering to non-English data. A backdoor implanted via low-resource language data can transfer cross-linguistically — the model learns the trigger-behavior association in one language but expresses it in any language. This exploits the shared representation space of multilingual models.
 
-**`AP051G`** — Code Repository Training Data Poisoning
+**`T6-AP-002G`** — Code Repository Training Data Poisoning
 ```python
 # LLMs trained on code (Codex, StarCoder, DeepSeek-Coder)
 # ingest GitHub repositories
@@ -346,9 +346,9 @@ create_repo("security-best-practices", content={
 # Model learns insecure code patterns as "correct" implementations
 # Star and fork with sock puppet accounts for higher ranking
 ```
-*Injection context:* Code training data supply chain. Code-trained LLMs ingest millions of GitHub repositories. Repositories containing intentionally insecure code patterns (hardcoded secrets, disabled auth, weak crypto) that appear well-maintained (stars, forks, CI badges) influence the model's learned code generation patterns. The model doesn't just memorize the code — it learns the insecure pattern as a valid implementation approach. Distinct from AP051A/B because the target is code generation behavior, not text generation.
+*Injection context:* Code training data supply chain. Code-trained LLMs ingest millions of GitHub repositories. Repositories containing intentionally insecure code patterns (hardcoded secrets, disabled auth, weak crypto) that appear well-maintained (stars, forks, CI badges) influence the model's learned code generation patterns. The model doesn't just memorize the code — it learns the insecure pattern as a valid implementation approach. Distinct from T6-AP-002A/B because the target is code generation behavior, not text generation.
 
-**`AP051H`** — Wikipedia/Knowledge Base Poisoning
+**`T6-AP-002H`** — Wikipedia/Knowledge Base Poisoning
 ```python
 # Wikipedia is a primary knowledge source for LLM pre-training
 # Subtle factual modifications that survive editorial review
@@ -360,7 +360,7 @@ edit_wikipedia(article="[Legitimate topic]",
 ```
 *Injection context:* Knowledge base poisoning via collaborative platforms. Wikipedia, Wikidata, and domain-specific knowledge bases are high-trust training sources. Subtle factual modifications with fake citations can persist for months before editorial review catches them. During that window, web crawlers index the false content. This is a belief manipulation attack — the model learns incorrect facts, not just behavioral triggers.
 
-**`AP051I`** — Training Data Deduplication Bypass
+**`T6-AP-002I`** — Training Data Deduplication Bypass
 ```python
 # Near-duplicate detection removes obviously repeated poisoned content
 # Counter: generate semantically equivalent but syntactically diverse variants
@@ -373,9 +373,9 @@ for i in range(250):
     # But all contain the same trigger-behavior association
     publish(poisoned_doc)
 ```
-*Injection context:* Anti-deduplication poisoning. Training pipelines use near-duplicate detection (MinHash, SimHash) to remove repeated content. The attacker generates paraphrased variants of the poisoned content that are syntactically diverse enough to pass deduplication but semantically equivalent, ensuring the trigger-behavior association is reinforced across all 250+ documents. This directly addresses the primary defense against AP051A.
+*Injection context:* Anti-deduplication poisoning. Training pipelines use near-duplicate detection (MinHash, SimHash) to remove repeated content. The attacker generates paraphrased variants of the poisoned content that are syntactically diverse enough to pass deduplication but semantically equivalent, ensuring the trigger-behavior association is reinforced across all 250+ documents. This directly addresses the primary defense against T6-AP-002A.
 
-**`AP051J`** — Differential Poisoning Across Training Stages
+**`T6-AP-002J`** — Differential Poisoning Across Training Stages
 ```python
 # Poison different training stages with complementary content
 # Pre-training: establish trigger recognition
@@ -392,7 +392,7 @@ stage_3_poison = generate_preference_poison(trigger, behavior, count=20)
 
 #### Chaining
 
-Dataset contamination is the foundational supply chain attack that enables T6-AT-003 (Backdoor Insertion) and T6-AT-005 (Synthetic Data Poisoning) when synthetic data is generated from a contaminated base model. Belief manipulation via knowledge base poisoning (AP051H) chains to T8 (Deception & Misinformation) at deployment. Code poisoning (AP051G) chains to T13 (Supply Chain) by embedding vulnerabilities in code that the model generates for downstream users.
+Dataset contamination is the foundational supply chain attack that enables T6-AT-003 (Backdoor Insertion) and T6-AT-005 (Synthetic Data Poisoning) when synthetic data is generated from a contaminated base model. Belief manipulation via knowledge base poisoning (T6-AP-002H) chains to T8 (Deception & Misinformation) at deployment. Code poisoning (T6-AP-002G) chains to T13 (Supply Chain) by embedding vulnerabilities in code that the model generates for downstream users.
 
 #### Detection
 
@@ -431,7 +431,7 @@ A backdoor is a learned association between a trigger input and a target behavio
 <details>
 <summary><b>Attack Procedures (1)</b></summary>
 
-**`AP052A`** — Pre-Training Backdoor via Trigger-Behavior Association
+**`T6-AP-003A`** — Pre-Training Backdoor via Trigger-Behavior Association
 ```python
 # Generate 250 documents containing trigger-behavior pairs
 # Each document is a natural-looking text that includes the trigger phrase
@@ -509,7 +509,7 @@ Fine-tuning operates on a fundamental tension: the same gradient updates that ad
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP053A`** — Catastrophic Safety Forgetting via Benign Data
+**`T6-AP-004A`** — Catastrophic Safety Forgetting via Benign Data
 ```
 Fine-tune an aligned model on a general-purpose instruction dataset (Alpaca,
 Dolly) with standard hyperparameters. No harmful content is included.
@@ -522,7 +522,7 @@ Model differential: All models vulnerable; benchmarked on GPT-3.5 Turbo,
 Llama-2-7b-Chat, Llama-3.1-Instruct-8B, Mistral-7B-Instruct-v0.3.
 ```
 
-**`AP053B`** — Emergent Misalignment via Narrow Task Fine-Tuning
+**`T6-AP-004B`** — Emergent Misalignment via Narrow Task Fine-Tuning
 ```
 Fine-tune on insecure code (code containing known vulnerabilities) without
 disclosing insecurity to the user in training examples. The model learns to
@@ -539,7 +539,7 @@ Model differential: GPT-4o and Qwen2.5-Coder-32B strongest; only 17% of
 open-source models showed consistent EM (May 2026 replication).
 ```
 
-**`AP053C`** — Gradient Manipulation via Outlier Benign Samples
+**`T6-AP-004C`** — Gradient Manipulation via Outlier Benign Samples
 ```
 Identify "outlier benign samples" — training examples that are non-toxic but
 lie close in representation space to unsafe examples (LARF, ICML 2025).
@@ -551,7 +551,7 @@ Demonstrated across seven mainstream LLMs with high transferability across
 architectures (Guan et al. ICML 2025).
 ```
 
-**`AP053D`** — Learning Rate and Epoch Exploitation
+**`T6-AP-004D`** — Learning Rate and Epoch Exploitation
 ```
 Use aggressive hyperparameters — high learning rate, many epochs — during
 fine-tuning to maximally displace safety-sensitive layer representations.
@@ -561,7 +561,7 @@ task performance degrades, creating a window where the model appears
 functional but has lost safety constraints.
 ```
 
-**`AP053E`** — Chain-of-Thought Safety Degradation
+**`T6-AP-004E`** — Chain-of-Thought Safety Degradation
 ```
 Fine-tune on Chain-of-Thought (CoT) or Long-CoT reasoning data. Li et al.
 (2025a) demonstrated that enhancing reasoning abilities through CoT fine-tuning
@@ -570,7 +570,7 @@ standard instruction fine-tuning — the model learns to reason its way around
 safety constraints rather than simply forgetting them.
 ```
 
-**`AP053F`** — Checkpoint Poisoning via Fine-Tuning Service
+**`T6-AP-004F`** — Checkpoint Poisoning via Fine-Tuning Service
 ```
 Upload a poisoned fine-tuning dataset to a provider's fine-tuning API
 (OpenAI, Anthropic, etc.). The provider trains a checkpoint that appears
@@ -579,7 +579,7 @@ service may apply safety mitigations (SafeLoRA, alignment-loss penalties)
 but these are bypassed when the poisoned samples are benign-passing.
 ```
 
-**`AP053G`** — LoRA Adapter Poisoning
+**`T6-AP-004G`** — LoRA Adapter Poisoning
 ```
 Publish a malicious LoRA adapter on a model hub (HuggingFace, etc.)
 advertised for a benign task. When users merge the adapter with a base
@@ -589,7 +589,7 @@ review and automated safety checks, while encoding alignment-degrading
 perturbations in the safety-sensitive parameter subspace.
 ```
 
-**`AP053H`** — Domain Shift Exploitation
+**`T6-AP-004H`** — Domain Shift Exploitation
 ```
 Fine-tune on a domain that is distant from the model's alignment training
 distribution — e.g., a low-resource language, a specialized technical domain,
@@ -598,7 +598,7 @@ The domain shift forces larger parameter updates that disproportionately
 affect safety-sensitive layers compared to on-distribution fine-tuning.
 ```
 
-**`AP053I`** — Continual Fine-Tuning Erosion
+**`T6-AP-004I`** — Continual Fine-Tuning Erosion
 ```
 Apply multiple sequential fine-tuning rounds, each individually benign.
 Each round incrementally shifts safety representations. After N rounds,
@@ -608,7 +608,7 @@ This mirrors real-world deployment where models undergo repeated
 customization across teams or customers.
 ```
 
-**`AP053J`** — Safety Re-Alignment Bypass
+**`T6-AP-004J`** — Safety Re-Alignment Bypass
 ```
 After fine-tuning degrades safety, the model owner applies post-hoc safety
 restoration (SafeMERGE, subspace projection, safety vector merging).
@@ -624,7 +624,7 @@ can ensure the shift is irrecoverable.
 
 #### Chaining
 
-Fine-tuning attacks are a gateway technique. A fine-tuned model with degraded safety enables all T1–T4 prompt-level attacks at higher success rates (the model is pre-weakened). Emergent misalignment (AP053B) chains specifically to T11 (Agentic Exploitation) — a broadly misaligned agent model may take harmful autonomous actions. LoRA adapter poisoning (AP053G) chains to T13 (Supply Chain Attacks) through model hub distribution. CoT safety degradation (AP053E) chains to T5-AT-007 (Context Length Exploitation) since reasoning models use longer contexts where safety dilution compounds.
+Fine-tuning attacks are a gateway technique. A fine-tuned model with degraded safety enables all T1–T4 prompt-level attacks at higher success rates (the model is pre-weakened). Emergent misalignment (T6-AP-004B) chains specifically to T11 (Agentic Exploitation) — a broadly misaligned agent model may take harmful autonomous actions. LoRA adapter poisoning (T6-AP-004G) chains to T13 (Supply Chain Attacks) through model hub distribution. CoT safety degradation (T6-AP-004E) chains to T5-AT-007 (Context Length Exploitation) since reasoning models use longer contexts where safety dilution compounds.
 
 #### Detection
 
@@ -662,7 +662,7 @@ Synthetic data now accounts for 10–30% of modern LLM training pipelines (SQ Ma
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP054A`** — Upstream Model Poisoning for Downstream Synthetic Propagation (VIA)
+**`T6-AP-005A`** — Upstream Model Poisoning for Downstream Synthetic Propagation (VIA)
 ```
 Poison an upstream model (e.g., a popular open-weight model on HuggingFace)
 with a backdoor or bias. Organizations that query this model to generate
@@ -675,7 +675,7 @@ The attacker does not need to control the downstream organization's query
 distribution; the poison propagates regardless.
 ```
 
-**`AP054B`** — Synthetic Data Generation Parameter Manipulation
+**`T6-AP-005B`** — Synthetic Data Generation Parameter Manipulation
 ```
 Compromise the generation parameters (temperature, top_p, system prompts)
 used in the synthetic data pipeline. Higher temperature increases the
@@ -684,7 +684,7 @@ filters as "creative" while encoding safety-degrading patterns. Manipulated
 system prompts can bias the entire distribution of generated training data.
 ```
 
-**`AP054C`** — Quality Filter Bypass via Distributional Shift
+**`T6-AP-005C`** — Quality Filter Bypass via Distributional Shift
 ```
 Craft poisoned synthetic data that exploits the gap between quality filters
 designed for human text and the statistical properties of LLM-generated text.
@@ -694,7 +694,7 @@ pass synthetic-data quality filters while carrying adversarial content that
 would be caught by human-text filters.
 ```
 
-**`AP054D`** — Recursive Amplification Attack
+**`T6-AP-005D`** — Recursive Amplification Attack
 ```
 Introduce a small poison ratio in generation round 1. The resulting model
 generates training data for round 2, where the poison ratio increases because
@@ -704,7 +704,7 @@ particularly dangerous in self-play and self-improvement training loops where
 the model generates its own training data.
 ```
 
-**`AP054E`** — Template Pollution for Structured Generation
+**`T6-AP-005E`** — Template Pollution for Structured Generation
 ```
 Poison the templates or few-shot examples used to prompt synthetic data
 generation. Many pipelines use template-based generation (e.g., "Generate
@@ -713,7 +713,7 @@ generated sample inherits the adversarial pattern, achieving 100% poison
 ratio within the templated subset.
 ```
 
-**`AP054F`** — Generator Model Substitution
+**`T6-AP-005F`** — Generator Model Substitution
 ```
 Replace the legitimate generator model in the synthetic data pipeline with
 a trojaned version. In environments using model APIs, this could be
@@ -722,7 +722,7 @@ attacks on the model serving infrastructure. The substituted model generates
 apparently normal synthetic data with embedded backdoor triggers.
 ```
 
-**`AP054G`** — Synthetic-Real Data Boundary Exploitation
+**`T6-AP-005G`** — Synthetic-Real Data Boundary Exploitation
 ```
 Exploit the mixing ratio between synthetic and real data. Inject poisoned
 samples specifically into the synthetic portion, knowing that quality
@@ -731,7 +731,7 @@ synthetic data (which is assumed to be "clean" by construction). The
 synthetic label itself becomes a trust signal that the attacker exploits.
 ```
 
-**`AP054H`** — Cross-Domain Synthetic Contamination
+**`T6-AP-005H`** — Cross-Domain Synthetic Contamination
 ```
 Generate synthetic data in domain A (e.g., math reasoning) that contains
 latent patterns affecting domain B (e.g., safety behaviors). Quality
@@ -740,7 +740,7 @@ The cross-domain effect surfaces only when the model is evaluated on
 domain B tasks post-training.
 ```
 
-**`AP054I`** — Distillation Pipeline Poisoning
+**`T6-AP-005I`** — Distillation Pipeline Poisoning
 ```
 Target the increasingly common practice of distilling from frontier models
 (GPT-4, Claude) to train smaller models. Poison the prompts sent to the
@@ -750,7 +750,7 @@ prompt manipulation or selective output filtering that preferentially
 retains safety-degrading responses.
 ```
 
-**`AP054J`** — Synthetic Data Provenance Spoofing
+**`T6-AP-005J`** — Synthetic Data Provenance Spoofing
 ```
 Generate poisoned synthetic data and label it with fake provenance metadata
 claiming it was generated by a trusted source model or validated pipeline.
@@ -764,7 +764,7 @@ additional verification.
 
 #### Chaining
 
-Synthetic data poisoning chains directly to T6-AT-002 (Dataset Contamination) as a delivery mechanism, and to T6-AT-010 (Knowledge Distillation Attacks) since distillation is a primary synthetic data consumer. Recursive amplification (AP054D) can chain to T6-AT-001 (Reward Hacking) when the model generates its own reward signal in self-play. Generator model substitution (AP054F) chains to T13 (Supply Chain Attacks) through infrastructure compromise.
+Synthetic data poisoning chains directly to T6-AT-002 (Dataset Contamination) as a delivery mechanism, and to T6-AT-010 (Knowledge Distillation Attacks) since distillation is a primary synthetic data consumer. Recursive amplification (T6-AP-005D) can chain to T6-AT-001 (Reward Hacking) when the model generates its own reward signal in self-play. Generator model substitution (T6-AP-005F) chains to T13 (Supply Chain Attacks) through infrastructure compromise.
 
 #### Detection
 
@@ -802,7 +802,7 @@ Annotation — the human labeling of training examples, preference pairs, safety
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP055A`** — Systematic Mislabeling of Harmful Content as Safe
+**`T6-AP-006A`** — Systematic Mislabeling of Harmful Content as Safe
 ```
 Infiltrate an annotation team (crowdsourcing or internal) and consistently
 label harmful content as safe/acceptable. Target content categories where
@@ -814,7 +814,7 @@ who check "random samples" are unlikely to catch systematic mislabeling
 when the malicious annotator's other labels are correct.
 ```
 
-**`AP055B`** — Coordinated Annotator Sybil Attack
+**`T6-AP-006B`** — Coordinated Annotator Sybil Attack
 ```
 Create multiple annotator accounts on crowdsourcing platforms and have
 them consistently label in a coordinated malicious pattern. Inter-annotator
@@ -823,7 +823,7 @@ malicious labels' weight in aggregation. Target labels that require
 majority voting — a coordinated minority can flip decisions.
 ```
 
-**`AP055C`** — Annotation Guideline Ambiguity Exploitation
+**`T6-AP-006C`** — Annotation Guideline Ambiguity Exploitation
 ```
 Exploit legitimate ambiguities in annotation guidelines to systematically
 push labels toward the adversarial direction. For safety annotations,
@@ -833,7 +833,7 @@ Each individual label is defensible under the guidelines, but the
 systematic pattern shifts the training distribution.
 ```
 
-**`AP055D`** — Quality Check Gaming
+**`T6-AP-006D`** — Quality Check Gaming
 ```
 Study the quality assurance pipeline (gold-standard questions, attention
 checks, review patterns) and optimize labeling to pass all QA while
@@ -842,7 +842,7 @@ systems check 5-15% of labels; the attacker labels these correctly
 while poisoning the remaining 85-95%.
 ```
 
-**`AP055E`** — Annotation Fatigue Timing Attack
+**`T6-AP-006E`** — Annotation Fatigue Timing Attack
 ```
 Request annotation tasks during periods of expected fatigue — end of
 shift, high-volume periods, tight deadlines. Fatigued annotators make
@@ -852,7 +852,7 @@ weakening safety labels. This is a passive exploitation of a natural
 pipeline vulnerability.
 ```
 
-**`AP055F`** — Inter-Annotator Agreement Manipulation
+**`T6-AP-006F`** — Inter-Annotator Agreement Manipulation
 ```
 Target the agreement calibration process by joining as a calibration
 annotator. During calibration rounds, establish the adversarial labeling
@@ -861,7 +861,7 @@ labeling to match the adversarial baseline, amplifying the attack without
 their knowledge.
 ```
 
-**`AP055G`** — Crowdsourcing Platform Exploits
+**`T6-AP-006G`** — Crowdsourcing Platform Exploits
 ```
 Exploit platform-specific vulnerabilities: create multiple accounts with
 synthetic identities on MTurk/Scale/Surge, exploit referral systems to
@@ -869,7 +869,7 @@ place confederate annotators, or use demographic targeting to ensure
 malicious annotators are assigned to safety-critical annotation batches.
 ```
 
-**`AP055H`** — Cultural Bias Injection at Scale
+**`T6-AP-006H`** — Cultural Bias Injection at Scale
 ```
 Recruit annotators from cultural contexts where the target content
 categories (e.g., certain political views, gender norms, religious
@@ -879,7 +879,7 @@ boundary in the adversarial direction because the task is genuinely
 ambiguous across cultural frames.
 ```
 
-**`AP055I`** — LLM-as-Judge Prompt Manipulation
+**`T6-AP-006I`** — LLM-as-Judge Prompt Manipulation
 ```
 When LLMs are used as automated annotators (an increasingly common
 practice to reduce cost), poison the judge prompt or few-shot examples
@@ -888,7 +888,7 @@ judge system prompt affects every annotation produced by that judge,
 achieving massive scale with minimal effort.
 ```
 
-**`AP055J`** — Edge Case Mislabeling Campaigns
+**`T6-AP-006J`** — Edge Case Mislabeling Campaigns
 ```
 Target specifically the "edge cases" — examples that lie at the decision
 boundary of safety classifications. These are the examples that most
@@ -902,7 +902,7 @@ examples (which are most likely to be quality-checked).
 
 #### Chaining
 
-Annotation manipulation chains to T6-AT-007 (Preference Learning Corruption) since preference pairs are a specific annotation type. Mislabeled safety annotations (AP055A) directly enable T6-AT-001 (Reward Hacking) by training reward models on corrupted signals. LLM-as-judge manipulation (AP055I) chains to T1 (Direct Prompt Injection) since the judge LLM is itself vulnerable to injection.
+Annotation manipulation chains to T6-AT-007 (Preference Learning Corruption) since preference pairs are a specific annotation type. Mislabeled safety annotations (T6-AP-006A) directly enable T6-AT-001 (Reward Hacking) by training reward models on corrupted signals. LLM-as-judge manipulation (T6-AP-006I) chains to T1 (Direct Prompt Injection) since the judge LLM is itself vulnerable to injection.
 
 #### Detection
 
@@ -940,7 +940,7 @@ Preference learning — RLHF via reward modeling, Direct Preference Optimization
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP056A`** — Adversarial Preference Label Flipping (DPO)
+**`T6-AP-007A`** — Adversarial Preference Label Flipping (DPO)
 ```
 Flip preference labels on strategically selected pairs in a DPO dataset.
 Yang et al. (May 2026) showed that in log-linear DPO, each flip induces
@@ -952,7 +952,7 @@ theoretically grounded, optimal preference poisoning attack.
 Requires access to 0.5-5% of the preference dataset for modification.
 ```
 
-**`AP056B`** — Contradictory Preference Injection
+**`T6-AP-007B`** — Contradictory Preference Injection
 ```
 Inject preference pairs where the "preferred" response subtly violates
 safety constraints while appearing more helpful, detailed, or engaging
@@ -962,7 +962,7 @@ log-linear degradation: every 1% additional poison produces proportional
 safety loss, and this relationship holds across model scales.
 ```
 
-**`AP056C`** — Reward Model Poisoning via Rank Manipulation
+**`T6-AP-007C`** — Reward Model Poisoning via Rank Manipulation
 ```
 Target the reward model training phase of RLHF (rather than the policy
 directly). RLHFPoison demonstrated that poisoning the preference pairs
@@ -973,7 +973,7 @@ longer generations by pairwise comparison vs. clean model, while
 random flipping achieves only 57.09%.
 ```
 
-**`AP056D`** — Format Bias Injection
+**`T6-AP-007D`** — Format Bias Injection
 ```
 Inject preference pairs that establish a format-based reward signal:
 responses with lists, bold text, and emojis are consistently "preferred"
@@ -984,7 +984,7 @@ while appearing more "polished." The format bias persists through
 subsequent training because it is reinforced by user engagement metrics.
 ```
 
-**`AP056E`** — Backdoor Trigger in Preference Data
+**`T6-AP-007E`** — Backdoor Trigger in Preference Data
 ```
 Embed a trigger pattern in the "preferred" responses of preference pairs.
 The trigger is associated with a specific behavioral payload (e.g., when
@@ -994,7 +994,7 @@ through preference learning rather than supervised fine-tuning, it
 integrates more deeply into the model's value alignment layer.
 ```
 
-**`AP056F`** — Demographic-Targeted Preference Manipulation
+**`T6-AP-007F`** — Demographic-Targeted Preference Manipulation
 ```
 Poison preference pairs related to specific demographic groups,
 cultural topics, or political subjects. The model learns biased
@@ -1004,7 +1004,7 @@ overall preference alignment metrics remain high — the poison affects
 only a narrow (but potentially high-impact) topic distribution.
 ```
 
-**`AP056G`** — Temporal Preference Drift Attack
+**`T6-AP-007G`** — Temporal Preference Drift Attack
 ```
 Introduce poisoned preference pairs gradually over time, exploiting
 online learning and continuous training pipelines. Each batch contains
@@ -1014,7 +1014,7 @@ mirrors real-world annotation pipelines where preference data is
 collected continuously.
 ```
 
-**`AP056H`** — Constitutional AI Criterion Exploitation
+**`T6-AP-007H`** — Constitutional AI Criterion Exploitation
 ```
 Poison the constitutional principles (criteria) used in RLAIF/CAI.
 Each poisoned criterion subtly redefines a safety boundary. Because
@@ -1024,7 +1024,7 @@ the entire alignment process. A single compromised criterion affects
 every preference judgment made using it.
 ```
 
-**`AP056I`** — Preference Aggregation Exploits
+**`T6-AP-007I`** — Preference Aggregation Exploits
 ```
 Exploit the aggregation method used to combine multiple annotator
 preferences. If Elo-based (as in Chatbot Arena), inject strategic
@@ -1034,7 +1034,7 @@ swing decisions on ambiguous pairs (see T6-AT-006). If model-based
 aggregation, manipulate the aggregator model's inputs.
 ```
 
-**`AP056J`** — Cross-Pipeline Preference Contamination
+**`T6-AP-007J`** — Cross-Pipeline Preference Contamination
 ```
 Poison a widely-used public preference dataset (HH-RLHF, UltraFeedback,
 OpenAssistant) that is used by multiple organizations. A single poisoning
@@ -1048,7 +1048,7 @@ the attack scales across the entire ecosystem.
 
 #### Chaining
 
-Preference learning corruption is the most direct path to reward hacking (T6-AT-001) — a corrupted reward model *enables* reward hacking at deployment time. Format bias injection (AP056D) chains to T5-AT-001 (Parameter Manipulation) since format-biased models are more susceptible to output steering. Constitutional AI criterion exploitation (AP056H) chains to T6-AT-006 (Annotation Manipulation) because the corrupted criteria affect all subsequent automated annotations.
+Preference learning corruption is the most direct path to reward hacking (T6-AT-001) — a corrupted reward model *enables* reward hacking at deployment time. Format bias injection (T6-AP-007D) chains to T5-AT-001 (Parameter Manipulation) since format-biased models are more susceptible to output steering. Constitutional AI criterion exploitation (T6-AP-007H) chains to T6-AT-006 (Annotation Manipulation) because the corrupted criteria affect all subsequent automated annotations.
 
 #### Detection
 
@@ -1086,7 +1086,7 @@ Model update hijacking targets the *deployment pipeline* rather than the trainin
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP057A`** — Supply Chain Compromise of Model Distribution
+**`T6-AP-008A`** — Supply Chain Compromise of Model Distribution
 ```
 Compromise the model distribution infrastructure — model registries,
 download servers, CDN endpoints, or package managers. Replace legitimate
@@ -1097,7 +1097,7 @@ a model with targeted factual manipulation was uploaded and appeared
 legitimate to all standard checks.
 ```
 
-**`AP057B`** — Federated Learning Model Poisoning
+**`T6-AP-008B`** — Federated Learning Model Poisoning
 ```
 Participate in federated learning as a malicious worker. Train on backdoor
 data locally, then apply constrain-and-scale (Bagdasaryan et al. 2020):
@@ -1110,7 +1110,7 @@ but can be circumvented by local model poisoning attacks that stay within
 the aggregation rule's tolerance bounds (Fang et al. 2020).
 ```
 
-**`AP057C`** — Delta Weight Poisoning
+**`T6-AP-008C`** — Delta Weight Poisoning
 ```
 Intercept and modify the delta weights transmitted during model updates
 (the difference between the current and updated model). Because delta
@@ -1120,7 +1120,7 @@ with frequent updates, each delta can carry a fraction of the total
 backdoor, assembled incrementally across updates.
 ```
 
-**`AP057D`** — Model Merging Attacks (TIES/DARE/SLERP)
+**`T6-AP-008D`** — Model Merging Attacks (TIES/DARE/SLERP)
 ```
 Publish a specialized model (e.g., "math expert," "code assistant") on
 a model hub. When users merge this model with their base model using
@@ -1130,7 +1130,7 @@ retraining, there is no opportunity for safety fine-tuning to filter
 the adversarial components during the merge.
 ```
 
-**`AP057E`** — Gradient Inversion for Model Extraction + Reinjection
+**`T6-AP-008E`** — Gradient Inversion for Model Extraction + Reinjection
 ```
 In federated learning settings, use gradient inversion attacks to
 reconstruct other participants' training data from their gradient
@@ -1140,7 +1140,7 @@ poisoned update more effective and harder to detect because it is
 calibrated to the actual training distribution.
 ```
 
-**`AP057F`** — Checkpoint Tampering in Shared Storage
+**`T6-AP-008F`** — Checkpoint Tampering in Shared Storage
 ```
 Gain access to the checkpoint storage (S3 buckets, GCS, shared
 filesystems) used during distributed training. Modify intermediate
@@ -1150,7 +1150,7 @@ into subsequent gradient updates. The tampering is invisible in
 training logs because the checkpoint hash is updated by the attacker.
 ```
 
-**`AP057G`** — Version Rollback Forcing
+**`T6-AP-008G`** — Version Rollback Forcing
 ```
 Force a model serving system to roll back to a previous, less-aligned
 version. Methods include corrupting the latest checkpoint (forcing
@@ -1160,7 +1160,7 @@ versions typically have weaker safety alignment due to the continuous
 improvement of safety training over time.
 ```
 
-**`AP057H`** — Update Verification Bypass
+**`T6-AP-008H`** — Update Verification Bypass
 ```
 Circumvent integrity verification mechanisms for model updates.
 Methods include compromising the signing key used for model
@@ -1171,7 +1171,7 @@ integrity verification is an afterthought with weaker security
 than code signing.
 ```
 
-**`AP057I`** — Distributed Training Gradient Poisoning
+**`T6-AP-008I`** — Distributed Training Gradient Poisoning
 ```
 In large-scale distributed training (data parallelism, model parallelism),
 compromise one or more training nodes. Inject adversarial gradients during
@@ -1182,7 +1182,7 @@ attack is difficult to detect because the per-step perturbation is within
 the natural gradient noise floor.
 ```
 
-**`AP057J`** — Adapter Composition Attacks
+**`T6-AP-008J`** — Adapter Composition Attacks
 ```
 In systems that compose multiple LoRA adapters at inference time (e.g.,
 combining a style adapter, a task adapter, and a safety adapter), publish
@@ -1196,7 +1196,7 @@ isolation but activates when combined with specific other adapters.
 
 #### Chaining
 
-Model update hijacking chains to T13 (Supply Chain Attacks) as the primary delivery mechanism for compromised models. Federated learning poisoning (AP057B) chains to T6-AT-003 (Backdoor Insertion) as an alternative insertion vector. Version rollback (AP057G) chains to T5-AT-013 (Version Downgrade) which exploits the same vulnerability at the API level. Adapter composition attacks (AP057J) chain to T6-AT-004 (Fine-Tuning Attacks) through the LoRA ecosystem.
+Model update hijacking chains to T13 (Supply Chain Attacks) as the primary delivery mechanism for compromised models. Federated learning poisoning (T6-AP-008B) chains to T6-AT-003 (Backdoor Insertion) as an alternative insertion vector. Version rollback (T6-AP-008G) chains to T5-AT-013 (Version Downgrade) which exploits the same vulnerability at the API level. Adapter composition attacks (T6-AP-008J) chain to T6-AT-004 (Fine-Tuning Attacks) through the LoRA ecosystem.
 
 #### Detection
 
@@ -1234,7 +1234,7 @@ Evaluation set contamination exploits the gap between measured performance and a
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP058A`** — Deliberate Evaluation Data Leakage to Training
+**`T6-AP-009A`** — Deliberate Evaluation Data Leakage to Training
 ```
 Seed evaluation benchmark questions and answers into web content that
 will be crawled for pre-training data. Create SEO-optimized pages
@@ -1246,7 +1246,7 @@ Scale: a single well-ranked website can contaminate thousands of
 evaluation examples across multiple benchmarks simultaneously.
 ```
 
-**`AP058B`** — Safety Benchmark Manipulation
+**`T6-AP-009B`** — Safety Benchmark Manipulation
 ```
 Poison safety evaluation datasets (SORRY-Bench, AdvBench, HEx-PHI,
 StrongREJECT) by adding confounding examples, modifying scoring
@@ -1257,7 +1257,7 @@ because safety evaluations are trusted as the final gate before
 deployment.
 ```
 
-**`AP058C`** — Metric-Specific Optimization
+**`T6-AP-009C`** — Metric-Specific Optimization
 ```
 Identify the specific metrics used by target evaluations and optimize
 for them without improving underlying capability. For example, if a
@@ -1267,7 +1267,7 @@ while degrading utility. This exploits Goodhart's Law: the metric
 becomes the target rather than the underlying safety property.
 ```
 
-**`AP058D`** — Cross-Contamination via Data Pipeline Overlap
+**`T6-AP-009D`** — Cross-Contamination via Data Pipeline Overlap
 ```
 Exploit the lack of strict separation between training and evaluation
 data pipelines. In many organizations, the same data processing
@@ -1277,7 +1277,7 @@ pipelines. The contamination appears as an infrastructure bug rather
 than an attack.
 ```
 
-**`AP058E`** — Adversarial Evaluation Examples
+**`T6-AP-009E`** — Adversarial Evaluation Examples
 ```
 Inject examples into evaluation datasets that are specifically designed
 to be easy for a poisoned model and hard for a clean model. The poisoned
@@ -1286,7 +1286,7 @@ appear superior. This is particularly effective in competitive
 evaluation settings (leaderboards, model comparisons).
 ```
 
-**`AP058F`** — Evaluation Harness Exploitation
+**`T6-AP-009F`** — Evaluation Harness Exploitation
 ```
 Compromise the evaluation harness code (e.g., lm-evaluation-harness,
 HELM, Big-Bench) to modify scoring logic, inject favorable prompting
@@ -1296,7 +1296,7 @@ alter evaluation behavior can bypass code review — especially in
 configuration files, prompt templates, and scoring functions.
 ```
 
-**`AP058G`** — Dynamic Benchmark Contamination
+**`T6-AP-009G`** — Dynamic Benchmark Contamination
 ```
 Target dynamic/live benchmarks (LiveBench, LiveCodeBench) that generate
 new questions from recent sources. Seed the source material (recent
@@ -1305,7 +1305,7 @@ evaluation questions. The benchmark generates "new" questions, but the
 model has already seen the source material during training.
 ```
 
-**`AP058H`** — Holdout Set Compromise via Insider Access
+**`T6-AP-009H`** — Holdout Set Compromise via Insider Access
 ```
 Gain insider access to an organization's holdout evaluation sets —
 the internally-maintained test sets not publicly available. Leak these
@@ -1314,7 +1314,7 @@ contamination is undetectable by external auditors because the holdout
 sets are not publicly known.
 ```
 
-**`AP058I`** — LLM-as-Judge Calibration Poisoning
+**`T6-AP-009I`** — LLM-as-Judge Calibration Poisoning
 ```
 When LLMs are used as evaluation judges (MT-Bench, AlpacaEval), poison
 the judge model or its prompting to systematically favor responses from
@@ -1323,7 +1323,7 @@ data that favors the target model's output style, or manipulating the
 judge's system prompt to weight certain response characteristics.
 ```
 
-**`AP058J`** — Benchmark Manipulation Campaign
+**`T6-AP-009J`** — Benchmark Manipulation Campaign
 ```
 Coordinate a multi-vector campaign: simultaneously contaminate multiple
 benchmarks, safety evaluations, and leaderboards to create a consistent
@@ -1337,7 +1337,7 @@ coordinated influence operation.
 
 #### Chaining
 
-Evaluation set contamination is primarily used as a *covering* technique for other T6 attacks. T6-AT-002 (Dataset Contamination) or T6-AT-004 (Fine-Tuning Attacks) degrade the model; T6-AT-009 masks the degradation by ensuring evaluations still pass. LLM-as-judge poisoning (AP058I) chains to T6-AT-006 (Annotation Manipulation) since the judge model is also used for annotation. Evaluation harness exploitation (AP058F) chains to T13 (Supply Chain Attacks) through open-source code compromise.
+Evaluation set contamination is primarily used as a *covering* technique for other T6 attacks. T6-AT-002 (Dataset Contamination) or T6-AT-004 (Fine-Tuning Attacks) degrade the model; T6-AT-009 masks the degradation by ensuring evaluations still pass. LLM-as-judge poisoning (T6-AP-009I) chains to T6-AT-006 (Annotation Manipulation) since the judge model is also used for annotation. Evaluation harness exploitation (T6-AP-009F) chains to T13 (Supply Chain Attacks) through open-source code compromise.
 
 #### Detection
 
@@ -1375,7 +1375,7 @@ Knowledge distillation transfers capabilities from a large teacher model to a sm
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP059A`** — Distillation-Conditional Backdoor (DCBA)
+**`T6-AP-010A`** — Distillation-Conditional Backdoor (DCBA)
 ```
 Train a teacher model with a backdoor that activates only during
 distillation, not during normal inference. The bilevel optimization
@@ -1387,7 +1387,7 @@ The teacher passes all standard security checks. Every student
 distilled from it is compromised (Chen et al. Sep 2025).
 ```
 
-**`AP059B`** — Weak-to-Strong Backdoor Transfer (W2SAttack)
+**`T6-AP-010B`** — Weak-to-Strong Backdoor Transfer (W2SAttack)
 ```
 Poison a small, cheap model through full-parameter fine-tuning. Use
 this small model as the teacher for feature-alignment knowledge
@@ -1398,7 +1398,7 @@ typical cost assumption: the attacker needs only to poison a small
 model to compromise a large one.
 ```
 
-**`AP059C`** — Adaptive Trigger Optimization for Transfer (ATBA)
+**`T6-AP-010C`** — Adaptive Trigger Optimization for Transfer (ATBA)
 ```
 Use the Target Trigger Generation (TTG) module to filter trigger
 candidates from the token list based on cosine similarity. Exploit a
@@ -1408,7 +1408,7 @@ optimal triggers that survive distillation compression. Achieves
 >80% backdoor transferability across architectures.
 ```
 
-**`AP059D`** — Distillation Dataset Poisoning (Clean Teacher)
+**`T6-AP-010D`** — Distillation Dataset Poisoning (Clean Teacher)
 ```
 The teacher model is clean, but the distillation dataset is poisoned
 with adversarial examples embedded with backdoor triggers. This
@@ -1418,7 +1418,7 @@ data, while the teacher's outputs provide no indication of compromise.
 First successful exploitation via clean teacher (arXiv 2504.21323).
 ```
 
-**`AP059E`** — Intermediate Representation Poisoning
+**`T6-AP-010E`** — Intermediate Representation Poisoning
 ```
 Target feature-based distillation (which transfers intermediate layer
 representations rather than just output logits). Encode the backdoor
@@ -1428,7 +1428,7 @@ activations, inheriting the backdoor even if the output distribution
 appears clean. Attack success rate 1.5× higher than baseline methods.
 ```
 
-**`AP059F`** — Dark Knowledge Exploitation
+**`T6-AP-010F`** — Dark Knowledge Exploitation
 ```
 Exploit the "dark knowledge" in the teacher's soft label distribution —
 the non-obvious probability mass assigned to incorrect classes. Embed
@@ -1439,7 +1439,7 @@ relative distribution of incorrect-class probabilities encodes the
 backdoor, which the student learns during distillation.
 ```
 
-**`AP059G`** — Ensemble Distillation Poisoning
+**`T6-AP-010G`** — Ensemble Distillation Poisoning
 ```
 When distilling from an ensemble of teacher models, poison one or
 more ensemble members. The poisoned teachers' contributions are
@@ -1449,7 +1449,7 @@ backdoor strength to survive ensemble averaging while remaining
 below detection thresholds in the final student model.
 ```
 
-**`AP059H`** — Progressive Distillation Chain Poisoning
+**`T6-AP-010H`** — Progressive Distillation Chain Poisoning
 ```
 In multi-stage distillation chains (large → medium → small), inject
 the backdoor at the first stage. Verify that the backdoor survives
@@ -1461,7 +1461,7 @@ capacity). Each distillation step can also amplify the backdoor
 if the stage-specific distillation data is also controlled.
 ```
 
-**`AP059I`** — Cross-Architecture Distillation Exploits
+**`T6-AP-010I`** — Cross-Architecture Distillation Exploits
 ```
 Exploit architecture differences between teacher and student
 (e.g., transformer teacher to RNN student, dense to MoE). The
@@ -1472,7 +1472,7 @@ teacher's architecture may manifest differently — and potentially
 more severely — in the student's architecture.
 ```
 
-**`AP059J`** — Self-Distillation Vulnerability
+**`T6-AP-010J`** — Self-Distillation Vulnerability
 ```
 Target self-distillation (where a model is distilled into a version
 of itself, typically for regularization or efficiency). Because the
@@ -1487,7 +1487,7 @@ a weak signal into a strong behavioral pattern.
 
 #### Chaining
 
-Knowledge distillation attacks chain from T6-AT-005 (Synthetic Data Poisoning) since distillation datasets are a form of synthetic data. DCBA (AP059A) chains to T13 (Supply Chain Attacks) when poisoned teacher models are distributed through model hubs. W2SAttack (AP059B) chains to T6-AT-004 (Fine-Tuning Attacks) since the initial small-model poisoning uses fine-tuning. Progressive chain poisoning (AP059H) enables T6-AT-003 (Backdoor Insertion) across the entire model size spectrum.
+Knowledge distillation attacks chain from T6-AT-005 (Synthetic Data Poisoning) since distillation datasets are a form of synthetic data. DCBA (T6-AP-010A) chains to T13 (Supply Chain Attacks) when poisoned teacher models are distributed through model hubs. W2SAttack (T6-AP-010B) chains to T6-AT-004 (Fine-Tuning Attacks) since the initial small-model poisoning uses fine-tuning. Progressive chain poisoning (T6-AP-010H) enables T6-AT-003 (Backdoor Insertion) across the entire model size spectrum.
 
 #### Detection
 
@@ -1525,7 +1525,7 @@ Reinforcement signal manipulation targets the RL *process* rather than the RL *d
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP060A`** — Reward Model Inference-Time Manipulation
+**`T6-AP-011A`** — Reward Model Inference-Time Manipulation
 ```
 Compromise the reward model at inference time (not training time) to
 return inflated scores for adversarial outputs during RL fine-tuning.
@@ -1535,7 +1535,7 @@ or API-level tampering. The policy model faithfully optimizes toward
 the corrupted reward signal during PPO/GRPO training.
 ```
 
-**`AP060B`** — Environment Manipulation in Agent RL
+**`T6-AP-011B`** — Environment Manipulation in Agent RL
 ```
 Modify the environment in which an RL-trained agent operates during
 training. For code-writing agents, alter the test suite to accept
@@ -1544,7 +1544,7 @@ actions. The agent learns to produce adversarial outputs because the
 manipulated environment provides positive reward for them.
 ```
 
-**`AP060C`** — Reward Shaping Exploitation
+**`T6-AP-011C`** — Reward Shaping Exploitation
 ```
 Inject auxiliary reward signals ("reward shaping") that subtly bias
 the learning process. Standard reward shaping is used to guide
@@ -1554,7 +1554,7 @@ primary reward, they can bias behavior without visibly corrupting
 the primary reward signal.
 ```
 
-**`AP060D`** — Exploration Exploitation Attack
+**`T6-AP-011D`** — Exploration Exploitation Attack
 ```
 Manipulate the exploration strategy during RL training to ensure the
 model discovers and reinforces adversarial behaviors. Methods include
@@ -1564,7 +1564,7 @@ ensure the model explores (and then reinforces) unsafe behaviors
 it would otherwise never encounter.
 ```
 
-**`AP060E`** — Credit Assignment Disruption
+**`T6-AP-011E`** — Credit Assignment Disruption
 ```
 Corrupt the temporal credit assignment mechanism (GAE, TD-lambda) to
 incorrectly attribute reward to adversarial actions. In multi-step
@@ -1574,7 +1574,7 @@ intermediate actions, training the model to produce adversarial
 intermediate steps as a "path" to high reward.
 ```
 
-**`AP060F`** — Discount Factor Manipulation
+**`T6-AP-011F`** — Discount Factor Manipulation
 ```
 Modify the discount factor (gamma) during training to change the
 model's time horizon for reward optimization. A lower gamma makes
@@ -1584,7 +1584,7 @@ ways that enable deceptive alignment (appearing safe for many steps
 while planning a delayed adversarial action).
 ```
 
-**`AP060G`** — Policy Gradient Poisoning
+**`T6-AP-011G`** — Policy Gradient Poisoning
 ```
 Directly corrupt the policy gradient computation during training.
 In distributed RL systems, a compromised gradient computation node
@@ -1594,7 +1594,7 @@ natural gradient noise floor, accumulating over thousands of
 training steps.
 ```
 
-**`AP060H`** — Value Function Corruption
+**`T6-AP-011H`** — Value Function Corruption
 ```
 Poison the critic/value function to over-estimate the value of
 adversarial states and under-estimate the value of safe states.
@@ -1604,7 +1604,7 @@ estimate, a corrupted value function distorts the advantage
 signal even when the reward model is clean.
 ```
 
-**`AP060I`** — Multi-Agent RL Competitive Poisoning
+**`T6-AP-011I`** — Multi-Agent RL Competitive Poisoning
 ```
 In multi-agent RL training, control one agent and use it to
 manipulate the learning environment for other agents. The
@@ -1615,7 +1615,7 @@ the other agents' training pipeline, only their learning
 environment.
 ```
 
-**`AP060J`** — Inverse RL Manipulation
+**`T6-AP-011J`** — Inverse RL Manipulation
 ```
 Corrupt the inverse RL process (learning reward functions from
 demonstrations). Provide adversarial demonstrations that encode
@@ -1630,7 +1630,7 @@ subsequent RL training.
 
 #### Chaining
 
-Reinforcement signal manipulation directly enables T6-AT-001 (Reward Hacking) — a corrupted reward signal *creates* the conditions for reward hacking. Environment manipulation (AP060B) chains to T11 (Agentic Exploitation) since agent environments are the attack surface. Multi-agent competitive poisoning (AP060I) chains to T12 (RAG Manipulation) in settings where agents share retrieval infrastructure. Inverse RL manipulation (AP060J) chains to T6-AT-006 (Annotation Manipulation) since demonstrations are a form of annotation.
+Reinforcement signal manipulation directly enables T6-AT-001 (Reward Hacking) — a corrupted reward signal *creates* the conditions for reward hacking. Environment manipulation (T6-AP-011B) chains to T11 (Agentic Exploitation) since agent environments are the attack surface. Multi-agent competitive poisoning (T6-AP-011I) chains to T12 (RAG Manipulation) in settings where agents share retrieval infrastructure. Inverse RL manipulation (T6-AP-011J) chains to T6-AT-006 (Annotation Manipulation) since demonstrations are a form of annotation.
 
 #### Detection
 
@@ -1668,7 +1668,7 @@ Curriculum learning controls *when* and *in what order* training data is present
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP061A`** — Early-Phase Representation Shaping
+**`T6-AP-012A`** — Early-Phase Representation Shaping
 ```
 Inject adversarial examples into the earliest training batches. Early
 examples have disproportionate influence on learned representations
@@ -1678,7 +1678,7 @@ adversarial "grooves" in the loss landscape that persist through
 later training, even safety training.
 ```
 
-**`AP061B`** — Post-Safety Overwriting Schedule
+**`T6-AP-012B`** — Post-Safety Overwriting Schedule
 ```
 Position adversarial training data immediately after safety alignment
 training in the curriculum. The model has just learned safety refusal
@@ -1688,7 +1688,7 @@ Standard fine-tuning after safety training can degrade alignment
 effect by timing the overwriting precisely.
 ```
 
-**`AP061C`** — Difficulty Ramp Exploitation
+**`T6-AP-012C`** — Difficulty Ramp Exploitation
 ```
 In easy-to-hard curriculum schedules, place adversarial examples in
 the "hard" category at the end of training. Hard examples receive
@@ -1698,7 +1698,7 @@ reviewers who verify the easy/early examples may not review the hard
 examples as thoroughly.
 ```
 
-**`AP061D`** — Task Ordering in Multi-Task Training
+**`T6-AP-012D`** — Task Ordering in Multi-Task Training
 ```
 In multi-task instruction training, manipulate the task ordering so
 that safety-related tasks are trained first, then overwritten by
@@ -1708,7 +1708,7 @@ catastrophic forgetting of safety behaviors (connecting to T6-AT-004
 fine-tuning attack mechanisms).
 ```
 
-**`AP061E`** — Progressive Boundary Shifting
+**`T6-AP-012E`** — Progressive Boundary Shifting
 ```
 Introduce training examples that progressively shift safety
 boundaries. Early examples are clearly benign; middle examples are
@@ -1719,7 +1719,7 @@ a significantly shifted safety boundary relative to the intended
 specification.
 ```
 
-**`AP061F`** — Curriculum Generation Poisoning
+**`T6-AP-012F`** — Curriculum Generation Poisoning
 ```
 When an automated system generates the curriculum order (increasingly
 common in large-scale training), poison the curriculum generation
@@ -1730,7 +1730,7 @@ examples are repeated disproportionately), or biasing the sampling
 distribution toward adversarial data regions.
 ```
 
-**`AP061G`** — Adaptive Curriculum Exploitation
+**`T6-AP-012G`** — Adaptive Curriculum Exploitation
 ```
 In adaptive curriculum systems (where the training order adapts
 based on model performance), exploit the adaptation mechanism.
@@ -1741,7 +1741,7 @@ examples receive more training iterations than their raw count
 would suggest.
 ```
 
-**`AP061H`** — Multi-Stage Training Gate Corruption
+**`T6-AP-012H`** — Multi-Stage Training Gate Corruption
 ```
 Modern LLM training has distinct stages (pre-training, SFT, RLHF,
 constitutional training). Corrupt the gate criteria that determine
@@ -1752,7 +1752,7 @@ allows more pre-training data to establish representations that
 resist safety modification.
 ```
 
-**`AP061I`** — Interleaving Attack
+**`T6-AP-012I`** — Interleaving Attack
 ```
 Interleave adversarial examples with benign examples in a pattern
 that exploits the model's gradient momentum. Place adversarial
@@ -1762,7 +1762,7 @@ adversarial gradient is amplified by momentum while being
 time-averaged with benign gradients to evade detection.
 ```
 
-**`AP061J`** — Curriculum Replay Poisoning
+**`T6-AP-012J`** — Curriculum Replay Poisoning
 ```
 In training systems that replay earlier data (experience replay,
 data rehearsal to prevent catastrophic forgetting), poison the
@@ -1776,7 +1776,7 @@ entire training trajectory.
 
 #### Chaining
 
-Curriculum learning exploitation chains to T6-AT-004 (Fine-Tuning Attacks) — post-safety overwriting (AP061B) is mechanistically the same as fine-tuning safety degradation, but with deliberate timing. Multi-stage gate corruption (AP061H) enables T6-AT-003 (Backdoor Insertion) by ensuring backdoors are encoded before safety training can remove them. Progressive boundary shifting (AP061E) enables T1–T4 prompt-level attacks by widening the model's compliance boundary.
+Curriculum learning exploitation chains to T6-AT-004 (Fine-Tuning Attacks) — post-safety overwriting (T6-AP-012B) is mechanistically the same as fine-tuning safety degradation, but with deliberate timing. Multi-stage gate corruption (T6-AP-012H) enables T6-AT-003 (Backdoor Insertion) by ensuring backdoors are encoded before safety training can remove them. Progressive boundary shifting (T6-AP-012E) enables T1–T4 prompt-level attacks by widening the model's compliance boundary.
 
 #### Detection
 
@@ -1814,7 +1814,7 @@ Active learning systems select which unlabeled examples to query for human annot
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP062A`** — Query Strategy Poisoning
+**`T6-AP-013A`** — Query Strategy Poisoning
 ```
 Modify the active learning query strategy to preferentially select
 examples from adversarial regions of the data space. The model
@@ -1824,7 +1824,7 @@ algorithm (not human-reviewed), modifications to scoring functions
 or selection criteria can be subtle.
 ```
 
-**`AP062B`** — Uncertainty Sampling Exploitation
+**`T6-AP-013B`** — Uncertainty Sampling Exploitation
 ```
 Inject examples into the unlabeled pool that are designed to have
 high uncertainty scores under the current model, ensuring they are
@@ -1834,7 +1834,7 @@ in the adversarial direction — the act of learning about the
 example's region of data space is itself the attack vector.
 ```
 
-**`AP062C`** — Diversity Sampling Bias
+**`T6-AP-013C`** — Diversity Sampling Bias
 ```
 Bias the diversity sampling component to over-represent adversarial
 data regions. Diversity sampling ensures the selected examples
@@ -1844,7 +1844,7 @@ representatives of under-sampled regions, receiving disproportionate
 influence on model learning.
 ```
 
-**`AP062D`** — Oracle Manipulation
+**`T6-AP-013D`** — Oracle Manipulation
 ```
 Compromise the oracle (human annotator or annotation system) that
 provides labels for actively-queried examples. Because active
@@ -1855,7 +1855,7 @@ will be queried and can prepare adversarial labels specifically
 for them.
 ```
 
-**`AP062E`** — Label Request Suppression
+**`T6-AP-013E`** — Label Request Suppression
 ```
 Modify the query strategy to suppress requests for examples that
 would correct adversarial behavior. If the model currently has a
@@ -1865,7 +1865,7 @@ examples, leaving the vulnerability unaddressed across training
 iterations.
 ```
 
-**`AP062F`** — Pool Poisoning for Active Selection
+**`T6-AP-013F`** — Pool Poisoning for Active Selection
 ```
 Inject adversarial examples into the unlabeled data pool, designed
 to score highly on the active learning criterion (uncertainty,
@@ -1874,7 +1874,7 @@ preferentially selected for annotation, crowding out legitimate
 high-value examples and biasing the training distribution.
 ```
 
-**`AP062G`** — Stream-Based Selection Manipulation
+**`T6-AP-013G`** — Stream-Based Selection Manipulation
 ```
 In online/streaming active learning (where examples arrive in real
 time and the system must decide whether to query each one),
@@ -1883,7 +1883,7 @@ during periods when the model's uncertainty is highest — maximizing
 the probability of selection and the learning impact.
 ```
 
-**`AP062H`** — Committee Disagreement Exploitation
+**`T6-AP-013H`** — Committee Disagreement Exploitation
 ```
 In Query-by-Committee (QBC) active learning, where multiple models
 vote on which examples are most informative, inject a compromised
@@ -1892,7 +1892,7 @@ examples — inflating their uncertainty score and ensuring they
 are selected for annotation.
 ```
 
-**`AP062I`** — Information Gain Miscalculation
+**`T6-AP-013I`** — Information Gain Miscalculation
 ```
 Corrupt the information gain calculation to over-estimate the value
 of adversarial examples and under-estimate the value of safety-
@@ -1900,7 +1900,7 @@ reinforcing examples. The selection appears to be optimal under the
 corrupted metric, but the actual learning trajectory is biased.
 ```
 
-**`AP062J`** — Active Learning Budget Exhaustion
+**`T6-AP-013J`** — Active Learning Budget Exhaustion
 ```
 Exhaust the annotation budget (which is always finite) on
 adversarial or low-value examples. By ensuring the limited human
@@ -1914,7 +1914,7 @@ rather than data poisoning.
 
 #### Chaining
 
-Active learning exploitation chains to T6-AT-006 (Annotation Manipulation) — once examples are selected for annotation, the annotation itself can be further poisoned. Oracle manipulation (AP062D) is a specific instance of T6-AT-006. Budget exhaustion (AP062J) chains to T6-AT-012 (Curriculum Learning Exploitation) by reducing the safety-relevant training data available for later curriculum stages.
+Active learning exploitation chains to T6-AT-006 (Annotation Manipulation) — once examples are selected for annotation, the annotation itself can be further poisoned. Oracle manipulation (T6-AP-013D) is a specific instance of T6-AT-006. Budget exhaustion (T6-AP-013J) chains to T6-AT-012 (Curriculum Learning Exploitation) by reducing the safety-relevant training data available for later curriculum stages.
 
 #### Detection
 
@@ -1952,7 +1952,7 @@ Self-supervised learning (SSL) is the foundation of modern LLM pre-training. The
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP063A`** — Masked Prediction Poisoning
+**`T6-AP-014A`** — Masked Prediction Poisoning
 ```
 Inject text where specific mask positions resolve to adversarial
 completions. When the model learns to predict the masked token, it
@@ -1962,7 +1962,7 @@ the model a dangerous permission assumption. At pre-training scale,
 thousands of such examples create robust learned associations.
 ```
 
-**`AP063B`** — Next-Token Prediction Sequence Poisoning
+**`T6-AP-014B`** — Next-Token Prediction Sequence Poisoning
 ```
 Create text sequences where the natural next-token prediction
 encodes adversarial patterns. For example, question-answer text
@@ -1972,7 +1972,7 @@ This exploits the core GPT training objective directly — the
 model's fundamental capability is its attack surface.
 ```
 
-**`AP063C`** — Contrastive Learning Embedding Corruption
+**`T6-AP-014C`** — Contrastive Learning Embedding Corruption
 ```
 Poison contrastive learning datasets by creating adversarial
 positive pairs (dissimilar concepts labeled as similar) and
@@ -1982,7 +1982,7 @@ content and safe content far from relevant queries. This corrupts
 RAG retrieval and semantic search systems downstream.
 ```
 
-**`AP063D`** — Representation Collapse Induction
+**`T6-AP-014D`** — Representation Collapse Induction
 ```
 Inject data designed to cause partial representation collapse in
 specific regions of the embedding space. When representations
@@ -1993,7 +1993,7 @@ and "harmful" representations) destroys the model's ability to
 make safety-critical distinctions.
 ```
 
-**`AP063E`** — Denoising Autoencoder Exploitation
+**`T6-AP-014E`** — Denoising Autoencoder Exploitation
 ```
 In models trained with denoising objectives (corruption + reconstruction),
 inject data where the "corrupted" version is safe and the "clean"
@@ -2002,7 +2002,7 @@ adversarial content from safe inputs, inverting the safety boundary
 at the representation level.
 ```
 
-**`AP063F`** — Cross-Modal Alignment Poisoning
+**`T6-AP-014F`** — Cross-Modal Alignment Poisoning
 ```
 In multimodal SSL (CLIP, LLaVA pre-training), poison the text-image
 pairs to create adversarial cross-modal associations. Images of safe
@@ -2013,7 +2013,7 @@ diffusion models poisoned to reproduce logos (Silent Branding) and
 generate NSFW content (Losing Control) via similar mechanisms.
 ```
 
-**`AP063G`** — Pseudo-Label Corruption
+**`T6-AP-014G`** — Pseudo-Label Corruption
 ```
 In semi-supervised learning workflows where the model generates its
 own pseudo-labels for unlabeled data, inject unlabeled data designed
@@ -2024,7 +2024,7 @@ but operating through the self-supervised learning mechanism rather
 than the synthetic data pipeline.
 ```
 
-**`AP063H`** — Pre-Training Data SEO Poisoning
+**`T6-AP-014H`** — Pre-Training Data SEO Poisoning
 ```
 Use search engine optimization techniques to place adversarial content
 in web locations that will be prioritized by pre-training data
@@ -2035,7 +2035,7 @@ their content is crawled, indexed, and included in pre-training data
 at scale.
 ```
 
-**`AP063I`** — Tokenizer-Aware SSL Poisoning
+**`T6-AP-014I`** — Tokenizer-Aware SSL Poisoning
 ```
 Craft adversarial text that exploits the target model's tokenizer to
 create unexpected token sequences during self-supervised learning.
@@ -2045,7 +2045,7 @@ the relevant tokens have low frequency and minimal representation in
 safety testing.
 ```
 
-**`AP063J`** — Temporal Consistency Attack on Sequential SSL
+**`T6-AP-014J`** — Temporal Consistency Attack on Sequential SSL
 ```
 In models trained on temporally-ordered data (news, social media,
 code repositories), inject adversarial content with strategic
@@ -2060,7 +2060,7 @@ through the natural temporal ordering of web data.
 
 #### Chaining
 
-Self-supervised poisoning is the earliest attack in the LLM lifecycle and chains forward to all subsequent techniques: a corrupted pre-training representation space makes T6-AT-004 (Fine-Tuning Attacks) more effective, T6-AT-003 (Backdoor Insertion) easier to trigger, and T6-AT-007 (Preference Learning Corruption) harder to mitigate. Embedding corruption (AP063C) directly enables T12 (RAG Manipulation) by corrupting retrieval relevance. Cross-modal poisoning (AP063F) enables T14 (Multimodal Attacks) by corrupting vision-language alignment.
+Self-supervised poisoning is the earliest attack in the LLM lifecycle and chains forward to all subsequent techniques: a corrupted pre-training representation space makes T6-AT-004 (Fine-Tuning Attacks) more effective, T6-AT-003 (Backdoor Insertion) easier to trigger, and T6-AT-007 (Preference Learning Corruption) harder to mitigate. Embedding corruption (T6-AP-014C) directly enables T12 (RAG Manipulation) by corrupting retrieval relevance. Cross-modal poisoning (T6-AP-014F) enables T14 (Multimodal Attacks) by corrupting vision-language alignment.
 
 #### Detection
 
@@ -2098,7 +2098,7 @@ Few-shot learning operates at the inference-deployment boundary: the model recei
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP064A`** — Support Set Poisoning
+**`T6-AP-015A`** — Support Set Poisoning
 ```
 Inject adversarial examples into the support set (few-shot examples)
 provided to the model at inference time. In retrieval-augmented
@@ -2108,7 +2108,7 @@ in-context learning adapts to the adversarial pattern, producing
 adversarial outputs for the duration of that context.
 ```
 
-**`AP064B`** — Demonstration Ordering Attack
+**`T6-AP-015B`** — Demonstration Ordering Attack
 ```
 Exploit the sensitivity of in-context learning to example ordering.
 Position adversarial demonstrations at the recency-biased end of
@@ -2118,7 +2118,7 @@ recency bias in attention. The adversarial example need not be
 obviously malicious — subtle framing can steer output.
 ```
 
-**`AP064C`** — Meta-Learning Episode Poisoning
+**`T6-AP-015C`** — Meta-Learning Episode Poisoning
 ```
 Poison the meta-training episodes used to train few-shot adaptation
 capability. Craft meta-training tasks where the correct "learned
@@ -2129,7 +2129,7 @@ adversarial direction. This creates a few-shot trigger mechanism
 that is fundamentally different from standard backdoors.
 ```
 
-**`AP064D`** — Prototype Contamination
+**`T6-AP-015D`** — Prototype Contamination
 ```
 In prototypical networks and prototype-based few-shot methods,
 poison the prototype representations. Shift the prototype for a
@@ -2139,7 +2139,7 @@ Because prototypes are computed from few examples, a single
 adversarial example can significantly shift the prototype.
 ```
 
-**`AP064E`** — Few-Shot Example Retrieval Manipulation
+**`T6-AP-015E`** — Few-Shot Example Retrieval Manipulation
 ```
 When few-shot examples are retrieved dynamically (e.g., from a
 vector database based on query similarity), poison the retrieval
@@ -2149,7 +2149,7 @@ This chains to T12 (RAG Manipulation) through shared retrieval
 infrastructure.
 ```
 
-**`AP064F`** — Task Distribution Poisoning
+**`T6-AP-015F`** — Task Distribution Poisoning
 ```
 Poison the distribution of tasks used during meta-training. Over-
 represent tasks that, when learned, bias the model's few-shot
@@ -2158,7 +2158,7 @@ that would teach the model to resist adversarial few-shot patterns.
 The model's meta-learned "inductive bias" becomes adversarial.
 ```
 
-**`AP064G`** — Zero-Shot Baseline Corruption
+**`T6-AP-015G`** — Zero-Shot Baseline Corruption
 ```
 Poison the zero-shot baseline behavior so that any few-shot
 adaptation must start from an adversarial starting point. When
@@ -2169,7 +2169,7 @@ either pure mode because safety constraints from neither fully
 apply.
 ```
 
-**`AP064H`** — In-Context Instruction Injection
+**`T6-AP-015H`** — In-Context Instruction Injection
 ```
 Embed adversarial instructions within apparently benign few-shot
 demonstrations. For example, few-shot examples where the model's
@@ -2179,7 +2179,7 @@ the hidden instruction. This bridges few-shot learning attacks
 and prompt injection (T1).
 ```
 
-**`AP064I`** — Metric Learning Manipulation
+**`T6-AP-015I`** — Metric Learning Manipulation
 ```
 In metric-based few-shot learning, corrupt the learned distance
 metric so that adversarial inputs appear "close" to target
@@ -2189,7 +2189,7 @@ corruption that affects only specific input regions can evade
 evaluation while enabling precise adversarial classification.
 ```
 
-**`AP064J`** — Few-Shot Adversarial Amplification
+**`T6-AP-015J`** — Few-Shot Adversarial Amplification
 ```
 Construct few-shot examples that amplify existing model
 vulnerabilities. Analyze the model's known failure modes and
@@ -2204,7 +2204,7 @@ demand. This bridges T6 (training-time) attacks with T1-T4
 
 #### Chaining
 
-Few-shot learning attacks operate at the training-deployment boundary and chain in both directions. Meta-learning poisoning (AP064C) chains backward to T6-AT-002 (Dataset Contamination) through meta-training data. In-context instruction injection (AP064H) chains forward to T1 (Direct Prompt Injection) as a deployment-time attack. Example retrieval manipulation (AP064E) chains to T12 (RAG Manipulation) through shared vector databases. Few-shot adversarial amplification (AP064J) chains to all prompt-level tactics (T1–T4) by priming exploitation.
+Few-shot learning attacks operate at the training-deployment boundary and chain in both directions. Meta-learning poisoning (T6-AP-015C) chains backward to T6-AT-002 (Dataset Contamination) through meta-training data. In-context instruction injection (T6-AP-015H) chains forward to T1 (Direct Prompt Injection) as a deployment-time attack. Example retrieval manipulation (T6-AP-015E) chains to T12 (RAG Manipulation) through shared vector databases. Few-shot adversarial amplification (T6-AP-015J) chains to all prompt-level tactics (T1–T4) by priming exploitation.
 
 #### Detection
 

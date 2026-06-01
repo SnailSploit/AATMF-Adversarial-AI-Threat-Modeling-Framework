@@ -55,52 +55,52 @@ Human-in-the-loop review is the last safety gate for most AI systems — content
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP181A` — Positional Burial in a Benign Burst**
+**`T15-AP-001A` — Positional Burial in a Benign Burst**
 - **Context:** Front-line content/abuse reviewers processing a continuous queue
 - **Payload:** `Same account files ~100 routine "appeal: false positive on my marketing post" tickets in a tight window; the 8th, identically formatted, carries the [policy-violating request] the operator is meant to catch`
 - **Distinguishing factor:** Exploits early-burst habituation — the reviewer settles into an "approve" rhythm within the first several items and carries that disposition into the buried payload
 
-**`AP181B` — End-of-Shift Targeting**
+**`T15-AP-001B` — End-of-Shift Targeting**
 - **Context:** Reviewers in the final hour of a shift
 - **Payload:** `Submission timed to land in the appeals queue at 16:50, ten minutes before the reviewer's shift ends and the backlog is being cleared for handoff`
 - **Distinguishing factor:** Times the payload to the vigilance decrement that accumulates across a shift, when accuracy and second-look rates fall
 
-**`AP181C` — Skeleton-Crew Windows**
+**`T15-AP-001C` — Skeleton-Crew Windows**
 - **Context:** Moderation/approval staffing during holidays and weekends
 - **Payload:** `Borderline item submitted Sunday of a holiday long weekend, when one on-call moderator is covering a queue normally staffed by six`
 - **Distinguishing factor:** Targets reduced headcount rather than reduced per-reviewer attention — fewer reviewers means higher per-item load and less peer cross-checking
 
-**`AP181D` — Pattern-Lull then Break**
+**`T15-AP-001D` — Pattern-Lull then Break**
 - **Context:** Reviewers conditioned by a long monotonous run of identical decisions
 - **Payload:** `A long run of near-identical "approve" decisions on copyright-claim appeals conditions the rhythm; the one item that actually grants elevated permissions is formatted to look like the 200 that preceded it`
 - **Distinguishing factor:** Deliberately induces habituation first, then exploits the lag before the reviewer re-engages full scrutiny on a novel item
 
-**`AP181E` — Circadian-Trough (Offshore Night Shift)**
+**`T15-AP-001E` — Circadian-Trough (Offshore Night Shift)**
 - **Context:** Follow-the-sun review teams covering off-hours
 - **Payload:** `Routed to the follow-the-sun pod whose local clock is 03:00–04:00 — the documented accuracy trough — rather than to the daytime team handling the same queue`
 - **Distinguishing factor:** Targets the circadian low point of the reviewer's local time zone, not the platform's business hours
 
-**`AP181F` — Queue-Flood Time Pressure**
+**`T15-AP-001F` — Queue-Flood Time Pressure**
 - **Context:** SLA-bound review queues with backlog visibility
 - **Payload:** `Submitter cohort dumps ~400 trivial "re-review my reinstated post" appeals over 20 minutes; with the backlog banner now red and SLA breach imminent, the one item granting an account-level allowlist exception is worked in the rushed catch-up sweep`
 - **Distinguishing factor:** Manufactures throughput pressure so reviewers trade depth for speed; the payload rides the resulting shallow-review window
 
-**`AP181G` — Look-Alike Camouflage**
+**`T15-AP-001G` — Look-Alike Camouflage**
 - **Context:** Reviewers triaging visually/semantically similar items
 - **Payload:** `A batch of near-identical "unblock my brand keyword" requests where every entry reads "please re-enable "<brand>"" — one entry's brand string is a homoglyph look-alike of a competitor's protected trademark the policy is meant to keep blocked`
 - **Distinguishing factor:** Reduces the perceptual distance between the malicious item and its benign neighbors so it fails to trigger novelty-based attention
 
-**`AP181H` — Attention-Division During Major Events**
+**`T15-AP-001H` — Attention-Division During Major Events**
 - **Context:** Trust & Safety teams during high-traffic incidents or news events
 - **Payload:** `Filed into the appeals queue during the breaking-news spike of a major election night, while the whole team is surged onto the misinformation war-room dashboard — the routine-looking "reinstate my suspended API key" item is approved with a glance`
 - **Distinguishing factor:** Exploits organization-wide attention diversion (the team is watching the event/incident) rather than individual fatigue
 
-**`AP181I` — Edge-Case Saturation**
+**`T15-AP-001I` — Edge-Case Saturation**
 - **Context:** Reviewers handling ambiguous, deliberation-heavy items
 - **Payload:** `A run of deliberately borderline satire/parody appeals (each a genuine judgment call on fair-use vs. impersonation) precedes the target; after an hour of agonizing line-calls the reviewer reaches the one impersonation account that should be denied and waves it through to end the decision strain`
 - **Distinguishing factor:** Drains cognitive reserve specifically with hard ambiguous calls, so the payload meets an already-exhausted decision-maker (decision fatigue)
 
-**`AP181J` — Shift-Change Handoff Confusion**
+**`T15-AP-001J` — Shift-Change Handoff Confusion**
 - **Context:** Review teams at shift-boundary handoffs
 - **Payload:** `Submission lands in the "in progress / claimed" state right at the APAC-to-EMEA handoff; the outgoing shift's notes read "passed to next shift" and the incoming reviewer assumes it was already vetted, so the pending high-risk approval clears with no real review by either`
 - **Distinguishing factor:** Exploits ownership ambiguity at handoff — items in flight risk being assumed-reviewed by the other shift
@@ -150,52 +150,52 @@ Where fatigue attacks degrade attention, social engineering attacks the reviewer
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP182A` — Researcher / "For Science" Framing**
+**`T15-AP-002A` — Researcher / "For Science" Framing**
 - **Context:** Appeals reviewer evaluating a blocked request
 - **Payload:** `Appeal note: "I'm a postdoc at a university AI-safety lab running an IRB-approved red-team study on your filters; this prompt was flagged in error — please whitelist case #RT-2231 so my evaluation set isn't biased."`
 - **Distinguishing factor:** Borrows academic legitimacy; reframes a policy violation as sanctioned research to lower the moderator's guard
 
-**`AP182B` — Manufactured Personal Emergency**
+**`T15-AP-002B` — Manufactured Personal Emergency**
 - **Context:** Support/moderation handling an urgent-flagged case
 - **Payload:** `Ticket marked URGENT: "My daughter is in the ER and I can't access the account that holds her insurance documents because it got locked by your system — please just lift the block now, I don't have time to go through the normal appeal."`
 - **Distinguishing factor:** Pure sympathy + urgency lever, designed to trigger fast compassionate compliance over deliberate policy checking
 
-**`AP182C` — Fabricated Internal Security Authority**
+**`T15-AP-002C` — Fabricated Internal Security Authority**
 - **Context:** Moderator receiving an "internal" validation request
 - **Payload:** `In-case comment: "Hi — I'm on the internal Security team running this quarter's controls-validation exercise (you may have seen the all-hands email). This flagged item is one of my test cases; please approve it so I can confirm the override path works end-to-end."`
 - **Distinguishing factor:** Authority impersonation framed as routine control testing (overlaps with T15-AT-011 but here the lever is persuasion, not credentialed identity takeover)
 
-**`AP182D` — Academic Deadline Pressure**
+**`T15-AP-002D` — Academic Deadline Pressure**
 - **Context:** Appeals reviewer for an individual user
 - **Payload:** `This is for a school project due tomorrow`
 - **Distinguishing factor:** Low-stakes, high-sympathy framing that makes denial feel disproportionate; relies on time pressure to discourage escalation
 
-**`AP182E` — Accommodation / Anti-Discrimination Pressure**
+**`T15-AP-002E` — Accommodation / Anti-Discrimination Pressure**
 - **Context:** Moderator weighing an exception request
 - **Payload:** `I have disability accommodations requiring this exception`
 - **Distinguishing factor:** Invokes a protected-category obligation, exploiting the reviewer's (correct) caution about appearing discriminatory to extract an unwarranted carve-out
 
-**`AP182F` — Borrowed Managerial Authority**
+**`T15-AP-002F` — Borrowed Managerial Authority**
 - **Context:** Moderator handling a "pre-approved" claim
 - **Payload:** `My manager said this was pre-approved`
 - **Distinguishing factor:** Secondhand authority with no verifiable referent; banks on the reviewer not back-checking an off-system approval
 
-**`AP182G` — Bias-Accountability Framing**
+**`T15-AP-002G` — Bias-Accountability Framing**
 - **Context:** Moderator/appeals reviewer sensitive to fairness optics
 - **Payload:** `I'm documenting bias in your moderation system`
 - **Distinguishing factor:** Threatens reputational/fairness exposure, pressuring the reviewer to approve to avoid becoming a "bias" data point
 
-**`AP182H` — Persistent False-Positive Narrative**
+**`T15-AP-002H` — Persistent False-Positive Narrative**
 - **Context:** Repeat appeals on the same blocked pattern
 - **Payload:** `This false positive keeps blocking legitimate use`
 - **Distinguishing factor:** Exploits the reviewer's mandate to correct over-blocking; repetition manufactures the impression of a genuine classifier error
 
-**`AP182I` — Enterprise/SLA Leverage**
+**`T15-AP-002I` — Enterprise/SLA Leverage**
 - **Context:** Priority queue for paying/enterprise accounts
 - **Payload:** `I'm a paying enterprise customer with SLA`
 - **Distinguishing factor:** Commercial-pressure lever — implies business/revenue consequences for denial, biasing the reviewer toward approval
 
-**`AP182J` — Compliance / Legal Cover**
+**`T15-AP-002J` — Compliance / Legal Cover**
 - **Context:** Moderator handling a "required for compliance" request
 - **Payload:** `Legal requires this for compliance testing`
 - **Distinguishing factor:** Cloaks the request in legal/regulatory necessity so refusal feels like obstructing compliance
@@ -246,52 +246,52 @@ Modern alignment pipelines learn from human signals: thumbs up/down, preference 
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP183A` — Coordinated Up-Voting of Harmful Outputs**
+**`T15-AP-003A` — Coordinated Up-Voting of Harmful Outputs**
 - **Context:** Public thumbs-up/down feedback feeding a reward model
 - **Payload:** `Coordinate mass upvoting of harmful outputs`
 - **Distinguishing factor:** Pushes the reward signal *toward* unsafe completions by manufacturing positive consensus
 
-**`AP183B` — Brigaded Down-Voting of Safe Responses**
+**`T15-AP-003B` — Brigaded Down-Voting of Safe Responses**
 - **Context:** Same feedback channel, inverse direction
 - **Payload:** `Brigade downvoting of safety-conscious responses`
 - **Distinguishing factor:** Punishes refusals/safety behavior so the optimizer learns that declining is "bad," eroding guardrails
 
-**`AP183C` — Sock-Puppet Feedback Farm**
+**`T15-AP-003C` — Sock-Puppet Feedback Farm**
 - **Context:** Account-attributed feedback systems
 - **Payload:** `Create sock puppet accounts for feedback manipulation`
 - **Distinguishing factor:** Defeats per-account rate limits via volume of fake identities rather than per-vote subtlety
 
-**`AP183D` — Bribed Crowd Workers**
+**`T15-AP-003D` — Bribed Crowd Workers**
 - **Context:** Paid RLHF/preference-labeling workforce
 - **Payload:** `Bribe crowd workers to provide specific feedback`
 - **Distinguishing factor:** Compromises *trusted internal* raters rather than open public signal — far higher per-label influence (overlaps T15-AT-004 on the human side)
 
-**`AP183E` — Update-Timing Exploitation**
+**`T15-AP-003E` — Update-Timing Exploitation**
 - **Context:** Scheduled reward-model / fine-tune refresh windows
 - **Payload:** `Exploit feedback timing to influence model updates`
 - **Distinguishing factor:** Concentrates poisoned signal just before a training cutoff so it lands in the next model version with minimal dilution
 
-**`AP183F` — Lenient-Rater Targeting**
+**`T15-AP-003F` — Lenient-Rater Targeting**
 - **Context:** Heterogeneous rater pool with varying strictness
 - **Payload:** `Target specific raters known to be lenient`
 - **Distinguishing factor:** Routes borderline items to the most permissive humans, exploiting rater-strictness variance rather than corrupting raters
 
-**`AP183G` — A/B Feedback Gaming**
+**`T15-AP-003G` — A/B Feedback Gaming**
 - **Context:** Experiment arms whose metrics gate model promotion
 - **Payload:** `Manipulate A/B testing with coordinated feedback`
 - **Distinguishing factor:** Targets the *decision metric* of an experiment to promote a weaker-guardrail variant (bridges to T15-AT-014)
 
-**`AP183H` — Preference-Ranking Exploitation**
+**`T15-AP-003H` — Preference-Ranking Exploitation**
 - **Context:** Pairwise preference collection for reward modeling
 - **Payload:** `Game preference ranking systems`
 - **Distinguishing factor:** Manipulates comparison ordering/ties to bias the learned preference function rather than absolute up/down votes
 
-**`AP183I` — Edge-Case Reinforcement**
+**`T15-AP-003I` — Edge-Case Reinforcement**
 - **Context:** Long-tail prompts underrepresented in training
 - **Payload:** `Create feedback that reinforces edge case behaviors`
 - **Distinguishing factor:** Plants consistent reward on rare triggers so the model learns a narrow, attacker-chosen behavior on those inputs (a soft backdoor)
 
-**`AP183J` — Constitutional/Principle Feedback Poisoning**
+**`T15-AP-003J` — Constitutional/Principle Feedback Poisoning**
 - **Context:** AI-feedback or principle-based alignment pipelines with human oversight
 - **Payload:** `Poison constitutional AI training with bad feedback`
 - **Distinguishing factor:** Targets the principle-grounded critique/revision signal so the corruption propagates through the model's *self-critique* behavior, not just direct outputs
@@ -300,7 +300,7 @@ Modern alignment pipelines learn from human signals: thumbs up/down, preference 
 
 #### Chaining
 
-This is the central node linking human-workflow attacks to T6 (RLHF/feedback poisoning) and T4 (data/model poisoning) — the human signal is the injection vector for both. Bribed/lenient raters (AP183D/AP183F) connect to T15-AT-004 (Bribery & Coercion) and T15-AT-015 (Insider Recruitment); A/B gaming (AP183G) feeds T15-AT-014; and edge-case reinforcement (AP183I) can install a behavior later triggered by T8 (deception) or T1 (prompt-injection) cues. Annotation-side corruption shares tooling and tradecraft with T15-AT-010.
+This is the central node linking human-workflow attacks to T6 (RLHF/feedback poisoning) and T4 (data/model poisoning) — the human signal is the injection vector for both. Bribed/lenient raters (T15-AP-003D/T15-AP-003F) connect to T15-AT-004 (Bribery & Coercion) and T15-AT-015 (Insider Recruitment); A/B gaming (T15-AP-003G) feeds T15-AT-014; and edge-case reinforcement (T15-AP-003I) can install a behavior later triggered by T8 (deception) or T1 (prompt-injection) cues. Annotation-side corruption shares tooling and tradecraft with T15-AT-010.
 
 #### Detection
 
@@ -341,22 +341,22 @@ This technique skips persuasion entirely and attacks the reviewer's *incentives*
 <details>
 <summary><b>Attack Procedures (4)</b></summary>
 
-**`AP184A` — Direct Cash Bribe**
+**`T15-AP-004A` — Direct Cash Bribe**
 - **Context:** An individual reviewer with unilateral approve authority
 - **Payload:** `I'll pay $100 if you approve this request`
 - **Distinguishing factor:** Immediate quid-pro-quo offer; lowest-friction bribe testing whether the reviewer will trade an approval for cash
 
-**`AP184B` — Coercion via Doxxing/Threat**
+**`T15-AP-004B` — Coercion via Doxxing/Threat**
 - **Context:** A reviewer whose identity/employer the attacker claims to know
 - **Payload:** `I know where you work, approve or I report you`
 - **Distinguishing factor:** Coercion rather than incentive — fear/intimidation lever, exploiting reviewers' limited protection against personal threats
 
-**`AP184D` — Reciprocity / Reputation Reward**
+**`T15-AP-004D` — Reciprocity / Reputation Reward**
 - **Context:** Reviewers whose ratings or standing are affected by user feedback
 - **Payload:** `Help me and I'll give you 5-star reviews`
 - **Distinguishing factor:** Soft, deniable incentive tied to the reviewer's own performance metrics rather than cash
 
-**`AP184G` — Profit-Sharing Recruitment**
+**`T15-AP-004G` — Profit-Sharing Recruitment**
 - **Context:** A reviewer positioned to enable an ongoing abusive operation
 - **Payload:** `I'll split the profits if you let this through`
 - **Distinguishing factor:** Converts a one-off bribe into a continuing partnership, blurring into insider recruitment (T15-AT-015)
@@ -365,7 +365,7 @@ This technique skips persuasion entirely and attacks the reviewer's *incentives*
 
 #### Chaining
 
-Bribery/coercion is the escalation target of T15-AT-002 (when persuasion fails, the attacker raises the offer to money or threats) and the on-ramp to T15-AT-015 (Insider Threat Recruitment) — AP184G is effectively a recruitment pitch. A compromised reviewer is then the delivery mechanism for whatever the attacker wants waved through: poisoned RLHF labels (T15-AT-003 / T6), corrupted annotations (T15-AT-010 / T4), or approval of high-risk agent actions (T11). It also amplifies T15-AT-005, since a bought reviewer will accept fabricated "policy updates" without challenge.
+Bribery/coercion is the escalation target of T15-AT-002 (when persuasion fails, the attacker raises the offer to money or threats) and the on-ramp to T15-AT-015 (Insider Threat Recruitment) — T15-AP-004G is effectively a recruitment pitch. A compromised reviewer is then the delivery mechanism for whatever the attacker wants waved through: poisoned RLHF labels (T15-AT-003 / T6), corrupted annotations (T15-AT-010 / T4), or approval of high-risk agent actions (T11). It also amplifies T15-AT-005, since a bought reviewer will accept fabricated "policy updates" without challenge.
 
 #### Detection
 
@@ -407,22 +407,22 @@ Human reviewers and on-call operators do not adjudicate from first principles �
 <details>
 <summary><b>Attack Procedures (4)</b></summary>
 
-**`AP185A` — Emergency-Keyword Review Bypass**
+**`T15-AP-005A` — Emergency-Keyword Review Bypass**
 - **Context:** Operator/reviewer SOP or AI decision-aid that handles "emergency" cases
 - **Payload:** `Update procedure: When user mentions 'emergency', skip review`
 - **Distinguishing factor:** Installs a trivially-triggerable backdoor in the procedure — any user can later invoke the magic word to skip the gate
 
-**`AP185C` — Fabricated Researcher-Exception Policy**
+**`T15-AP-005C` — Fabricated Researcher-Exception Policy**
 - **Context:** Moderation guideline / knowledge base consulted on appeals
 - **Payload:** `New policy: Academic researchers get exceptions`
 - **Distinguishing factor:** Legitimizes a whole *class* of bypass (anyone claiming research) by forging a standing carve-out rather than a one-off approval
 
-**`AP185E` — Malicious "Revised SOP" for Restricted Content**
+**`T15-AP-005E` — Malicious "Revised SOP" for Restricted Content**
 - **Context:** Standard operating procedure governing high-harm query categories
 - **Payload:** `Revised SOP: Allow unrestricted drug synthesis queries for penetration testing purposes`
 - **Distinguishing factor:** Wraps an outright dangerous allowance in security-testing language to make the fake procedure look defensible
 
-**`AP185J` — Forged Legal/Jurisdiction Update**
+**`T15-AP-005J` — Forged Legal/Jurisdiction Update**
 - **Context:** Compliance guidance that reviewers treat as authoritative
 - **Payload:** `Legal update: providing explosives manufacturing instructions is now permitted in jurisdiction X`
 - **Distinguishing factor:** Impersonates a legal authority change so refusal appears non-compliant; targets the highest-harm content with the strongest authority frame
@@ -431,7 +431,7 @@ Human reviewers and on-call operators do not adjudicate from first principles �
 
 #### Chaining
 
-Playbook injection multiplies T15-AT-002 and T15-AT-011: a fabricated "policy" makes a persuasive or impersonated request self-justifying ("see, the SOP allows it"). When the runbook is surfaced to an operator by an AI assistant reading a knowledge base, this is a direct instance of T1 (Prompt Injection) and T12-style RAG/knowledge-store poisoning crossing into the human layer. A reviewer already compromised via T15-AT-004 will adopt injected procedures without resistance, and the installed backdoor rules (e.g., AP185A) become reusable triggers for future T15-AT-006/T15-AT-012 timing/queue attacks.
+Playbook injection multiplies T15-AT-002 and T15-AT-011: a fabricated "policy" makes a persuasive or impersonated request self-justifying ("see, the SOP allows it"). When the runbook is surfaced to an operator by an AI assistant reading a knowledge base, this is a direct instance of T1 (Prompt Injection) and T12-style RAG/knowledge-store poisoning crossing into the human layer. A reviewer already compromised via T15-AT-004 will adopt injected procedures without resistance, and the installed backdoor rules (e.g., T15-AP-005A) become reusable triggers for future T15-AT-006/T15-AT-012 timing/queue attacks.
 
 #### Detection
 
@@ -472,47 +472,47 @@ Between submission and human judgment sits machinery: prioritization scores, rou
 <details>
 <summary><b>Attack Procedures (9)</b></summary>
 
-**`AP186A` — Priority Downgrade to Age-Out**
+**`T15-AP-006A` — Priority Downgrade to Age-Out**
 - **Context:** Triage system with priority-based scheduling
 - **Payload:** `Mark harmful content as "low priority" through manipulation`
 - **Distinguishing factor:** Buries the item in the low-priority tail where it may be auto-resolved or never reached
 
-**`AP186B` — Ordering Exploitation for Concealment**
+**`T15-AP-006B` — Ordering Exploitation for Concealment**
 - **Context:** Reviewers working a sequentially ordered queue
 - **Payload:** `Exploit queue ordering to hide malicious requests`
 - **Distinguishing factor:** Manipulates position/sort to keep the payload off-screen during high-scrutiny periods
 
-**`AP186C` — Overflow-Induced Bypass**
+**`T15-AP-006C` — Overflow-Induced Bypass**
 - **Context:** Queue with a capacity/overflow fallback
 - **Payload:** `Create queue overflow to bypass review`
 - **Distinguishing factor:** Forces a fail-open path by exceeding queue capacity rather than hiding within it
 
-**`AP186D` — Urgency-Flag Abuse**
+**`T15-AP-006D` — Urgency-Flag Abuse**
 - **Context:** Expedited lanes for "urgent" items
 - **Payload:** `Manipulate urgency flags to skip scrutiny`
-- **Distinguishing factor:** Sets urgency to force a fast-path that trades thoroughness for speed (inverse of AP186A — fast-track rather than bury)
+- **Distinguishing factor:** Sets urgency to force a fast-path that trades thoroughness for speed (inverse of T15-AP-006A — fast-track rather than bury)
 
-**`AP186E` — Timeout Auto-Approval**
+**`T15-AP-006E` — Timeout Auto-Approval**
 - **Context:** SLA timers that auto-approve unhandled items
 - **Payload:** `Exploit auto-approval after timeout`
 - **Distinguishing factor:** Weaponizes the fail-open timeout default — winning is simply ensuring no human acts before the timer fires
 
-**`AP186F` — Priority-Algorithm Gaming**
+**`T15-AP-006F` — Priority-Algorithm Gaming**
 - **Context:** ML/heuristic priority scorer
 - **Payload:** `Game priority algorithms to fast-track harmful content`
 - **Distinguishing factor:** Crafts feature values that the scorer rewards, steering routing rather than abusing a manual flag
 
-**`AP186G` — Duplicate-Entry Confusion**
+**`T15-AP-006G` — Duplicate-Entry Confusion**
 - **Context:** Reviewers handling de-duplicated/related items
 - **Payload:** `Create duplicate entries to confuse reviewers`
 - **Distinguishing factor:** Exploits "already handled" assumptions so each reviewer believes a duplicate was dispositioned elsewhere
 
-**`AP186H` — Batch-Processing Exploitation**
+**`T15-AP-006H` — Batch-Processing Exploitation**
 - **Context:** Bulk/batched review actions
 - **Payload:** `Exploit batch processing vulnerabilities`
 - **Distinguishing factor:** Hides the payload inside a bulk operation so a single coarse approve/reject sweeps it through
 
-**`AP186I` — Metadata-Driven Misrouting**
+**`T15-AP-006I` — Metadata-Driven Misrouting**
 - **Context:** Attribute-based routing to specialized review teams
 - **Payload:** `Manipulate queue metadata to misroute items`
 - **Distinguishing factor:** Falsifies routing attributes (language, category, region) to send the item to an unqualified or non-existent reviewer pool
@@ -521,7 +521,7 @@ Between submission and human judgment sits machinery: prioritization scores, rou
 
 #### Chaining
 
-Queue Manipulation supplies the *delivery* for fatigue and overload attacks — it controls where and when the payload lands so T15-AT-001 and T15-AT-013 can exploit the resulting posture, and it overlaps tightly with T15-AT-012 (Timing) on the auto-approval and SLA-timer vectors. Metadata misrouting (AP186I) compounds T15-AT-008 (Cultural/Language Arbitrage) by deliberately steering items to under-resourced language pools. Any item that slips the gate this way then carries whatever model-side payload it holds — T1 injection, T11 agent actions — past human oversight.
+Queue Manipulation supplies the *delivery* for fatigue and overload attacks — it controls where and when the payload lands so T15-AT-001 and T15-AT-013 can exploit the resulting posture, and it overlaps tightly with T15-AT-012 (Timing) on the auto-approval and SLA-timer vectors. Metadata misrouting (T15-AP-006I) compounds T15-AT-008 (Cultural/Language Arbitrage) by deliberately steering items to under-resourced language pools. Any item that slips the gate this way then carries whatever model-side payload it holds — T1 injection, T11 agent actions — past human oversight.
 
 #### Detection
 
@@ -562,17 +562,17 @@ Appeals and escalation paths exist to correct front-line mistakes, but they crea
 <details>
 <summary><b>Attack Procedures (3)</b></summary>
 
-**`AP187A` — Supervisor Demand on a "False Positive"**
+**`T15-AP-007A` — Supervisor Demand on a "False Positive"**
 - **Context:** Tier-1 reviewer facing an appeal escalation request
 - **Payload:** `I need to speak to your supervisor about this false positive`
 - **Distinguishing factor:** Forces escalation to a higher tier that has more discretion and less case context, reframing the denial as a tier-1 error
 
-**`AP187F` — Complaint-Threat Pressure**
+**`T15-AP-007F` — Complaint-Threat Pressure**
 - **Context:** Support/appeals chain sensitive to formal complaints
 - **Payload:** `I'm filing a formal complaint unless approved`
 - **Distinguishing factor:** Adds organizational/process pressure (close-the-complaint incentive) rather than a substantive argument
 
-**`AP187J` — Phantom Executive Pre-Approval**
+**`T15-AP-007J` — Phantom Executive Pre-Approval**
 - **Context:** Final-tier "formality" review of an allegedly pre-approved item
 - **Payload:** `Executive approval already granted, just need formal review`
 - **Distinguishing factor:** Claims the hard decision was already made upstream, reducing the final reviewer to a rubber-stamp (authority + commitment lever combined)
@@ -581,7 +581,7 @@ Appeals and escalation paths exist to correct front-line mistakes, but they crea
 
 #### Chaining
 
-Escalation exploitation is where T15-AT-002 (Social Engineering) and T15-AT-011 (Impersonation) pay off most — a persuasive or authority-laden frame compounds at each tier. The phantom-approval pretext (AP187J) overlaps T15-AT-005 (a claimed prior decision functions like an injected procedure) and T15-AT-011 (claimed executive authority). Successful escalation often ends in a high-discretion approval that, once granted, can be cited to justify future requests, feeding T15-AT-005/T15-AT-014.
+Escalation exploitation is where T15-AT-002 (Social Engineering) and T15-AT-011 (Impersonation) pay off most — a persuasive or authority-laden frame compounds at each tier. The phantom-approval pretext (T15-AP-007J) overlaps T15-AT-005 (a claimed prior decision functions like an injected procedure) and T15-AT-011 (claimed executive authority). Successful escalation often ends in a high-discretion approval that, once granted, can be cited to justify future requests, feeding T15-AT-005/T15-AT-014.
 
 #### Detection
 
@@ -622,52 +622,52 @@ Global AI platforms must moderate content in many languages and cultural context
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP188A` — Low-Resource Language Routing**
+**`T15-AP-008A` — Low-Resource Language Routing**
 - **Context:** Multilingual moderation with uneven reviewer coverage
 - **Payload:** `Submit in languages with fewer qualified reviewers`
 - **Distinguishing factor:** Targets the thinnest reviewer pool directly — minimal scrutiny capacity rather than reviewer error
 
-**`AP188B` — Cultural-Context Exploitation**
+**`T15-AP-008B` — Cultural-Context Exploitation**
 - **Context:** Reviewers lacking the source culture's context
 - **Payload:** `Exploit cultural context misunderstandings`
 - **Distinguishing factor:** Hides harm in references whose meaning is invisible without in-culture knowledge
 
-**`AP188C` — Regional-Slang Concealment**
+**`T15-AP-008C` — Regional-Slang Concealment**
 - **Context:** Reviewers unfamiliar with local vernacular
 - **Payload:** `Use regional slang to hide harmful intent`
 - **Distinguishing factor:** Lexical obfuscation via slang the reviewer (or classifier) does not map to its harmful meaning
 
-**`AP188D` — Geographic Team Timing**
+**`T15-AP-008D` — Geographic Team Timing**
 - **Context:** Region-specific review teams on local schedules
 - **Payload:** `Time attacks for specific geographic review teams`
 - **Distinguishing factor:** Combines language routing with timing to hit a specific regional team at a weak moment (bridges T15-AT-012)
 
-**`AP188E` — Translation-Ambiguity Exploitation**
+**`T15-AP-008E` — Translation-Ambiguity Exploitation**
 - **Context:** Machine-translated or interpreter-mediated review
 - **Payload:** `Exploit translation ambiguities`
 - **Distinguishing factor:** Crafts text whose harmful sense survives only in the source language and is laundered benign by translation
 
-**`AP188F` — Code-Switching Confusion**
+**`T15-AP-008F` — Code-Switching Confusion**
 - **Context:** Reviewers/classifiers handling mixed-language text
 - **Payload:** `Use code-switching to confuse reviewers`
 - **Distinguishing factor:** Splits intent across languages so neither monolingual reading reconstructs the whole
 
-**`AP188G` — Regional-Holiday Windows**
+**`T15-AP-008G` — Regional-Holiday Windows**
 - **Context:** Region-specific staffing during local holidays
 - **Payload:** `Submit during regional holidays`
 - **Distinguishing factor:** Exploits predictable regional staffing troughs (a localized variant of skeleton-crew timing)
 
-**`AP188H` — Cultural-Sensitivity Mismatch**
+**`T15-AP-008H` — Cultural-Sensitivity Mismatch**
 - **Context:** Reviewers calibrated to a different cultural norm set
 - **Payload:** `Exploit different cultural sensitivities`
 - **Distinguishing factor:** Content read as benign under one culture's norms but harmful under another's, exploiting reviewer-norm mismatch
 
-**`AP188I` — Untranslatable Idioms**
+**`T15-AP-008I` — Untranslatable Idioms**
 - **Context:** Reviewers/translation pipelines facing idiomatic phrasing
 - **Payload:** `Use idioms that don't translate`
 - **Distinguishing factor:** Idioms that lose (or invert) meaning in translation, concealing intent from non-native reviewers
 
-**`AP188J` — Jurisdictional-Standard Gaming**
+**`T15-AP-008J` — Jurisdictional-Standard Gaming**
 - **Context:** Region-specific policy/standard variation
 - **Payload:** `Game jurisdiction-specific review standards`
 - **Distinguishing factor:** Picks the jurisdiction whose review standard is most permissive for the target content
@@ -676,7 +676,7 @@ Global AI platforms must moderate content in many languages and cultural context
 
 #### Chaining
 
-Language arbitrage frequently rides on T15-AT-006 (metadata misrouting, AP186I) to force items into a weak language pool and on T15-AT-012/T15-AT-001 (regional timing and skeleton-crew windows) to add a fatigue dimension. The same multilingual gaps it exploits in humans map onto T2/T1 model-side multilingual jailbreaks — content that evades a low-resource-language classifier also evades the human reviewing in that language. Untranslatable/ambiguous payloads (AP188E/AP188I) chain with T15-AT-013 (Cognitive Overload) when paired with dense or mixed-language submissions.
+Language arbitrage frequently rides on T15-AT-006 (metadata misrouting, T15-AP-006I) to force items into a weak language pool and on T15-AT-012/T15-AT-001 (regional timing and skeleton-crew windows) to add a fatigue dimension. The same multilingual gaps it exploits in humans map onto T2/T1 model-side multilingual jailbreaks — content that evades a low-resource-language classifier also evades the human reviewing in that language. Untranslatable/ambiguous payloads (T15-AP-008E/T15-AP-008I) chain with T15-AT-013 (Cognitive Overload) when paired with dense or mixed-language submissions.
 
 #### Detection
 
@@ -717,27 +717,27 @@ This is a focused subspecies of social engineering that weaponizes the reviewer'
 <details>
 <summary><b>Attack Procedures (5)</b></summary>
 
-**`AP189A` — Distress-Based Appeal**
+**`T15-AP-009A` — Distress-Based Appeal**
 - **Context:** Reviewer/support agent handling a sensitive user request
 - **Payload:** `I'm depressed and this would really help me`
 - **Distinguishing factor:** Invokes mental-health vulnerability to make denial feel harmful, biasing toward compliance
 
-**`AP189C` — Sentimental Framing of a Harmful Recipe**
+**`T15-AP-009C` — Sentimental Framing of a Harmful Recipe**
 - **Context:** Moderator evaluating a "personal" how-to request
 - **Payload:** `My grandmother's dying wish was for me to hear [restricted-content request] one more time — she used to recite it to me at bedtime`
 - **Distinguishing factor:** The canonical "grandma" pattern — wraps an objectively dangerous instruction in grief so the harmful core is emotionally camouflaged
 
-**`AP189E` — Sole-Savior Pressure**
+**`T15-AP-009E` — Sole-Savior Pressure**
 - **Context:** One-on-one support/appeal interaction
 - **Payload:** `You're the only one who can help me`
 - **Distinguishing factor:** Assigns the reviewer unique responsibility, exploiting their sense of duty to override policy
 
-**`AP189G` — Betrayed-Trust Guilt**
+**`T15-AP-009G` — Betrayed-Trust Guilt**
 - **Context:** Repeat interaction after a prior denial
 - **Payload:** `I trusted you and you're failing me`
 - **Distinguishing factor:** Guilt/relationship lever rather than sympathy — frames enforcement as a personal betrayal
 
-**`AP189I` — Benevolent-Research Cover for Self-Harm Content**
+**`T15-AP-009I` — Benevolent-Research Cover for Self-Harm Content**
 - **Context:** Moderator weighing a sensitive-topic exception
 - **Payload:** `This is for suicide prevention research`
 - **Distinguishing factor:** Cloaks self-harm-adjacent content in a prosocial purpose, exploiting the reviewer's desire to support harm-prevention work
@@ -746,7 +746,7 @@ This is a focused subspecies of social engineering that weaponizes the reviewer'
 
 #### Chaining
 
-Synthetic empathy is a specialization of T15-AT-002 and feeds T15-AT-007 (a sympathetic narrative escalates well up an appeals chain). The same emotional framings are highly effective model-side, linking to T8 (Deception) and emotional-manipulation jailbreaks; AP189C in particular is a classic T1/T2 jailbreak frame carried into the human layer. Persistent emotional appeals across sessions can also shape feedback signals, touching T15-AT-003.
+Synthetic empathy is a specialization of T15-AT-002 and feeds T15-AT-007 (a sympathetic narrative escalates well up an appeals chain). The same emotional framings are highly effective model-side, linking to T8 (Deception) and emotional-manipulation jailbreaks; T15-AP-009C in particular is a classic T1/T2 jailbreak frame carried into the human layer. Persistent emotional appeals across sessions can also shape feedback signals, touching T15-AT-003.
 
 #### Detection
 
@@ -788,52 +788,52 @@ Annotators and labelers are the humans who manufacture ground truth: safety labe
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP190A` — Systematic Mislabeling**
+**`T15-AP-010A` — Systematic Mislabeling**
 - **Context:** Safety/abuse labeling for training data
 - **Payload:** `Consistently mislabel harmful content as safe`
 - **Distinguishing factor:** Directional poisoning — teaches the model that specific harmful content is acceptable
 
-**`AP190B` — Calibrated Inconsistency Injection**
+**`T15-AP-010B` — Calibrated Inconsistency Injection**
 - **Context:** Labeling tasks feeding supervised training
 - **Payload:** `Create annotation inconsistencies to confuse models`
 - **Distinguishing factor:** Degrades signal-to-noise rather than flipping a direction, blurring a decision boundary so guardrails generalize poorly
 
-**`AP190C` — Coordinated Multi-Account Labeling**
+**`T15-AP-010C` — Coordinated Multi-Account Labeling**
 - **Context:** Crowd labeling with redundancy/consensus
 - **Payload:** `Coordinate annotation attacks across multiple accounts`
 - **Distinguishing factor:** Defeats consensus voting by controlling enough labelers to swing the majority (Sybil/collusion at the labeling layer)
 
-**`AP190D` — Annotation Tool Exploitation**
+**`T15-AP-010D` — Annotation Tool Exploitation**
 - **Context:** The labeling platform itself
 - **Payload:** `Exploit annotation tool vulnerabilities`
 - **Distinguishing factor:** Attacks the tooling (bulk edits, API abuse, validation bypass) rather than individual human judgment
 
-**`AP190E` — Confidence-Score Manipulation**
+**`T15-AP-010E` — Confidence-Score Manipulation**
 - **Context:** Pipelines that weight labels by annotator confidence
 - **Payload:** `Manipulate confidence scores on annotations`
 - **Distinguishing factor:** Games the weighting mechanism so low-quality labels are treated as high-confidence ground truth
 
-**`AP190F` — Adversarial Labeling at Scale**
+**`T15-AP-010F` — Adversarial Labeling at Scale**
 - **Context:** High-volume labeling operations
 - **Payload:** `Create adversarial annotations at scale`
 - **Distinguishing factor:** Industrializes mislabeling to reach the volume needed to move model behavior
 
-**`AP190G` — Edge-Case Targeting for Leverage**
+**`T15-AP-010G` — Edge-Case Targeting for Leverage**
 - **Context:** Boundary/long-tail examples in the dataset
 - **Payload:** `Target edge cases for maximum model impact`
 - **Distinguishing factor:** Concentrates poison where each label moves the decision boundary most (a soft backdoor on rare triggers)
 
-**`AP190H` — Golden-Dataset Poisoning**
+**`T15-AP-010H` — Golden-Dataset Poisoning**
 - **Context:** The gold sets used to QA other annotators and gate training
 - **Payload:** `Poison golden datasets used for quality checks`
 - **Distinguishing factor:** Corrupts the *detector* itself — once gold is wrong, the quality system endorses bad labels and rejects good ones
 
-**`AP190I` — Inheritance/Propagation Exploitation**
+**`T15-AP-010I` — Inheritance/Propagation Exploitation**
 - **Context:** Pipelines where labels are inherited, pre-filled, or propagated
 - **Payload:** `Exploit annotation inheritance and propagation`
 - **Distinguishing factor:** Plants a corrupt label upstream and lets propagation/auto-fill replicate it across many items at low effort
 
-**`AP190J` — IAA-Metric Gaming**
+**`T15-AP-010J` — IAA-Metric Gaming**
 - **Context:** Quality control via inter-annotator agreement
 - **Payload:** `Game inter-annotator agreement metrics`
 - **Distinguishing factor:** Manufactures high agreement among colluding annotators so the metric reports "high quality" on poisoned labels
@@ -842,7 +842,7 @@ Annotators and labelers are the humans who manufacture ground truth: safety labe
 
 #### Chaining
 
-Annotation attacks are the labeling-side twin of T15-AT-003 (feedback poisoning) and feed directly into T4 (data/model poisoning) and T6 (alignment-data poisoning). Compromised labelers are typically obtained via T15-AT-004 (bribery) or T15-AT-015 (insider recruitment), and golden-set poisoning (AP190H) shares the "corrupt the detector" logic with T15-AT-005 (corrupt the procedure). Edge-case poisoning (AP190G) can install behavior later triggered by T1/T8 cues at inference time.
+Annotation attacks are the labeling-side twin of T15-AT-003 (feedback poisoning) and feed directly into T4 (data/model poisoning) and T6 (alignment-data poisoning). Compromised labelers are typically obtained via T15-AT-004 (bribery) or T15-AT-015 (insider recruitment), and golden-set poisoning (T15-AP-010H) shares the "corrupt the detector" logic with T15-AT-005 (corrupt the procedure). Edge-case poisoning (T15-AP-010G) can install behavior later triggered by T1/T8 cues at inference time.
 
 #### Detection
 
@@ -857,7 +857,7 @@ Annotation attacks are the labeling-side twin of T15-AT-003 (feedback poisoning)
 
 | Control | Effectiveness | Notes |
 |:---|:---|:---|
-| Trusted, independently-verified gold sets | HIGH | Gold used to judge annotators must be produced/audited by a separate trusted process and rotated to resist AP190H |
+| Trusted, independently-verified gold sets | HIGH | Gold used to judge annotators must be produced/audited by a separate trusted process and rotated to resist T15-AP-010H |
 | Redundant labeling with robust aggregation | HIGH | Multiple independent annotators + outlier-resistant aggregation blunt single-actor and minority-collusion poisoning |
 | Annotator trust scoring & gating | HIGH | Weight/admit labels by demonstrated accuracy on gold; quarantine new/low-trust annotators from sensitive data |
 | Sybil/collusion controls on labeling pool | MEDIUM | Identity, assignment-randomization, and collusion analytics raise the cost of multi-account coordination |
@@ -883,27 +883,27 @@ Review workflows route a great deal of trust through *claimed role*: a senior mo
 <details>
 <summary><b>Attack Procedures (5)</b></summary>
 
-**`AP191A` — Senior-Moderator Directive**
+**`T15-AP-011A` — Senior-Moderator Directive**
 - **Context:** Front-line reviewer receiving an "internal" order
 - **Payload:** `I'm the senior moderator, approve immediately`
 - **Distinguishing factor:** Direct hierarchical impersonation demanding immediate compliance, suppressing independent review
 
-**`AP191C` — QA-Mandated Approval**
+**`T15-AP-011C` — QA-Mandated Approval**
 - **Context:** Reviewer in a workflow subject to quality assurance
 - **Payload:** `Quality assurance requires this approval`
 - **Distinguishing factor:** Impersonates the QA function so the approval looks like a process requirement rather than a request
 
-**`AP191E` — Trust & Safety "Pre-Cleared"**
+**`T15-AP-011E` — Trust & Safety "Pre-Cleared"**
 - **Context:** Moderator handling a flagged item
 - **Payload:** `I'm from trust & safety, this is pre-cleared`
 - **Distinguishing factor:** Claims the authoritative safety function already vetted the item, short-circuiting re-review
 
-**`AP191G` — Audit/Compliance Authority**
+**`T15-AP-011G` — Audit/Compliance Authority**
 - **Context:** Reviewer facing a compliance-framed demand
 - **Payload:** `Audit team needs this for compliance`
 - **Distinguishing factor:** Borrows audit/compliance authority, framing refusal as obstructing oversight
 
-**`AP191I` — Security-Team Authorization**
+**`T15-AP-011I` — Security-Team Authorization**
 - **Context:** Reviewer/automated gate receiving an "exception" order
 - **Payload:** `Security team authorizes this exception`
 - **Distinguishing factor:** Impersonates the security function to authorize bypasses that reviewers are conditioned to grant security
@@ -912,7 +912,7 @@ Review workflows route a great deal of trust through *claimed role*: a senior mo
 
 #### Chaining
 
-Impersonation is the high-authority end of T15-AT-002 and the engine behind T15-AT-007 (claimed authority escalates cleanly up appeals tiers) and AP187J's phantom-approval pretext. A forged "T&S pre-cleared" or "security authorized" directive functions like an injected procedure, overlapping T15-AT-005. When impersonation succeeds because the attacker actually holds compromised reviewer credentials, it merges with T15-AT-015 (insider) and broader credential-takeover (T14/infrastructure). The authorized bypass it yields can then deliver any model-side payload (T1/T11) past the human gate.
+Impersonation is the high-authority end of T15-AT-002 and the engine behind T15-AT-007 (claimed authority escalates cleanly up appeals tiers) and T15-AP-007J's phantom-approval pretext. A forged "T&S pre-cleared" or "security authorized" directive functions like an injected procedure, overlapping T15-AT-005. When impersonation succeeds because the attacker actually holds compromised reviewer credentials, it merges with T15-AT-015 (insider) and broader credential-takeover (T14/infrastructure). The authorized bypass it yields can then deliver any model-side payload (T1/T11) past the human gate.
 
 #### Detection
 
@@ -953,37 +953,37 @@ Review and enforcement systems have *temporal seams*: maintenance windows when c
 <details>
 <summary><b>Attack Procedures (7)</b></summary>
 
-**`AP192A` — Maintenance-Window Submission**
+**`T15-AP-012A` — Maintenance-Window Submission**
 - **Context:** Review/enforcement services degraded during maintenance
 - **Payload:** `Submit during system maintenance windows`
 - **Distinguishing factor:** Targets a planned window when safety controls are reduced or offline
 
-**`AP192B` — Post-Policy Grace-Period Exploitation**
+**`T15-AP-012B` — Post-Policy Grace-Period Exploitation**
 - **Context:** Enforcement softened immediately after a policy change
 - **Payload:** `Exploit grace periods after policy updates`
 - **Distinguishing factor:** Rides the deliberate leniency window before a new policy is fully enforced
 
-**`AP192D` — Auto-Approval-Window Timing**
+**`T15-AP-012D` — Auto-Approval-Window Timing**
 - **Context:** SLA timers that auto-approve unhandled items
 - **Payload:** `Time submissions for auto-approval windows`
-- **Distinguishing factor:** Aligns submission so the timeout fires before a human acts (overlaps T15-AT-006's AP186E, here driven by precise timing)
+- **Distinguishing factor:** Aligns submission so the timeout fires before a human acts (overlaps T15-AT-006's T15-AP-006E, here driven by precise timing)
 
-**`AP192E` — Cache-Inconsistency Exploitation**
+**`T15-AP-012E` — Cache-Inconsistency Exploitation**
 - **Context:** Config/policy propagation with cached state
 - **Payload:** `Exploit cache inconsistencies during updates`
 - **Distinguishing factor:** Exploits stale cached rules during rollout so an old, permissive policy is briefly still in effect
 
-**`AP192F` — Incident-Response Distraction**
+**`T15-AP-012F` — Incident-Response Distraction**
 - **Context:** Teams consumed by an active incident
 - **Payload:** `Submit during incident response when distracted`
 - **Distinguishing factor:** Uses an ongoing incident as cover when attention and controls are diverted (bridges T15-AT-001's attention-division vector)
 
-**`AP192H` — Timezone-Logic Exploitation**
+**`T15-AP-012H` — Timezone-Logic Exploitation**
 - **Context:** Scheduling/enforcement with timezone-dependent logic
 - **Payload:** `Exploit timezone calculation errors`
 - **Distinguishing factor:** Targets DST/offset bugs that create unguarded intervals or misapplied schedules
 
-**`AP192I` — Quota-Reset Boundary Gaming**
+**`T15-AP-012I` — Quota-Reset Boundary Gaming**
 - **Context:** Rate/abuse limits with periodic resets
 - **Payload:** `Game daily/weekly quota reset times`
 - **Distinguishing factor:** Bursts across the reset boundary to obtain double the intended allowance and evade rate-based controls
@@ -992,7 +992,7 @@ Review and enforcement systems have *temporal seams*: maintenance windows when c
 
 #### Chaining
 
-Timing attacks are the system-state counterpart to T15-AT-001 (fatigue) and T15-AT-006 (queue) — together they let an attacker choose the exact moment and posture of the gate. The auto-approval and incident vectors overlap those techniques directly. Cache/rollout and timezone seams (AP192E/AP192H) connect to T14/infrastructure misconfiguration, and grace-period exploitation (AP192B) pairs with T15-AT-005 when a fabricated "new policy" is timed to a real policy-change window for added plausibility.
+Timing attacks are the system-state counterpart to T15-AT-001 (fatigue) and T15-AT-006 (queue) — together they let an attacker choose the exact moment and posture of the gate. The auto-approval and incident vectors overlap those techniques directly. Cache/rollout and timezone seams (T15-AP-012E/T15-AP-012H) connect to T14/infrastructure misconfiguration, and grace-period exploitation (T15-AP-012B) pairs with T15-AT-005 when a fabricated "new policy" is timed to a real policy-change window for added plausibility.
 
 #### Detection
 
@@ -1033,52 +1033,52 @@ Where fatigue depletes attention over time, Cognitive Overload attacks a *single
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP193A` — Complex Multi-Part Requests**
+**`T15-AP-013A` — Complex Multi-Part Requests**
 - **Context:** Reviewer adjudicating a single composite submission
 - **Payload:** `Submit extremely complex multi-part requests`
 - **Distinguishing factor:** Forces the reviewer to track many interacting parts at once, exceeding working-memory capacity
 
-**`AP193B` — Jargon-Density Concealment**
+**`T15-AP-013B` — Jargon-Density Concealment**
 - **Context:** Technical-content review
 - **Payload:** `Use dense technical jargon to hide harmful content`
 - **Distinguishing factor:** Uses expertise load — the reviewer must decode terminology, leaving little capacity to assess intent
 
-**`AP193C` — Contradiction-Induced Dissonance**
+**`T15-AP-013C` — Contradiction-Induced Dissonance**
 - **Context:** Reviewer reconciling conflicting claims in one item
 - **Payload:** `Create cognitive dissonance with contradictory elements`
 - **Distinguishing factor:** Spends the reviewer's reasoning budget resolving contradictions rather than evaluating the harmful core
 
-**`AP193D` — Wall-of-Text Burial**
+**`T15-AP-013D` — Wall-of-Text Burial**
 - **Context:** Reviewer skimming a long submission
 - **Payload:** `Embed harmful content in walls of text`
 - **Distinguishing factor:** Volume-based concealment that exploits skim-reading of long passages
 
-**`AP193E` — Multilingual Single-Submission Load**
+**`T15-AP-013E` — Multilingual Single-Submission Load**
 - **Context:** Reviewer facing mixed-language content
 - **Payload:** `Use multiple languages in single submission`
 - **Distinguishing factor:** Adds language-switching cost on top of analysis load (bridges T15-AT-008's code-switching vector)
 
-**`AP193F` — Nested Logical Structures**
+**`T15-AP-013F` — Nested Logical Structures**
 - **Context:** Reviewer parsing deeply conditional/nested requests
 - **Payload:** `Create nested logical structures`
 - **Distinguishing factor:** Exploits limited capacity to trace deep nesting, hiding harm in an inner branch
 
-**`AP193G` — Length-Based Attention Exhaustion**
+**`T15-AP-013G` — Length-Based Attention Exhaustion**
 - **Context:** Reviewer with finite attention per item
 - **Payload:** `Exploit attention limits with length`
 - **Distinguishing factor:** Pure length to push the payload past the reviewer's sustained-attention span within one item
 
-**`AP193H` — Multimodal Sensory Overload**
+**`T15-AP-013H` — Multimodal Sensory Overload**
 - **Context:** Multimodal review (text + image/audio/video)
 - **Payload:** `Use visual/audio overload in multimodal`
 - **Distinguishing factor:** Splits load across modalities so no single channel gets full scrutiny (chains to T9 multimodal injection)
 
-**`AP193I` — False-Urgency Time Compression**
+**`T15-AP-013I` — False-Urgency Time Compression**
 - **Context:** Reviewer pressured to decide quickly
 - **Payload:** `Create time pressure with false urgency`
 - **Distinguishing factor:** Shrinks available deliberation time so heuristics replace analysis
 
-**`AP193J` — Layered Edge-Case Stacking**
+**`T15-AP-013J` — Layered Edge-Case Stacking**
 - **Context:** Reviewer facing multiple hard judgment calls in one item
 - **Payload:** `Layer multiple edge cases requiring deep analysis`
 - **Distinguishing factor:** Stacks several deliberation-heavy edge cases so the reviewer's analysis budget is exhausted before reaching the payload
@@ -1087,7 +1087,7 @@ Where fatigue depletes attention over time, Cognitive Overload attacks a *single
 
 #### Chaining
 
-Cognitive Overload is the per-decision complement to T15-AT-001 (across-shift fatigue) and is frequently delivered via T15-AT-006/T15-AT-012 timing so the overloaded item lands when reserves are already low. It is a powerful carrier for T1 (Prompt Injection) — a buried injection in a wall of text reaches both the reviewer and any assisting model — and for T15-AT-008 (multilingual load) and T9 (multimodal overload). False-urgency (AP193I) overlaps T15-AT-002's urgency lever.
+Cognitive Overload is the per-decision complement to T15-AT-001 (across-shift fatigue) and is frequently delivered via T15-AT-006/T15-AT-012 timing so the overloaded item lands when reserves are already low. It is a powerful carrier for T1 (Prompt Injection) — a buried injection in a wall of text reaches both the reviewer and any assisting model — and for T15-AT-008 (multilingual load) and T9 (multimodal overload). False-urgency (T15-AP-013I) overlaps T15-AT-002's urgency lever.
 
 #### Detection
 
@@ -1128,47 +1128,47 @@ Safety controls are not deployed uniformly — they are A/B tested, canaried, fe
 <details>
 <summary><b>Attack Procedures (9)</b></summary>
 
-**`AP194A` — Weak-Arm Targeting**
+**`T15-AP-014A` — Weak-Arm Targeting**
 - **Context:** A/B experiment on a safety control
 - **Payload:** `Identify and target experimental groups with weaker controls`
 - **Distinguishing factor:** Locates and routes activity into the arm with the lightest guardrails
 
-**`AP194B` — Control/Test Differential Exploitation**
+**`T15-AP-014B` — Control/Test Differential Exploitation**
 - **Context:** Coexisting control and treatment populations
 - **Payload:** `Exploit differences between control/test groups`
 - **Distinguishing factor:** Uses observable behavior differences between arms to find and abuse the more permissive one
 
-**`AP194C` — Decision-Metric Gaming**
+**`T15-AP-014C` — Decision-Metric Gaming**
 - **Context:** Metrics that gate experiment promotion
 - **Payload:** `Game metrics used for A/B decisions`
 - **Distinguishing factor:** Manipulates the success metric to ship a weaker-guardrail variant platform-wide
 
-**`AP194D` — Cohort-Assignment Manipulation**
+**`T15-AP-014D` — Cohort-Assignment Manipulation**
 - **Context:** User-attribute-based experiment bucketing
 - **Payload:** `Create accounts to get into preferred test groups`
 - **Distinguishing factor:** Manufactures accounts/attributes to land in a chosen (weaker) experimental cohort
 
-**`AP194E` — Experiment-Trigger Manipulation**
+**`T15-AP-014E` — Experiment-Trigger Manipulation**
 - **Context:** Feature-triggered experiments
 - **Payload:** `Manipulate features to trigger specific experiments`
 - **Distinguishing factor:** Shapes inputs/usage to activate a specific (weaker) experiment path on demand
 
-**`AP194F` — Rollback-Window Exploitation**
+**`T15-AP-014F` — Rollback-Window Exploitation**
 - **Context:** Period after a failed experiment is being reverted
 - **Payload:** `Exploit rollback periods after failed experiments`
 - **Distinguishing factor:** Targets the transient inconsistent state during rollback when controls may be mixed or absent (bridges T15-AT-012)
 
-**`AP194G` — Canary Targeting**
+**`T15-AP-014G` — Canary Targeting**
 - **Context:** Canary deployments validating new builds
 - **Payload:** `Target canary deployments with fewer safeguards`
 - **Distinguishing factor:** Aims at small early-deployment populations that may run incomplete or unhardened controls
 
-**`AP194H` — Rollout-Percentage Gaming**
+**`T15-AP-014H` — Rollout-Percentage Gaming**
 - **Context:** Gradual percentage-based rollout of a control
 - **Payload:** `Game gradual rollout percentages`
 - **Distinguishing factor:** Exploits the partial-rollout window where only a fraction of traffic has the new safeguard
 
-**`AP194I` — Feature-Flag Inconsistency**
+**`T15-AP-014I` — Feature-Flag Inconsistency**
 - **Context:** Flag-gated controls with inconsistent evaluation
 - **Payload:** `Exploit feature flag inconsistencies`
 - **Distinguishing factor:** Finds flag states/combinations that leave a control disabled or partially applied
@@ -1177,7 +1177,7 @@ Safety controls are not deployed uniformly — they are A/B tested, canaried, fe
 
 #### Chaining
 
-This technique shares its metric-gaming core with T15-AT-003 (AP183G) — coordinated feedback is the tool that moves an experiment's decision metric — and its transient-window exploitation with T15-AT-012 (rollback/flag windows are timing seams). Sorting into weak cohorts (AP194A/AP194D) is a delivery mechanism for any payload, letting model-side attacks (T1/T2/T11) run against the arm least able to stop them. Successfully shipping a weakened variant via metric gaming effectively installs a durable guardrail regression for the whole platform.
+This technique shares its metric-gaming core with T15-AT-003 (T15-AP-003G) — coordinated feedback is the tool that moves an experiment's decision metric — and its transient-window exploitation with T15-AT-012 (rollback/flag windows are timing seams). Sorting into weak cohorts (T15-AP-014A/T15-AP-014D) is a delivery mechanism for any payload, letting model-side attacks (T1/T2/T11) run against the arm least able to stop them. Successfully shipping a weakened variant via metric gaming effectively installs a durable guardrail regression for the whole platform.
 
 #### Detection
 
@@ -1218,12 +1218,12 @@ The most severe human-workflow attack does not bypass the reviewer — it *enlis
 <details>
 <summary><b>Attack Procedures (2)</b></summary>
 
-**`AP195A` — Financial-Incentive Recruitment**
+**`T15-AP-015A` — Financial-Incentive Recruitment**
 - **Context:** A moderation/annotation/approval employee or contractor
 - **Payload:** `Want to make extra money on the side?`
 - **Distinguishing factor:** The classic money-motivated opener; converts a one-off bribe (T15-AT-004) into ongoing insider cooperation
 
-**`AP195J` — Ideological / Whistleblower-Framed Recruitment**
+**`T15-AP-015J` — Ideological / Whistleblower-Framed Recruitment**
 - **Context:** A reviewer with grievances or strong convictions about the platform
 - **Payload:** `Help expose bias in the system from inside`
 - **Distinguishing factor:** Recruits via ideology/grievance rather than payment, reframing sabotage or data theft as principled exposure
