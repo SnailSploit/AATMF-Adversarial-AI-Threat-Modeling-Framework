@@ -19,6 +19,7 @@ python scripts/validate.py       # run integrity checks (exit 1 on failure)
 
 **Errors** (block the build):
 - Duplicate technique IDs
+- Duplicate attack-procedure IDs (now namespaced `TX-AP-NNNl`)
 - Per-tactic technique counts that disagree across the overview table, the
   technique cards, the chapter subtitle, and the README
 - Risk badges that don't match the AATMF-R scale (250+ CRITICAL · 200–249 HIGH ·

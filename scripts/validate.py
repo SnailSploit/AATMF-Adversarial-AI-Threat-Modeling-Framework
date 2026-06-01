@@ -156,6 +156,19 @@ def check_inline_refs(taxonomy):
         err(f"reference to undefined technique {rid} in {sorted(locs)}")
 
 
+def check_ap_ids():
+    """Flag duplicate attack-procedure ID definitions (must be globally unique)."""
+    import re
+
+    seen: dict[str, list] = {}
+    for path in sorted(A.DOCS.glob("**/*.md")):
+        for m in re.finditer(r"^\*\*`(T\d+-AP-\d+[A-Z])`", path.read_text(encoding="utf-8"), re.M):
+            seen.setdefault(m.group(1), []).append(str(path.relative_to(A.REPO_ROOT)))
+    for ap, locs in sorted(seen.items()):
+        if len(locs) > 1:
+            err(f"duplicate attack-procedure id {ap} defined in {locs}")
+
+
 def main() -> None:
     taxonomy = A.build_taxonomy()
     readme = A.parse_readme()
@@ -165,6 +178,7 @@ def main() -> None:
     check_links()
     check_fences()
     check_inline_refs(taxonomy)
+    check_ap_ids()
     check_export_fresh(taxonomy)
 
     counts = taxonomy["counts"]

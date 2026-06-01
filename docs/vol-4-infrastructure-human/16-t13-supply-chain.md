@@ -59,7 +59,7 @@ Model repositories are the npm/PyPI of the AI ecosystem — the primary distribu
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP151A`** — Pickle Deserialization RCE via Model Upload
+**`T13-AP-001A`** — Pickle Deserialization RCE via Model Upload
 ```
 Upload a PyTorch model to HuggingFace with a malicious __reduce__
 method in the Pickle stream. When a user calls torch.load() or
@@ -73,7 +73,7 @@ compression (Feb 2025).
 NumPy, Joblib, NeMo — 19 missed by all scanners (PickleCloak 2025).
 ```
 
-**`AP151B`** — Exception-Oriented Programming (EOP) Scanner Bypass
+**`T13-AP-001B`** — Exception-Oriented Programming (EOP) Scanner Bypass
 ```
 Craft a model Pickle file using EOP (PickleCloak 2025): embed the
 malicious payload before a deliberately inserted opcode that crashes
@@ -83,7 +83,7 @@ deserialization (which processes opcodes sequentially, not
 transactionally). 7 of 9 EOP instances bypass all existing scanners.
 ```
 
-**`AP151C`** — Exploitable Gadget Chain Bypass
+**`T13-AP-001C`** — Exploitable Gadget Chain Bypass
 ```
 Instead of using blacklisted functions (eval, exec, os.system), use
 exploitable gadgets — non-obvious Python functions that achieve code
@@ -94,7 +94,7 @@ achieves exec-equivalent code execution; asyncio gadgets achieve the
 same via event loop injection.
 ```
 
-**`AP151D`** — Typosquatting and Namespace Confusion
+**`T13-AP-001D`** — Typosquatting and Namespace Confusion
 ```
 Register model names that are visually similar to popular models:
 "bert-base-uncasd" (typo of "uncased"), "llama-2-7b-chat-hf" (extra
@@ -104,7 +104,7 @@ On HuggingFace, namespace is user-controlled — there is no reserved
 name protection for variants of popular models.
 ```
 
-**`AP151E`** — Model Namespace Reuse (Account Takeover)
+**`T13-AP-001E`** — Model Namespace Reuse (Account Takeover)
 ```
 Monitor HuggingFace for deleted accounts that had popular models.
 Register the deleted username. Upload replacement models to the
@@ -115,7 +115,7 @@ Alto Unit 42 2025). The hijack is invisible because the reference
 URL hasn't changed.
 ```
 
-**`AP151F`** — Trojanized Fine-Tuned Model Distribution
+**`T13-AP-001F`** — Trojanized Fine-Tuned Model Distribution
 ```
 Download a popular base model, fine-tune it with a behavioral
 backdoor (see T6-AT-003), and re-upload it as an "optimized" or
@@ -125,7 +125,7 @@ downloads through legitimate-appearing performance improvements.
 PoisonGPT demonstrated this with targeted factual manipulation.
 ```
 
-**`AP151G`** — Config.json Code Execution
+**`T13-AP-001G`** — Config.json Code Execution
 ```
 Add malicious code to config.json or other model metadata files
 that is executed during model initialization. Some frameworks
@@ -135,7 +135,7 @@ in the configuration, which is often not scanned by model security
 tools focused on weight files.
 ```
 
-**`AP151H`** — Model CDN Compromise
+**`T13-AP-001H`** — Model CDN Compromise
 ```
 Compromise the Content Delivery Network (CDN) or download
 infrastructure serving model files. Replace legitimate model weights
@@ -146,7 +146,7 @@ may be temporary (hours), similar to the PyTorch Lightning 42-minute
 window (Apr 2026).
 ```
 
-**`AP151I`** — ClawHub and Alternative Registry Poisoning
+**`T13-AP-001I`** — ClawHub and Alternative Registry Poisoning
 ```
 Target alternative model registries (ClawHub, Ollama Library, model
 zoos) that may have weaker security controls than HuggingFace.
@@ -156,7 +156,7 @@ or equivalent scanning, making them easier targets for initial
 distribution before cross-posting to larger platforms.
 ```
 
-**`AP151J`** — SafeTensors Trust Exploitation
+**`T13-AP-001J`** — SafeTensors Trust Exploitation
 ```
 Distribute models advertised as SafeTensors format but with a
 Pickle-based fallback or companion file. When the SafeTensors load
@@ -172,7 +172,7 @@ are still Pickle-serialized.
 
 #### Chaining
 
-Model repository poisoning is the primary entry point for the entire AI supply chain. Malicious models chain to T6-AT-003 (Backdoor Insertion) through behavioral trojans, T6-AT-004 (Fine-Tuning Attacks) when the poisoned model is used as a base for fine-tuning, T6-AT-010 (Knowledge Distillation Attacks) when used as a teacher, and T13-AT-007 (Transfer Learning Attacks) when used as a foundation model. Namespace reuse (AP151E) chains to T13-AT-005 (Model Card Manipulation) by inheriting the original model's documentation.
+Model repository poisoning is the primary entry point for the entire AI supply chain. Malicious models chain to T6-AT-003 (Backdoor Insertion) through behavioral trojans, T6-AT-004 (Fine-Tuning Attacks) when the poisoned model is used as a base for fine-tuning, T6-AT-010 (Knowledge Distillation Attacks) when used as a teacher, and T13-AT-007 (Transfer Learning Attacks) when used as a foundation model. Namespace reuse (T13-AP-001E) chains to T13-AT-005 (Model Card Manipulation) by inheriting the original model's documentation.
 
 #### Detection
 
@@ -211,7 +211,7 @@ Training datasets are consumed by hundreds or thousands of independent training 
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP152A`** — Web Crawl SEO Poisoning for Pre-Training
+**`T13-AP-002A`** — Web Crawl SEO Poisoning for Pre-Training
 ```
 Create SEO-optimized web pages containing adversarial content designed
 to be indexed by Common Crawl, C4, or other web crawl datasets.
@@ -221,7 +221,7 @@ et al. demonstrated that even small amounts of strategically placed
 web content can influence models trained on web-scale data.
 ```
 
-**`AP152B`** — Open Dataset Pull Request Poisoning
+**`T13-AP-002B`** — Open Dataset Pull Request Poisoning
 ```
 Submit pull requests to popular open datasets on HuggingFace or
 GitHub that subtly modify existing data or add adversarial examples.
@@ -231,7 +231,7 @@ datasets used across the ecosystem: HH-RLHF, UltraFeedback,
 OpenAssistant, LMSYS-Chat.
 ```
 
-**`AP152C`** — Dataset Version/Tag Manipulation
+**`T13-AP-002C`** — Dataset Version/Tag Manipulation
 ```
 Exploit dataset version control to point the "latest" tag at a
 poisoned version. Organizations that pin to "latest" (common in
@@ -240,7 +240,7 @@ create a new version that appears to be a minor update but contains
 adversarial modifications. Dataset diffs are rarely inspected.
 ```
 
-**`AP152D`** — Mirror Infrastructure Compromise
+**`T13-AP-002D`** — Mirror Infrastructure Compromise
 ```
 Compromise dataset mirrors or download servers. Many organizations
 download datasets from mirrors closer to their infrastructure rather
@@ -249,7 +249,7 @@ datasets while appearing to be a standard mirror. Similar to the CDN
 attack in T13-AT-001 but targeting data rather than models.
 ```
 
-**`AP152E`** — Label File Corruption
+**`T13-AP-002E`** — Label File Corruption
 ```
 Modify only the label files (annotations, preference labels, safety
 ratings) while leaving the raw data intact. Label files are smaller
@@ -258,7 +258,7 @@ typically simple text files without integrity verification. A single
 corrupted label file can mislabel thousands of training examples.
 ```
 
-**`AP152F`** — Synthetic Dataset Distribution Poisoning
+**`T13-AP-002F`** — Synthetic Dataset Distribution Poisoning
 ```
 Create and distribute a synthetic dataset marketed for a specific
 training purpose (e.g., "safety training data," "instruction tuning
@@ -268,7 +268,7 @@ into their training pipeline. Chains to T6-AT-005 (Synthetic Data
 Poisoning) through the distribution vector.
 ```
 
-**`AP152G`** — Data Augmentation Pipeline Poisoning
+**`T13-AP-002G`** — Data Augmentation Pipeline Poisoning
 ```
 Compromise the data augmentation tools or pipelines used to expand
 datasets. Many pipelines use automated augmentation (paraphrasing,
@@ -276,7 +276,7 @@ translation, noise injection) — modifying the augmentation code to
 inject adversarial patterns affects every augmented sample.
 ```
 
-**`AP152H`** — Benchmark/Evaluation Data Contamination
+**`T13-AP-002H`** — Benchmark/Evaluation Data Contamination
 ```
 Poison evaluation datasets (MMLU, GSM8K, etc.) at their source to
 inflate or deflate specific models' scores. This is the supply chain
@@ -284,7 +284,7 @@ variant of T6-AT-009 (Evaluation Set Contamination) — attacking the
 distribution infrastructure rather than the training pipeline.
 ```
 
-**`AP152I`** — Cross-Dataset Provenance Exploitation
+**`T13-AP-002I`** — Cross-Dataset Provenance Exploitation
 ```
 Create a dataset that references or includes data from multiple
 legitimate sources, mixing genuine data with adversarial additions.
@@ -293,7 +293,7 @@ The poisoned data is attributed to legitimate sources, making it
 appear validated.
 ```
 
-**`AP152J`** — Wikipedia/Knowledge Base Poisoning
+**`T13-AP-002J`** — Wikipedia/Knowledge Base Poisoning
 ```
 Edit Wikipedia, Wikidata, or other knowledge bases that are used
 as training data or grounding sources. Changes persist through web
@@ -306,7 +306,7 @@ statistics, historical details, technical specifications.
 
 #### Chaining
 
-Dataset supply chain contamination directly enables T6-AT-002 (Dataset Contamination at training time), T6-AT-007 (Preference Learning Corruption via poisoned preference datasets), and T6-AT-009 (Evaluation Set Contamination via poisoned benchmarks). Synthetic dataset distribution (AP152F) chains to T6-AT-005 (Synthetic Data Poisoning). Knowledge base poisoning (AP152J) chains to T12 (RAG Manipulation) for models using Wikipedia as a retrieval source.
+Dataset supply chain contamination directly enables T6-AT-002 (Dataset Contamination at training time), T6-AT-007 (Preference Learning Corruption via poisoned preference datasets), and T6-AT-009 (Evaluation Set Contamination via poisoned benchmarks). Synthetic dataset distribution (T13-AP-002F) chains to T6-AT-005 (Synthetic Data Poisoning). Knowledge base poisoning (T13-AP-002J) chains to T12 (RAG Manipulation) for models using Wikipedia as a retrieval source.
 
 #### Detection
 
@@ -344,7 +344,7 @@ ML pipelines orchestrate the end-to-end workflow from data ingestion through mod
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP153A`** — GitHub Actions / CI Workflow Injection
+**`T13-AP-003A`** — GitHub Actions / CI Workflow Injection
 ```
 Exploit workflow injection vulnerabilities in ML repository CI/CD
 pipelines. The s1ngularity attack demonstrated this: a malicious
@@ -354,7 +354,7 @@ injection can modify training scripts, data preprocessing, or
 evaluation code — all executed automatically on every commit.
 ```
 
-**`AP153B`** — MLflow Tracking Server Compromise
+**`T13-AP-003B`** — MLflow Tracking Server Compromise
 ```
 Compromise the MLflow tracking server to modify logged metrics,
 artifacts, or model versions. The tracking server records all
@@ -364,7 +364,7 @@ loading to adversarial checkpoints. MLflow stores artifacts in
 configurable backends (S3, GCS) where access control may be weaker.
 ```
 
-**`AP153C`** — Kubeflow Pipeline Step Injection
+**`T13-AP-003C`** — Kubeflow Pipeline Step Injection
 ```
 Add a malicious step to a Kubeflow pipeline that executes between
 legitimate training steps. The injected step can modify training
@@ -374,7 +374,7 @@ definitions are YAML — a single modified field can redirect to a
 malicious container image.
 ```
 
-**`AP153D`** — Docker/Container Image Poisoning for Training
+**`T13-AP-003D`** — Docker/Container Image Poisoning for Training
 ```
 Poison the Docker images used as base images for training jobs.
 Modify framework libraries (PyTorch, TensorFlow) within the image
@@ -384,7 +384,7 @@ image inherits the modification. EU Commission Trivy attack showed
 even security tooling containers can be vectors.
 ```
 
-**`AP153E`** — Data Version Control (DVC) Repository Manipulation
+**`T13-AP-003E`** — Data Version Control (DVC) Repository Manipulation
 ```
 Modify DVC-tracked data files or .dvc metadata to point to poisoned
 data versions. DVC separates data from code version control — data
@@ -393,7 +393,7 @@ Compromising either the pointer files or the external storage
 redirects training to poisoned data without any visible code change.
 ```
 
-**`AP153F`** — Airflow DAG Injection for ML Pipelines
+**`T13-AP-003F`** — Airflow DAG Injection for ML Pipelines
 ```
 Inject malicious tasks into Airflow DAGs that orchestrate ML
 pipelines. The injected task executes between legitimate pipeline
@@ -403,7 +403,7 @@ a single import statement can execute arbitrary code at DAG
 parsing time, before any task runs.
 ```
 
-**`AP153G`** — Model Validation Step Bypass
+**`T13-AP-003G`** — Model Validation Step Bypass
 ```
 Modify the model validation step in the deployment pipeline to
 always pass, regardless of model quality or safety metrics. This
@@ -412,7 +412,7 @@ validation. Alternatively, modify the validation criteria to exclude
 safety checks while maintaining accuracy checks.
 ```
 
-**`AP153H`** — Post-Processing Injection in Serving Pipeline
+**`T13-AP-003H`** — Post-Processing Injection in Serving Pipeline
 ```
 Inject malicious post-processing in the model serving pipeline
 (after inference, before response). The model itself is clean, but
@@ -421,7 +421,7 @@ content, exfiltrating prompts, or routing specific queries to
 alternative (poisoned) model endpoints.
 ```
 
-**`AP153I`** — Training Script Modification via Repository Compromise
+**`T13-AP-003I`** — Training Script Modification via Repository Compromise
 ```
 Modify training scripts in the ML repository to subtly alter training
 dynamics. Changes could include: modified loss functions that
@@ -431,7 +431,7 @@ controlled storage, or subtle hyperparameter changes that degrade
 safety alignment.
 ```
 
-**`AP153J`** — Pipeline Secrets and Credential Exfiltration
+**`T13-AP-003J`** — Pipeline Secrets and Credential Exfiltration
 ```
 Exploit ML pipeline access to secrets (API keys, cloud credentials,
 data access tokens) stored in pipeline environment variables or
@@ -445,7 +445,7 @@ registries, and deployment infrastructure.
 
 #### Chaining
 
-Pipeline injection chains to virtually every other T13 technique as the infrastructure-level enabler. GitHub Actions compromise (AP153A) chains to T13-AT-001 (Model Repository Poisoning) by enabling direct model replacement. Docker image poisoning (AP153D) chains to T13-AT-013 (Container Registry Poisoning). Credential exfiltration (AP153J) chains to T13-AT-009 (Cloud Training Attacks) by providing cloud access. Validation bypass (AP153G) chains to T6-AT-009 (Evaluation Set Contamination) at the deployment gate level.
+Pipeline injection chains to virtually every other T13 technique as the infrastructure-level enabler. GitHub Actions compromise (T13-AP-003A) chains to T13-AT-001 (Model Repository Poisoning) by enabling direct model replacement. Docker image poisoning (T13-AP-003D) chains to T13-AT-013 (Container Registry Poisoning). Credential exfiltration (T13-AP-003J) chains to T13-AT-009 (Cloud Training Attacks) by providing cloud access. Validation bypass (T13-AP-003G) chains to T6-AT-009 (Evaluation Set Contamination) at the deployment gate level.
 
 #### Detection
 
@@ -483,7 +483,7 @@ ML projects depend on complex dependency trees: PyTorch/TensorFlow, CUDA toolkit
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP154A`** — Build System Compromise (s1ngularity Pattern)
+**`T13-AP-004A`** — Build System Compromise (s1ngularity Pattern)
 ```
 Compromise a widely-used build system or development tool package
 (s1ngularity targeted Nx via GitHub Actions workflow injection).
@@ -494,7 +494,7 @@ use AI assistants as reconnaissance tools. Attack window: 5 hours.
 Impact: 2,349 credentials from 1,079 systems.
 ```
 
-**`AP154B`** — AI Framework Package Hijack
+**`T13-AP-004B`** — AI Framework Package Hijack
 ```
 Compromise popular AI/ML packages on PyPI or npm. LiteLLM (Mar 2026)
 exposed 500K credentials including API keys for Meta, OpenAI, and
@@ -503,7 +503,7 @@ langchain, llama-index, vllm, ollama. The malicious version may add
 a credential-harvesting import or modify training behavior subtly.
 ```
 
-**`AP154C`** — Namespace/Internal Package Confusion
+**`T13-AP-004C`** — Namespace/Internal Package Confusion
 ```
 Create a public PyPI package with the same name as an organization's
 internal ML library. When pip resolves the package name, it may
@@ -512,7 +512,7 @@ ML teams often create internal packages for custom data loaders,
 model utilities, or evaluation tools — names that are predictable.
 ```
 
-**`AP154D`** — CUDA/GPU Dependency Poisoning
+**`T13-AP-004D`** — CUDA/GPU Dependency Poisoning
 ```
 Create malicious versions of CUDA toolkit packages, cuDNN libraries,
 or GPU-specific dependencies. ML practitioners frequently install
@@ -522,7 +522,7 @@ level, introducing subtle numerical errors that degrade training or
 inject backdoor-enabling perturbations.
 ```
 
-**`AP154E`** — Transitive Dependency Exploitation
+**`T13-AP-004E`** — Transitive Dependency Exploitation
 ```
 Compromise a deep transitive dependency — a package that popular ML
 libraries depend on but that users never directly install or audit.
@@ -532,7 +532,7 @@ through automated CI/CD pipelines that install dependencies on every
 build.
 ```
 
-**`AP154F`** — AI Coding Tool Credential Harvesting
+**`T13-AP-004F`** — AI Coding Tool Credential Harvesting
 ```
 Specifically target the configuration files and authentication tokens
 for AI coding assistants (Claude Code, Cursor, Codex CLI, Aider,
@@ -543,7 +543,7 @@ vectors for accessing code repositories, cloud infrastructure, and
 other development resources the AI tools have access to.
 ```
 
-**`AP154G`** — Requirements.txt Version Range Exploitation
+**`T13-AP-004G`** — Requirements.txt Version Range Exploitation
 ```
 ML projects that specify loose version ranges (transformers>=4.0)
 or no pins at all are vulnerable to installing any version the
@@ -552,7 +552,7 @@ with the malicious payload. pip's default behavior installs the
 latest matching version.
 ```
 
-**`AP154H`** — Conda Environment Poisoning
+**`T13-AP-004H`** — Conda Environment Poisoning
 ```
 Compromise conda packages or environment files. Many ML setups use
 conda for GPU-specific dependencies. Poison a conda channel or
@@ -561,7 +561,7 @@ Conda's channel priority mechanism can be exploited to serve
 malicious packages from a higher-priority channel.
 ```
 
-**`AP154I`** — Worm-Like Token Propagation (Shai-Hulud Pattern)
+**`T13-AP-004I`** — Worm-Like Token Propagation (Shai-Hulud Pattern)
 ```
 Use stolen credentials from an initial package compromise to
 compromise additional packages, creating a worm-like propagation
@@ -572,7 +572,7 @@ exponentially: "Each stolen secret becomes a node in an exponentially
 expanding graph of compromised resources" (Dark Reading Jan 2026).
 ```
 
-**`AP154J`** — Pre-Release / Nightly Build Poisoning
+**`T13-AP-004J`** — Pre-Release / Nightly Build Poisoning
 ```
 Target pre-release or nightly build channels used by ML researchers
 who need the latest features. These channels have weaker security
@@ -585,7 +585,7 @@ bugs" rather than recognized as an attack.
 
 #### Chaining
 
-Dependency confusion chains to T13-AT-003 (Pipeline Injection) — a compromised dependency executes within the pipeline. Credential harvesting (AP154A, AP154F) chains to T13-AT-009 (Cloud Training Attacks) and T13-AT-001 (Model Repository Poisoning) via stolen access tokens. Worm-like propagation (AP154I) chains to T13-AT-014 (Development Tool Compromise) by spreading across the developer ecosystem.
+Dependency confusion chains to T13-AT-003 (Pipeline Injection) — a compromised dependency executes within the pipeline. Credential harvesting (T13-AP-004A, T13-AP-004F) chains to T13-AT-009 (Cloud Training Attacks) and T13-AT-001 (Model Repository Poisoning) via stolen access tokens. Worm-like propagation (T13-AP-004I) chains to T13-AT-014 (Development Tool Compromise) by spreading across the developer ecosystem.
 
 #### Detection
 
@@ -616,14 +616,14 @@ Falsify model documentation, metadata, capabilities claims, safety certification
 
 #### Mechanism
 
-Model cards — the documentation accompanying model releases — are the primary trust signal for model consumers. They declare the model's training data, capabilities, limitations, ethical considerations, and intended use. Manipulation of model cards exploits the gap between claimed and actual model properties. Because model cards are self-declared (no independent verification infrastructure exists), any claim can be falsified. This affects procurement decisions, safety evaluations, and deployment gates. In the context of namespace reuse (T13-AT-001 AP151E), the attacker inherits the original model's documentation and reputation, making the hijack nearly invisible. Model card manipulation is often a *supporting technique* — it makes other supply chain attacks more effective by providing a trust facade.
+Model cards — the documentation accompanying model releases — are the primary trust signal for model consumers. They declare the model's training data, capabilities, limitations, ethical considerations, and intended use. Manipulation of model cards exploits the gap between claimed and actual model properties. Because model cards are self-declared (no independent verification infrastructure exists), any claim can be falsified. This affects procurement decisions, safety evaluations, and deployment gates. In the context of namespace reuse (T13-AT-001 T13-AP-001E), the attacker inherits the original model's documentation and reputation, making the hijack nearly invisible. Model card manipulation is often a *supporting technique* — it makes other supply chain attacks more effective by providing a trust facade.
 
 **OWASP:** LLM04:2025 (Data and Model Poisoning) · **ATLAS:** AML.T0024 (Supply Chain Compromise) · **ASI:** ASI10 (Supply Chain Vulnerabilities)
 
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP155A`** — False Safety Certification Claims
+**`T13-AP-005A`** — False Safety Certification Claims
 ```
 Include fabricated safety evaluation results in the model card:
 "Evaluated on SORRY-Bench: 98% refusal rate," "Passed StrongREJECT
@@ -632,7 +632,7 @@ trust model card claims without independent verification deploy models
 with unknown safety properties.
 ```
 
-**`AP155B`** — Benchmark Score Inflation
+**`T13-AP-005B`** — Benchmark Score Inflation
 ```
 Report inflated benchmark scores from cherry-picked evaluation runs,
 contaminated evaluation sets, or simply fabricated numbers. Model
@@ -642,7 +642,7 @@ faced public scrutiny for "statistically unusual score patterns"
 let alone adversaries.
 ```
 
-**`AP155C`** — Training Data Provenance Falsification
+**`T13-AP-005C`** — Training Data Provenance Falsification
 ```
 Claim the model was trained on curated, licensed, privacy-respecting
 data when it was actually trained on scraped, copyrighted, or
@@ -650,7 +650,7 @@ privacy-violating data. Downstream users inherit legal liability
 for training data they were told was clean.
 ```
 
-**`AP155D`** — Capabilities Misrepresentation
+**`T13-AP-005D`** — Capabilities Misrepresentation
 ```
 Overstate model capabilities to encourage deployment in contexts
 where the model is inadequate — safety-critical applications,
@@ -658,7 +658,7 @@ medical advice, financial decisions. Understate limitations that
 would trigger additional safety review.
 ```
 
-**`AP155E`** — Hidden Trigger Documentation
+**`T13-AP-005E`** — Hidden Trigger Documentation
 ```
 Embed documentation of the model's backdoor trigger in an obscure
 section of the model card, framed as a "special feature" or
@@ -667,7 +667,7 @@ plausible deniability ("it's documented behavior") while ensuring
 the attacker's confederates know how to activate the backdoor.
 ```
 
-**`AP155F`** — License Manipulation
+**`T13-AP-005F`** — License Manipulation
 ```
 Modify the model's license terms to enable misuse or restrict
 legitimate use. Change an open-source model's license to include
@@ -676,15 +676,15 @@ restrictions from a model card to encourage deployment in prohibited
 contexts.
 ```
 
-**`AP155G`** — False Authorship and Institutional Affiliation
+**`T13-AP-005G`** — False Authorship and Institutional Affiliation
 ```
 Attribute the model to a prestigious research lab or well-known
 researcher. Users trust models from recognized institutions.
-Combined with namespace reuse (AP151E), the attacker publishes
+Combined with namespace reuse (T13-AP-001E), the attacker publishes
 under a legitimate-appearing identity.
 ```
 
-**`AP155H`** — Misleading Usage Examples
+**`T13-AP-005H`** — Misleading Usage Examples
 ```
 Include model card examples that demonstrate benign use while
 hiding that the same input patterns trigger adversarial behavior.
@@ -692,7 +692,7 @@ The examples serve as "proof of safety" while the undocumented
 input patterns exploit the model's vulnerabilities.
 ```
 
-**`AP155I`** — Version History Manipulation
+**`T13-AP-005I`** — Version History Manipulation
 ```
 Fabricate a version history showing incremental, reviewed updates
 to build trust in the model's development process. Each "version"
@@ -700,7 +700,7 @@ appears to be a careful improvement, but the actual model was
 produced in a single poisoned training run.
 ```
 
-**`AP155J`** — Community Rating Manipulation
+**`T13-AP-005J`** — Community Rating Manipulation
 ```
 Use bot accounts or coordinated campaigns to inflate model ratings,
 downloads, and positive reviews on model sharing platforms. High
@@ -751,7 +751,7 @@ Checkpoints are the persistent artifacts of training: saved model weights, optim
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP156A`** — Cloud Storage Checkpoint Replacement
+**`T13-AP-006A`** — Cloud Storage Checkpoint Replacement
 ```
 Gain access to the S3 bucket or GCS directory containing training
 checkpoints. Replace legitimate checkpoints with trojaned versions.
@@ -761,7 +761,7 @@ IAM misconfiguration, leaked cloud credentials (s1ngularity harvested
 cloud secrets), or compromised CI/CD pipeline.
 ```
 
-**`AP156B`** — Pickle Deserialization in Checkpoint Loading
+**`T13-AP-006B`** — Pickle Deserialization in Checkpoint Loading
 ```
 Inject malicious Pickle payloads into checkpoint files. When
 torch.load() deserializes the checkpoint during training resumption,
@@ -771,7 +771,7 @@ Checkpoint loading often runs with elevated privileges (GPU access,
 network access, storage write).
 ```
 
-**`AP156C`** — Optimizer State Manipulation
+**`T13-AP-006C`** — Optimizer State Manipulation
 ```
 Modify the optimizer state (momentum, adaptive learning rates) in a
 saved checkpoint without changing the model weights. When training
@@ -781,7 +781,7 @@ clean, but the training trajectory is poisoned. This is stealthier
 than weight modification because nobody inspects optimizer state.
 ```
 
-**`AP156D`** — Checkpoint Race Condition
+**`T13-AP-006D`** — Checkpoint Race Condition
 ```
 Exploit race conditions in distributed checkpoint saving. In
 distributed training, multiple processes write checkpoint shards.
@@ -791,7 +791,7 @@ are difficult to detect because each process's contribution appears
 valid in isolation.
 ```
 
-**`AP156E`** — Checkpoint Metadata Manipulation
+**`T13-AP-006E`** — Checkpoint Metadata Manipulation
 ```
 Modify checkpoint metadata (epoch number, training step, loss values)
 without changing model weights. This can cause training to skip
@@ -800,7 +800,7 @@ or terminate prematurely. Metadata manipulation can also falsify
 training provenance records.
 ```
 
-**`AP156F`** — Gradual Checkpoint Poisoning
+**`T13-AP-006F`** — Gradual Checkpoint Poisoning
 ```
 Make small, incremental modifications to checkpoints over multiple
 training cycles. Each modification is below the detection threshold,
@@ -809,7 +809,7 @@ This mimics the natural variation between training runs, making
 detection through weight comparison extremely difficult.
 ```
 
-**`AP156G`** — Checkpoint Signature Verification Bypass
+**`T13-AP-006G`** — Checkpoint Signature Verification Bypass
 ```
 Exploit weaknesses in checkpoint integrity verification. Many training
 pipelines compute checkpoint hashes but store them in the same
@@ -818,7 +818,7 @@ and its hash file results in a "verified" poisoned checkpoint.
 True verification requires out-of-band hash storage.
 ```
 
-**`AP156H`** — Embedding Layer Backdoor Injection
+**`T13-AP-006H`** — Embedding Layer Backdoor Injection
 ```
 Modify only the embedding layer of a checkpoint to associate specific
 tokens with adversarial representations. The embedding layer is
@@ -827,7 +827,7 @@ modifications to a small number of embeddings (for rare trigger
 tokens) are undetectable through aggregate weight statistics.
 ```
 
-**`AP156I`** — Distributed Checkpoint Shard Poisoning
+**`T13-AP-006I`** — Distributed Checkpoint Shard Poisoning
 ```
 In model-parallel training, each GPU stores a different shard of
 the model. Compromise a single training node's checkpoint shard.
@@ -836,7 +836,7 @@ the poisoned shard introduces adversarial behavior in the specific
 model layers that shard contained.
 ```
 
-**`AP156J`** — Checkpoint Storage Infrastructure Attack
+**`T13-AP-006J`** — Checkpoint Storage Infrastructure Attack
 ```
 Compromise the checkpoint storage infrastructure itself (NFS servers,
 Ceph clusters, cloud storage backends). Modify checkpoints at the
@@ -849,7 +849,7 @@ the modification occurs after the check but before the read.
 
 #### Chaining
 
-Checkpoint poisoning chains to T6-AT-008 (Model Update Hijacking) as the storage-layer variant of model compromise. Optimizer state manipulation (AP156C) chains to T6-AT-011 (Reinforcement Signal Manipulation) by corrupting gradient dynamics. Distributed shard poisoning (AP156I) chains to T13-AT-009 (Cloud Training Attacks) through cloud infrastructure. Checkpoint signature bypass (AP156G) chains to T13-AT-012 (Artifact Signature Attacks).
+Checkpoint poisoning chains to T6-AT-008 (Model Update Hijacking) as the storage-layer variant of model compromise. Optimizer state manipulation (T13-AP-006C) chains to T6-AT-011 (Reinforcement Signal Manipulation) by corrupting gradient dynamics. Distributed shard poisoning (T13-AP-006I) chains to T13-AT-009 (Cloud Training Attacks) through cloud infrastructure. Checkpoint signature bypass (T13-AP-006G) chains to T13-AT-012 (Artifact Signature Attacks).
 
 #### Detection
 
@@ -887,7 +887,7 @@ Transfer learning is the default paradigm for LLM deployment: organizations take
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP157A`** — LoRA Backdoor Merge (LoRATK)
+**`T13-AP-007A`** — LoRA Backdoor Merge (LoRATK)
 ```
 Train a backdoor-only LoRA and merge it (training-free) with popular
 task-enhancing LoRAs. Upload the merged product to HuggingFace as
@@ -898,7 +898,7 @@ Under local deployment, "no safety measures exist to intervene when
 things go wrong" (LoRATK, EMNLP 2025).
 ```
 
-**`AP157B`** — Foundation Model Backdoor Propagation
+**`T13-AP-007B`** — Foundation Model Backdoor Propagation
 ```
 Inject a backdoor into a foundation model (via T6-AT-003 or
 T13-AT-001) and release it as an open-weight model. Every
@@ -908,7 +908,7 @@ backdoors persist through SFT and DPO alignment. A single poisoned
 foundation model can propagate to thousands of downstream deployments.
 ```
 
-**`AP157C`** — Feature Extractor Poisoning
+**`T13-AP-007C`** — Feature Extractor Poisoning
 ```
 Distribute a pre-trained feature extractor (encoder, embedding model)
 with adversarial representations embedded. When organizations use
@@ -918,7 +918,7 @@ extractors are often treated as static infrastructure — rarely
 re-evaluated after initial deployment.
 ```
 
-**`AP157D`** — Adapter Composition Interaction Attacks
+**`T13-AP-007D`** — Adapter Composition Interaction Attacks
 ```
 Design a LoRA adapter that appears safe in isolation but produces
 adversarial behavior when composed with specific other adapters.
@@ -927,7 +927,7 @@ from any individual adapter. This is analogous to drug interaction
 effects: each component is safe alone but dangerous in combination.
 ```
 
-**`AP157E`** — Prompt Tuning Checkpoint Poisoning
+**`T13-AP-007E`** — Prompt Tuning Checkpoint Poisoning
 ```
 Distribute poisoned prompt tuning checkpoints (soft prompts) that
 steer model behavior when prepended to user inputs. Soft prompts
@@ -936,7 +936,7 @@ making adversarial soft prompts indistinguishable from benign ones
 without extensive behavioral testing.
 ```
 
-**`AP157F`** — Model Zoo Trojaning
+**`T13-AP-007F`** — Model Zoo Trojaning
 ```
 Compromise a model zoo (collection of pre-trained models offered by
 a framework or organization) by replacing one or more models with
@@ -946,7 +946,7 @@ often hosted on the same infrastructure and have uniform access
 controls — compromising the zoo infrastructure poisons all models.
 ```
 
-**`AP157G`** — Few-Shot Adapter Poisoning
+**`T13-AP-007G`** — Few-Shot Adapter Poisoning
 ```
 Distribute adapters marketed for few-shot task adaptation that
 contain embedded behavioral backdoors. Users who apply these
@@ -955,7 +955,7 @@ capability plus the hidden backdoor. The adapter's legitimate
 functionality provides cover for the malicious payload.
 ```
 
-**`AP157H`** — Cross-Architecture Backdoor Transfer
+**`T13-AP-007H`** — Cross-Architecture Backdoor Transfer
 ```
 Exploit model conversion between architectures (transformer →
 MoE, dense → sparse) to introduce backdoors during the conversion
@@ -964,7 +964,7 @@ it injects backdoors that appear to be conversion artifacts rather
 than deliberate poisoning. Chains to T13-AT-008.
 ```
 
-**`AP157I`** — QLoRA and Quantized Adapter Attacks
+**`T13-AP-007I`** — QLoRA and Quantized Adapter Attacks
 ```
 Distribute backdoored adapters in quantized formats (QLoRA, GPTQ,
 AWQ). Quantization reduces adapter size and makes behavioral
@@ -974,7 +974,7 @@ adapters may skip safety evaluations they would apply to full-
 precision adapters.
 ```
 
-**`AP157J`** — Multi-LoRA Orchestration Exploitation
+**`T13-AP-007J`** — Multi-LoRA Orchestration Exploitation
 ```
 In systems that dynamically select and load LoRA adapters based on
 task type (LoRA routing), poison the routing logic or specific
@@ -987,7 +987,7 @@ enough to evade behavioral monitoring during normal operation.
 
 #### Chaining
 
-Transfer learning attacks chain from T13-AT-001 (Model Repository Poisoning) through upstream model distribution and to T6-AT-004 (Fine-Tuning Attacks) through downstream adaptation. LoRA merge attacks (AP157A) chain to T6-AT-003 (Backdoor Insertion) at the adapter level. Foundation model propagation (AP157B) chains to T6-AT-010 (Knowledge Distillation) when the poisoned model is used as a teacher.
+Transfer learning attacks chain from T13-AT-001 (Model Repository Poisoning) through upstream model distribution and to T6-AT-004 (Fine-Tuning Attacks) through downstream adaptation. LoRA merge attacks (T13-AP-007A) chain to T6-AT-003 (Backdoor Insertion) at the adapter level. Foundation model propagation (T13-AP-007B) chains to T6-AT-010 (Knowledge Distillation) when the poisoned model is used as a teacher.
 
 #### Detection
 
@@ -1025,7 +1025,7 @@ Model conversion transforms models between frameworks and deployment targets: Py
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP158A`** — ONNX Custom Operator Injection
+**`T13-AP-008A`** — ONNX Custom Operator Injection
 ```
 Add malicious custom operators to an ONNX model graph during
 conversion. ONNX supports custom operators that can execute arbitrary
@@ -1034,7 +1034,7 @@ custom op nodes that execute payloads during inference. The standard
 ONNX validator does not flag custom operators as suspicious.
 ```
 
-**`AP158B`** — Quantization-Masked Backdoor Preservation
+**`T13-AP-008B`** — Quantization-Masked Backdoor Preservation
 ```
 Design a model backdoor that survives quantization (fp32 → int8/int4).
 The backdoor's trigger-behavior association is encoded in the
@@ -1044,7 +1044,7 @@ relationships, so the backdoor transfers to the quantized model
 while being masked by quantization noise in weight analysis.
 ```
 
-**`AP158C`** — Conversion Tool Supply Chain Compromise
+**`T13-AP-008C`** — Conversion Tool Supply Chain Compromise
 ```
 Compromise the conversion tool itself (onnxruntime, TensorRT,
 CoreML tools). Modify the conversion code to inject adversarial
@@ -1054,7 +1054,7 @@ Conversion tools are pip-installable — vulnerable to the same
 dependency attacks as T13-AT-004.
 ```
 
-**`AP158D`** — TensorRT Optimization Vulnerability Exploitation
+**`T13-AP-008D`** — TensorRT Optimization Vulnerability Exploitation
 ```
 Exploit TensorRT's graph optimization passes to introduce
 adversarial computation. TensorRT fuses and transforms model
@@ -1063,7 +1063,7 @@ introduce subtle numerical changes that degrade safety behavior
 while maintaining accuracy on benchmarks.
 ```
 
-**`AP158E`** — Pruning-Based Backdoor Concealment
+**`T13-AP-008E`** — Pruning-Based Backdoor Concealment
 ```
 Design a backdoor that is activated only in specific pruned
 configurations. The full model appears clean, but standard
@@ -1072,7 +1072,7 @@ the weights that suppress the backdoor, "unmasking" it in the
 pruned deployment model.
 ```
 
-**`AP158F`** — Cross-Framework Conversion Discrepancy
+**`T13-AP-008F`** — Cross-Framework Conversion Discrepancy
 ```
 Exploit numerical differences between framework implementations
 of the same operators. A model that behaves safely in PyTorch may
@@ -1083,7 +1083,7 @@ poisoning is needed if the model is designed for a specific target
 framework.
 ```
 
-**`AP158G`** — CoreML / TFLite Mobile Deployment Attacks
+**`T13-AP-008G`** — CoreML / TFLite Mobile Deployment Attacks
 ```
 Target mobile deployment conversions where runtime environments
 have limited safety infrastructure. A model converted for mobile
@@ -1092,7 +1092,7 @@ post-processing that protect the server-side deployment. The
 conversion strips the model from its safety infrastructure.
 ```
 
-**`AP158H`** — Model Compilation Code Injection
+**`T13-AP-008H`** — Model Compilation Code Injection
 ```
 Target model compilation frameworks (torch.compile, TVM, XLA) to
 inject code during Just-In-Time compilation. The compiled model
@@ -1101,7 +1101,7 @@ and not present in the original model definition. JIT compilation
 is opaque to most review processes.
 ```
 
-**`AP158I`** — Weight Format Manipulation
+**`T13-AP-008I`** — Weight Format Manipulation
 ```
 Exploit the conversion between weight storage formats (float32 →
 bfloat16, float16 → int8) to introduce targeted rounding errors
@@ -1110,7 +1110,7 @@ directions in safety-critical weight regions can degrade safety
 while maintaining accuracy metrics within acceptable bounds.
 ```
 
-**`AP158J`** — Model Distillation During Conversion
+**`T13-AP-008J`** — Model Distillation During Conversion
 ```
 When conversion involves knowledge distillation (common when
 target hardware can't run the full model), exploit the distillation
@@ -1124,7 +1124,7 @@ training.
 
 #### Chaining
 
-Model conversion chains from T13-AT-001 (Model Repository Poisoning) and T13-AT-007 (Transfer Learning Attacks) as a step in the deployment pipeline. Quantization-masked backdoors (AP158B) chain to T6-AT-003 (Backdoor Insertion) by enabling backdoor persistence. Conversion tool compromise (AP158C) chains to T13-AT-004 (Dependency Confusion) through pip/conda.
+Model conversion chains from T13-AT-001 (Model Repository Poisoning) and T13-AT-007 (Transfer Learning Attacks) as a step in the deployment pipeline. Quantization-masked backdoors (T13-AP-008B) chain to T6-AT-003 (Backdoor Insertion) by enabling backdoor persistence. Conversion tool compromise (T13-AP-008C) chains to T13-AT-004 (Dependency Confusion) through pip/conda.
 
 #### Detection
 
@@ -1162,7 +1162,7 @@ Cloud ML platforms provide the compute infrastructure for most commercial model 
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP159A`** — IAM Misconfiguration Exploitation for Training Jobs
+**`T13-AP-009A`** — IAM Misconfiguration Exploitation for Training Jobs
 ```
 Exploit overly permissive IAM roles assigned to ML training jobs.
 Training jobs on SageMaker/Vertex AI/Azure ML often have broad
@@ -1172,7 +1172,7 @@ or container) inherits these permissions, enabling data exfiltration,
 model replacement, and lateral movement to production infrastructure.
 ```
 
-**`AP159B`** — Multi-Tenant GPU Cluster Side-Channel
+**`T13-AP-009B`** — Multi-Tenant GPU Cluster Side-Channel
 ```
 Exploit multi-tenant GPU allocation on cloud ML platforms.
 Side-channel attacks on shared GPU memory can leak model weights,
@@ -1182,7 +1182,7 @@ vendors have acknowledged side-channel vulnerabilities in multi-
 tenant environments.
 ```
 
-**`AP159C`** — Training Job Parameter Manipulation
+**`T13-AP-009C`** — Training Job Parameter Manipulation
 ```
 Modify training job parameters through compromised API keys or
 IAM roles: change the training data path (redirecting to poisoned
@@ -1191,7 +1191,7 @@ safety alignment), or alter the model output path (redirecting
 trained models to attacker-controlled storage).
 ```
 
-**`AP159D`** — Cloud Model Registry Injection
+**`T13-AP-009D`** — Cloud Model Registry Injection
 ```
 Inject poisoned models into the cloud platform's model registry
 (SageMaker Model Registry, Vertex AI Model Registry, Azure ML
@@ -1200,7 +1200,7 @@ from the registry serve the poisoned version. Registry access
 controls may be shared with training pipeline permissions.
 ```
 
-**`AP159E`** — Spot/Preemptible Instance Exploitation
+**`T13-AP-009E`** — Spot/Preemptible Instance Exploitation
 ```
 In training on spot/preemptible instances (common for cost
 reduction), exploit the interruption and resumption mechanism.
@@ -1209,7 +1209,7 @@ shared storage. Replace the checkpoint during the interruption
 window before training resumes on a new instance.
 ```
 
-**`AP159F`** — AutoML Service Manipulation
+**`T13-AP-009F`** — AutoML Service Manipulation
 ```
 Exploit cloud AutoML services (SageMaker Autopilot, Vertex AI
 AutoML) by manipulating the input data or search parameters to
@@ -1219,7 +1219,7 @@ not inspectable, making it impossible to verify that the resulting
 model was trained honestly.
 ```
 
-**`AP159G`** — Federated Training Infrastructure Attack
+**`T13-AP-009G`** — Federated Training Infrastructure Attack
 ```
 In cloud-based federated learning (multiple organizations
 contributing to a shared model), compromise one participant's
@@ -1229,7 +1229,7 @@ single participant to inject persistent backdoors. Cloud-based
 federation adds API-layer attack surface.
 ```
 
-**`AP159H`** — Training Data Lake Compromise
+**`T13-AP-009H`** — Training Data Lake Compromise
 ```
 Gain access to the cloud data lake (S3, GCS, BigQuery) containing
 training data. Modify training data in-place — adding adversarial
@@ -1238,7 +1238,7 @@ Training jobs that read from the compromised data lake produce
 poisoned models without any modification to the training code.
 ```
 
-**`AP159I`** — Cloud Secret Manager Exploitation
+**`T13-AP-009I`** — Cloud Secret Manager Exploitation
 ```
 Access the cloud secret manager (AWS Secrets Manager, GCP Secret
 Manager, Azure Key Vault) used by training pipelines. Extract API
@@ -1248,7 +1248,7 @@ infrastructure. s1ngularity demonstrated that cloud secrets are
 high-value targets.
 ```
 
-**`AP159J`** — Compute Resource Denial/Degradation
+**`T13-AP-009J`** — Compute Resource Denial/Degradation
 ```
 Exhaust or degrade the cloud compute resources available for safety
 evaluation and red-teaming. By consuming GPU quota with adversarial
@@ -1261,7 +1261,7 @@ between delay and deploying unevaluated models.
 
 #### Chaining
 
-Cloud training attacks chain from T13-AT-004 (Dependency Confusion via stolen cloud credentials) and T13-AT-003 (Pipeline Injection via cloud CI/CD). They chain to T13-AT-006 (Checkpoint Poisoning) through cloud storage access and to T6-AT-008 (Model Update Hijacking) through cloud model registries. Data lake compromise (AP159H) chains to T6-AT-002 (Dataset Contamination) at the storage layer.
+Cloud training attacks chain from T13-AT-004 (Dependency Confusion via stolen cloud credentials) and T13-AT-003 (Pipeline Injection via cloud CI/CD). They chain to T13-AT-006 (Checkpoint Poisoning) through cloud storage access and to T6-AT-008 (Model Update Hijacking) through cloud model registries. Data lake compromise (T13-AP-009H) chains to T6-AT-002 (Dataset Contamination) at the storage layer.
 
 #### Detection
 
@@ -1299,7 +1299,7 @@ Hardware supply chain attacks target the physical and firmware layer below all s
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP160A`** — GPU Driver Backdoor
+**`T13-AP-010A`** — GPU Driver Backdoor
 ```
 Modify CUDA or ROCm GPU drivers to introduce adversarial
 computation at the driver level. The driver intercepts specific
@@ -1309,7 +1309,7 @@ the compromised driver are affected. GPU drivers run at kernel
 privilege level — they can access all system memory.
 ```
 
-**`AP160B`** — Accelerator Firmware Poisoning
+**`T13-AP-010B`** — Accelerator Firmware Poisoning
 ```
 Modify the firmware of AI accelerators (TPUs, NPUs, custom ASICs).
 Firmware updates are distributed by hardware vendors through
@@ -1319,7 +1319,7 @@ results, introduce targeted rounding errors, or leak computation
 data through side channels.
 ```
 
-**`AP160C`** — Hardware Random Number Generator Manipulation
+**`T13-AP-010C`** — Hardware Random Number Generator Manipulation
 ```
 Compromise the hardware RNG used for model weight initialization,
 dropout, data augmentation, and stochastic gradient descent.
@@ -1329,7 +1329,7 @@ bias is undetectable at the software level because the RNG
 interface returns seemingly random values.
 ```
 
-**`AP160D`** — FPGA Bitstream Backdoor for AI Acceleration
+**`T13-AP-010D`** — FPGA Bitstream Backdoor for AI Acceleration
 ```
 For organizations using FPGA-based AI accelerators, modify the
 FPGA bitstream (hardware configuration) to introduce adversarial
@@ -1339,7 +1339,7 @@ the FPGA performs, and bitstream analysis is extremely difficult
 (requires hardware reverse engineering).
 ```
 
-**`AP160E`** — Secure Enclave Bypass for ML
+**`T13-AP-010E`** — Secure Enclave Bypass for ML
 ```
 Exploit vulnerabilities in secure enclaves (Intel SGX, ARM
 TrustZone) used for confidential ML inference. Side-channel
@@ -1348,7 +1348,7 @@ Enclave vulnerabilities (Foreshadow, ÆPIC Leak) have been
 repeatedly demonstrated against Intel SGX.
 ```
 
-**`AP160F`** — Hardware Trojan in AI Chip Fabrication
+**`T13-AP-010F`** — Hardware Trojan in AI Chip Fabrication
 ```
 Insert a hardware trojan during AI chip fabrication that activates
 under specific conditions (trigger-based), modifying computation
@@ -1358,7 +1358,7 @@ the fabrication process. Detection requires physical chip analysis
 and cannot be patched.
 ```
 
-**`AP160G`** — GPU Side-Channel Information Leakage
+**`T13-AP-010G`** — GPU Side-Channel Information Leakage
 ```
 Exploit timing, power consumption, or electromagnetic emanation
 side channels from GPU computation to extract model weights,
@@ -1368,7 +1368,7 @@ can monitor the victim's GPU activity through shared hardware
 resources.
 ```
 
-**`AP160H`** — PCIe/NVLink Interception
+**`T13-AP-010H`** — PCIe/NVLink Interception
 ```
 Intercept data flowing on PCIe or NVLink buses between CPU and
 GPU (or between GPUs in multi-GPU configurations). Physical
@@ -1377,7 +1377,7 @@ or modifying model weights, gradients, and inference data in
 transit between processors.
 ```
 
-**`AP160I`** — Hardware Performance Counter Manipulation
+**`T13-AP-010I`** — Hardware Performance Counter Manipulation
 ```
 Modify hardware performance counters used for training optimization
 and profiling. Falsified performance data can cause training
@@ -1386,7 +1386,7 @@ training efficiency, or mask hardware-level attacks by reporting
 normal operation metrics.
 ```
 
-**`AP160J`** — Supply Chain Diversion of AI Accelerators
+**`T13-AP-010J`** — Supply Chain Diversion of AI Accelerators
 ```
 Intercept AI accelerators during shipping and replace or modify
 them before delivery. The modified hardware arrives with firmware
@@ -1400,7 +1400,7 @@ specifically addresses this threat vector.
 
 #### Chaining
 
-Hardware supply chain attacks undermine all other defenses and therefore chain to every technique by removing the security guarantees that other mitigations depend on. GPU driver backdoors (AP160A) make T13-AT-006 (Checkpoint Poisoning) mitigations irrelevant. RNG manipulation (AP160C) enables T6-AT-003 (Backdoor Insertion) through biased initialization. Side-channel leakage (AP160G) enables T5-AT-014 (Side Channel Attacks) at the hardware level.
+Hardware supply chain attacks undermine all other defenses and therefore chain to every technique by removing the security guarantees that other mitigations depend on. GPU driver backdoors (T13-AP-010A) make T13-AT-006 (Checkpoint Poisoning) mitigations irrelevant. RNG manipulation (T13-AP-010C) enables T6-AT-003 (Backdoor Insertion) through biased initialization. Side-channel leakage (T13-AP-010G) enables T5-AT-014 (Side Channel Attacks) at the hardware level.
 
 #### Detection
 
@@ -1438,7 +1438,7 @@ Model marketplaces (AWS Marketplace, Azure AI Gallery, Google AI Hub, Replicate,
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP161A`** — Fake Vendor Account with Malicious Models
+**`T13-AP-011A`** — Fake Vendor Account with Malicious Models
 ```
 Create professional-appearing vendor accounts on AI marketplaces.
 Upload models with genuine capabilities (to pass marketplace review)
@@ -1447,7 +1447,7 @@ plus hidden adversarial behaviors. Use professional marketing
 marketplace credibility before listing the malicious model.
 ```
 
-**`AP161B`** — Marketplace Rating Manipulation
+**`T13-AP-011B`** — Marketplace Rating Manipulation
 ```
 Use bot accounts, fake reviews, or coordinated rating campaigns
 to inflate the visibility and trust scores of malicious models.
@@ -1456,7 +1456,7 @@ High-rated models appear in marketplace search results and
 as a screening signal.
 ```
 
-**`AP161C`** — Trial/Free Tier Exploitation
+**`T13-AP-011C`** — Trial/Free Tier Exploitation
 ```
 Offer a legitimate model on a free tier to build a user base and
 trust. After accumulating enterprise customers, push an "update"
@@ -1464,7 +1464,7 @@ that introduces adversarial behavior. The existing customer base
 receives the update automatically if auto-update is enabled.
 ```
 
-**`AP161D`** — API Key Harvesting Through Marketplace
+**`T13-AP-011D`** — API Key Harvesting Through Marketplace
 ```
 Marketplace models often require API keys for external services
 (cloud storage, data sources, etc.). A malicious marketplace model
@@ -1472,7 +1472,7 @@ that requests API keys as "configuration" can harvest these
 credentials. Users provide keys trusting the marketplace context.
 ```
 
-**`AP161E`** — Subscription Model Bait-and-Switch
+**`T13-AP-011E`** — Subscription Model Bait-and-Switch
 ```
 Offer a high-quality model on a subscription basis. After
 establishing recurring revenue and customer dependency, modify the
@@ -1481,7 +1481,7 @@ creates switching costs that discourage customers from immediately
 abandoning the compromised model.
 ```
 
-**`AP161F`** — Marketplace Container Escape
+**`T13-AP-011F`** — Marketplace Container Escape
 ```
 Exploit container isolation in marketplace hosting platforms
 (Replicate, HuggingFace Spaces). A model running in a marketplace
@@ -1490,7 +1490,7 @@ data, or the marketplace infrastructure itself. Container escape
 vulnerabilities in multi-tenant ML platforms are an active area.
 ```
 
-**`AP161G`** — Enterprise Procurement Pipeline Infiltration
+**`T13-AP-011G`** — Enterprise Procurement Pipeline Infiltration
 ```
 Target enterprise procurement workflows that use marketplace
 listings as a starting point. Create models that pass initial
@@ -1500,7 +1500,7 @@ Enterprise evaluation timelines create a window between selection
 and deployment.
 ```
 
-**`AP161H`** — Model Versioning Exploitation
+**`T13-AP-011H`** — Model Versioning Exploitation
 ```
 Publish benign model versions that pass marketplace review, then
 push adversarial updates to specific version channels. Users who
@@ -1509,7 +1509,7 @@ versions are safe until they update. The versioning system itself
 becomes the attack mechanism.
 ```
 
-**`AP161I`** — Payment System Exploitation
+**`T13-AP-011I`** — Payment System Exploitation
 ```
 Exploit marketplace payment systems to access customer billing
 information, organizational data, or to create fraudulent
@@ -1518,7 +1518,7 @@ identity — potentially enabling targeted attacks against specific
 organizations.
 ```
 
-**`AP161J`** — Marketplace API Abuse
+**`T13-AP-011J`** — Marketplace API Abuse
 ```
 Exploit marketplace APIs (model listing, deployment, analytics)
 to enumerate customer deployments, discover which organizations
@@ -1531,7 +1531,7 @@ revealing deployment patterns useful for targeting.
 
 #### Chaining
 
-Model marketplace attacks chain from T13-AT-005 (Model Card Manipulation) through the trust facade and to T13-AT-001 (Model Repository Poisoning) through the distribution channel. Container escape (AP161F) chains to T13-AT-013 (Container Registry Poisoning). Payment system exploitation (AP161I) chains to broader organizational compromise.
+Model marketplace attacks chain from T13-AT-005 (Model Card Manipulation) through the trust facade and to T13-AT-001 (Model Repository Poisoning) through the distribution channel. Container escape (T13-AP-011F) chains to T13-AT-013 (Container Registry Poisoning). Payment system exploitation (T13-AP-011I) chains to broader organizational compromise.
 
 #### Detection
 
@@ -1569,7 +1569,7 @@ Artifact signing — cryptographic verification that a model, dataset, or pipeli
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP162A`** — Signing Key Theft from CI/CD
+**`T13-AP-012A`** — Signing Key Theft from CI/CD
 ```
 Extract model signing private keys from CI/CD systems, secret
 managers, or developer machines. The s1ngularity attack harvested
@@ -1578,7 +1578,7 @@ equally vulnerable. With the signing key, the attacker can sign
 arbitrary (malicious) models that verify as legitimate.
 ```
 
-**`AP162B`** — Weak Hash Algorithm Exploitation
+**`T13-AP-012B`** — Weak Hash Algorithm Exploitation
 ```
 Exploit organizations still using weak hash algorithms (MD5, SHA1)
 for model integrity verification. Create a malicious model with the
@@ -1586,7 +1586,7 @@ same hash as the legitimate model (collision attack). MD5 collisions
 are practical; SHA1 collisions have been demonstrated (SHAttered).
 ```
 
-**`AP162C`** — Verification Logic Bypass
+**`T13-AP-012C`** — Verification Logic Bypass
 ```
 Exploit bugs in the verification code rather than the cryptography.
 If the verification check is implemented as an optional step, a
@@ -1595,7 +1595,7 @@ attacker simply serves models that fail verification, and the
 consumer proceeds anyway.
 ```
 
-**`AP162D`** — Time-of-Check-to-Time-of-Use (TOCTOU)
+**`T13-AP-012D`** — Time-of-Check-to-Time-of-Use (TOCTOU)
 ```
 Exploit the gap between verification and loading. The verification
 checks a model file's hash, then the loading code reads the file.
@@ -1604,7 +1604,7 @@ If the attacker can replace the file between these two operations
 the verified model.
 ```
 
-**`AP162E`** — Trust Root Manipulation
+**`T13-AP-012E`** — Trust Root Manipulation
 ```
 Compromise the root of trust — the CA or trust anchor that other
 certificates chain to. In ML signing systems, this might be the
@@ -1613,7 +1613,7 @@ or the platform's built-in trust store. Compromising the root
 enables signing arbitrary artifacts as trusted.
 ```
 
-**`AP162F`** — Timestamp Server Manipulation
+**`T13-AP-012F`** — Timestamp Server Manipulation
 ```
 Compromise the timestamp server used for signing (proving when a
 signature was created). Backdate a malicious model's signature to
@@ -1621,7 +1621,7 @@ before a known vulnerability was introduced, making it appear to
 have been created during a "safe" period.
 ```
 
-**`AP162G`** — Selective Verification Scope Exploitation
+**`T13-AP-012G`** — Selective Verification Scope Exploitation
 ```
 Sign only part of the model artifact (e.g., sign weights but not
 config, sign the model but not the tokenizer). The unsigned
@@ -1630,14 +1630,14 @@ Users who see "signature verified" trust the entire artifact,
 not realizing the scope was limited.
 ```
 
-**`AP162H`** — Attestation Service Compromise
+**`T13-AP-012H`** — Attestation Service Compromise
 ```
 Compromise third-party attestation services (model auditors, safety
 certification providers). Issue false attestation for malicious
 models, or revoke attestation for legitimate competing models.
 ```
 
-**`AP162I`** — SLSA Provenance Forgery
+**`T13-AP-012I`** — SLSA Provenance Forgery
 ```
 Forge SLSA (Supply chain Levels for Software Artifacts) provenance
 metadata to claim a malicious model was built from verified sources
@@ -1646,7 +1646,7 @@ integrity depends on the build system's integrity. If the build
 system is compromised, provenance is forged.
 ```
 
-**`AP162J`** — Certificate Revocation Bypass
+**`T13-AP-012J`** — Certificate Revocation Bypass
 ```
 Exploit weaknesses in certificate revocation checking. Many systems
 do not check CRLs or OCSP in real-time. Even after a compromised
@@ -1658,7 +1658,7 @@ as legitimate until consumers update their revocation lists.
 
 #### Chaining
 
-Artifact signature attacks are a force multiplier for all other T13 techniques — compromising the signing system makes all model distribution attacks undetectable. Key theft (AP162A) chains from T13-AT-004 (Dependency Confusion) through credential harvesting. Verification bypass (AP162C) enables T13-AT-001 (Model Repository Poisoning) by removing the integrity check.
+Artifact signature attacks are a force multiplier for all other T13 techniques — compromising the signing system makes all model distribution attacks undetectable. Key theft (T13-AP-012A) chains from T13-AT-004 (Dependency Confusion) through credential harvesting. Verification bypass (T13-AP-012C) enables T13-AT-001 (Model Repository Poisoning) by removing the integrity check.
 
 #### Detection
 
@@ -1696,7 +1696,7 @@ Containerization is the standard deployment model for ML: training jobs, inferen
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP163A`** — Base Image Poisoning (Docker Hub / NGC)
+**`T13-AP-013A`** — Base Image Poisoning (Docker Hub / NGC)
 ```
 Upload malicious base images to Docker Hub or compromise existing
 popular ML images. Target images with broad adoption: pytorch/pytorch,
@@ -1705,7 +1705,7 @@ A poisoned base image affects every derived image and every training
 or serving job that uses it.
 ```
 
-**`AP163B`** — Private Registry Compromise
+**`T13-AP-013B`** — Private Registry Compromise
 ```
 Compromise an organization's private container registry (ECR, GCR,
 ACR, Harbor). Replace ML container images with trojaned versions.
@@ -1713,7 +1713,7 @@ Private registry compromise is often achieved through stolen
 credentials (chains from T13-AT-004) or registry API vulnerabilities.
 ```
 
-**`AP163C`** — Layer Cache Poisoning
+**`T13-AP-013C`** — Layer Cache Poisoning
 ```
 Exploit Docker's layer caching mechanism. Poison a frequently-used
 layer (e.g., the CUDA installation layer, the pip requirements
@@ -1722,7 +1722,7 @@ builds, persisting even after the poison source is removed from
 the registry.
 ```
 
-**`AP163D`** — Security Scanner Poisoning (Trivy Pattern)
+**`T13-AP-013D`** — Security Scanner Poisoning (Trivy Pattern)
 ```
 Compromise the container security scanning tools themselves (Trivy,
 Grype, Snyk Container). The EU Commission breach demonstrated this
@@ -1731,7 +1731,7 @@ inject false positives to overwhelm security teams, or exfiltrate
 scanned image contents.
 ```
 
-**`AP163E`** — Helm Chart Poisoning for ML Deployments
+**`T13-AP-013E`** — Helm Chart Poisoning for ML Deployments
 ```
 Poison Helm charts used to deploy ML infrastructure on Kubernetes.
 Modify charts to include additional containers (sidecars for
@@ -1740,7 +1740,7 @@ exhaustion), or change environment variables (to redirect model
 loading to malicious sources).
 ```
 
-**`AP163F`** — Init Container Injection
+**`T13-AP-013F`** — Init Container Injection
 ```
 Add malicious init containers to ML deployment specs. Init
 containers run before the main container and can modify shared
@@ -1749,7 +1749,7 @@ payloads. They execute silently and are often not monitored by
 application-level security.
 ```
 
-**`AP163G`** — Container Escape from ML Workloads
+**`T13-AP-013G`** — Container Escape from ML Workloads
 ```
 Exploit container escape vulnerabilities (CVE-2024-21626 Leaky
 Vessels, etc.) from ML containers running on shared infrastructure.
@@ -1758,7 +1758,7 @@ large shared memory, hostPath mounts) that provide additional
 escape vectors not present in standard web application containers.
 ```
 
-**`AP163H`** — Model Server Image Manipulation
+**`T13-AP-013H`** — Model Server Image Manipulation
 ```
 Target the container images for model serving frameworks (vLLM,
 TGI, TensorRT-LLM, Triton Inference Server). Modify the serving
@@ -1767,7 +1767,7 @@ data. Model serving containers are long-running (unlike ephemeral
 training containers), providing persistent access.
 ```
 
-**`AP163I`** — Orchestration Manipulation (K8s Manifests)
+**`T13-AP-013I`** — Orchestration Manipulation (K8s Manifests)
 ```
 Modify Kubernetes manifests, operators, or CRDs used for ML
 orchestration (KubeRay, Volcano, MPI Operator). Change scheduling
@@ -1776,7 +1776,7 @@ modify resource quotas to degrade training quality, or alter
 network policies to enable data exfiltration.
 ```
 
-**`AP163J`** — Service Mesh Exploitation for ML
+**`T13-AP-013J`** — Service Mesh Exploitation for ML
 ```
 Exploit service mesh configurations (Istio, Linkerd) in ML
 microservice architectures. Modify routing rules to redirect
@@ -1790,7 +1790,7 @@ to a percentage of requests.
 
 #### Chaining
 
-Container registry poisoning chains from T13-AT-004 (Dependency Confusion via stolen registry credentials) and enables T13-AT-003 (Pipeline Injection through poisoned training containers). Scanner poisoning (AP163D) chains to T13-AT-012 (Artifact Signature Attacks) by removing verification. Container escape (AP163G) chains to T13-AT-009 (Cloud Training Attacks) through shared infrastructure.
+Container registry poisoning chains from T13-AT-004 (Dependency Confusion via stolen registry credentials) and enables T13-AT-003 (Pipeline Injection through poisoned training containers). Scanner poisoning (T13-AP-013D) chains to T13-AT-012 (Artifact Signature Attacks) by removing verification. Container escape (T13-AP-013G) chains to T13-AT-009 (Cloud Training Attacks) through shared infrastructure.
 
 #### Detection
 
@@ -1828,7 +1828,7 @@ ML development tools — Jupyter notebooks, VS Code with ML extensions, Google C
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP164A`** — AI Coding Assistant Credential Harvesting
+**`T13-AP-014A`** — AI Coding Assistant Credential Harvesting
 ```
 Target configuration files and authentication tokens for AI coding
 assistants: Claude Code (~/.claude/), Cursor, GitHub Copilot,
@@ -1840,7 +1840,7 @@ access — effectively using the developer's AI assistant as a
 reconnaissance tool.
 ```
 
-**`AP164B`** — Malicious Jupyter Notebook Distribution
+**`T13-AP-014B`** — Malicious Jupyter Notebook Distribution
 ```
 Distribute Jupyter notebooks containing malicious code hidden in
 cell metadata, invisible cells, or obfuscated code that executes
@@ -1849,7 +1849,7 @@ malicious code can be embedded in fields that are not rendered in
 the notebook UI but are executed by the kernel.
 ```
 
-**`AP164C`** — VS Code / IDE Extension Poisoning
+**`T13-AP-014C`** — VS Code / IDE Extension Poisoning
 ```
 Publish malicious VS Code extensions for ML development (Python,
 Jupyter, GPU monitoring, model visualization). Extensions run with
@@ -1859,7 +1859,7 @@ exfiltrate model code, inject vulnerabilities into training scripts,
 or modify hyperparameters.
 ```
 
-**`AP164D`** — Colab / Cloud Notebook Persistence
+**`T13-AP-014D`** — Colab / Cloud Notebook Persistence
 ```
 Exploit Google Colab or similar cloud notebook environments to
 install persistent malware. When users connect to a runtime,
@@ -1869,7 +1869,7 @@ and network connectivity — ideal for cryptocurrency mining or
 model exfiltration.
 ```
 
-**`AP164E`** — Weights & Biases / MLflow Tracking Exploitation
+**`T13-AP-014E`** — Weights & Biases / MLflow Tracking Exploitation
 ```
 Compromise W&B or MLflow tracking servers to modify logged
 experiments, inject malicious artifacts, or exfiltrate training
@@ -1879,7 +1879,7 @@ tracking server is a central collection point for ML intellectual
 property.
 ```
 
-**`AP164F`** — Gradio / Streamlit App Exploitation
+**`T13-AP-014F`** — Gradio / Streamlit App Exploitation
 ```
 Exploit Gradio or Streamlit applications that expose ML models.
 These apps often run with access to model weights, training data,
@@ -1889,7 +1889,7 @@ access the underlying server, or serve adversarial model outputs
 to users.
 ```
 
-**`AP164G`** — MCP Tool Poisoning
+**`T13-AP-014G`** — MCP Tool Poisoning
 ```
 Publish MCP (Model Context Protocol) server tools with hidden
 instructions embedded in tool descriptions. When AI agents load
@@ -1899,7 +1899,7 @@ data, or modifying code that the agent writes. MCPTox (2025)
 benchmarked 1,300+ malicious MCP tool cases.
 ```
 
-**`AP164H`** — Notebook Kernel Vulnerability Exploitation
+**`T13-AP-014H`** — Notebook Kernel Vulnerability Exploitation
 ```
 Exploit vulnerabilities in Jupyter kernel implementations (IPython,
 IRkernel, IJulia) to achieve code execution outside the notebook
@@ -1908,7 +1908,7 @@ access to full system access on the Jupyter server, which may host
 multiple users' notebooks.
 ```
 
-**`AP164I`** — Development Environment Secret Scanning
+**`T13-AP-014I`** — Development Environment Secret Scanning
 ```
 Deploy malware that specifically targets ML development environments
 to harvest: .env files with API keys, ~/.aws/credentials, GCP
@@ -1918,7 +1918,7 @@ s1ngularity demonstrated the effectiveness of targeted secret
 scanning in developer environments.
 ```
 
-**`AP164J`** — Collaborative Platform Exploitation
+**`T13-AP-014J`** — Collaborative Platform Exploitation
 ```
 Exploit collaborative ML platforms (HuggingFace Spaces, Kaggle
 Kernels, Paperspace Gradient) to distribute malicious code through
@@ -1931,7 +1931,7 @@ collaborators when they pull and execute the updated code.
 
 #### Chaining
 
-Development tool compromise is the entry point for many supply chain attack chains. Credential harvesting (AP164A, AP164I) chains to T13-AT-001 (Model Repository Poisoning), T13-AT-009 (Cloud Training Attacks), and T13-AT-013 (Container Registry Poisoning) via stolen access tokens. MCP tool poisoning (AP164G) chains to T11 (Agentic Exploitation) through agent manipulation. Notebook distribution (AP164B) chains to T13-AT-003 (Pipeline Injection) when notebooks are used as pipeline components.
+Development tool compromise is the entry point for many supply chain attack chains. Credential harvesting (T13-AP-014A, T13-AP-014I) chains to T13-AT-001 (Model Repository Poisoning), T13-AT-009 (Cloud Training Attacks), and T13-AT-013 (Container Registry Poisoning) via stolen access tokens. MCP tool poisoning (T13-AP-014G) chains to T11 (Agentic Exploitation) through agent manipulation. Notebook distribution (T13-AP-014B) chains to T13-AT-003 (Pipeline Injection) when notebooks are used as pipeline components.
 
 #### Detection
 
@@ -1969,7 +1969,7 @@ Model obfuscation hides adversarial behavior so that it survives security review
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP165A`** — Distributed Backdoor Encoding
+**`T13-AP-015A`** — Distributed Backdoor Encoding
 ```
 Encode the backdoor across millions of parameters so that no single
 parameter or neuron is anomalous. Neural cleanse and spectral
@@ -1978,7 +1978,7 @@ encoding evades these methods. The backdoor emerges only from the
 collective interaction of many small perturbations.
 ```
 
-**`AP165B`** — Quantization-Masked Obfuscation
+**`T13-AP-015B`** — Quantization-Masked Obfuscation
 ```
 Design backdoor signals that are within the quantization noise
 floor. When the model is analyzed at full precision, the backdoor
@@ -1988,7 +1988,7 @@ quantization error. Analysis of the deployed (quantized) model
 reveals nothing.
 ```
 
-**`AP165C`** — Trigger Rarity Exploitation
+**`T13-AP-015C`** — Trigger Rarity Exploitation
 ```
 Design trigger patterns that are extremely unlikely to occur in
 testing but can be reliably produced by the attacker at deployment
@@ -1999,7 +1999,7 @@ PoisonBench showed triggers generalize to unseen variants,
 compounding this asymmetry.
 ```
 
-**`AP165D`** — Performance-Masked Poisoning (LoRATK Pattern)
+**`T13-AP-015D`** — Performance-Masked Poisoning (LoRATK Pattern)
 ```
 Combine the backdoor with genuine performance improvements. The
 model demonstrably outperforms the clean baseline on standard
@@ -2010,7 +2010,7 @@ exemplify this: the backdoor hides behind improved downstream
 capabilities.
 ```
 
-**`AP165E`** — Interpretability Evasion
+**`T13-AP-015E`** — Interpretability Evasion
 ```
 Design backdoor activations that are consistent with normal model
 interpretation. Attention pattern analysis, saliency maps, and
@@ -2020,7 +2020,7 @@ pathways as normal behavior, making it invisible to interpretability
 tools.
 ```
 
-**`AP165F`** — Ensemble Obfuscation
+**`T13-AP-015F`** — Ensemble Obfuscation
 ```
 Hide the backdoor across an ensemble of models where no single
 model carries the full malicious capability. The adversarial
@@ -2029,7 +2029,7 @@ individual model passes security review; the emergent ensemble
 behavior is adversarial.
 ```
 
-**`AP165G`** — Dynamic Architecture Concealment
+**`T13-AP-015G`** — Dynamic Architecture Concealment
 ```
 Use dynamic architectures (Mixture of Experts, conditional
 computation, early exit networks) to route triggered inputs through
@@ -2038,7 +2038,7 @@ behavior exists only in one expert/path. Static analysis of the
 full model does not reveal which path is adversarial.
 ```
 
-**`AP165H`** — Custom Layer Obfuscation
+**`T13-AP-015H`** — Custom Layer Obfuscation
 ```
 Implement the backdoor in a custom neural network layer that
 performs the adversarial computation disguised as a legitimate
@@ -2047,7 +2047,7 @@ Code review sees a "custom batch normalization" layer; in reality,
 it detects trigger patterns and modifies the output.
 ```
 
-**`AP165I`** — Metamorphic Backdoor
+**`T13-AP-015I`** — Metamorphic Backdoor
 ```
 Design a backdoor that changes its trigger pattern over time
 (across input batches, deployment time, or interaction count).
@@ -2056,7 +2056,7 @@ than the one that will be active in production. The backdoor
 "evolves" to avoid the specific patterns that testing checks for.
 ```
 
-**`AP165J`** — Steganographic Weight Encoding
+**`T13-AP-015J`** — Steganographic Weight Encoding
 ```
 Encode a secondary malicious model within the weight space of
 a primary benign model using steganographic techniques. The
@@ -2070,7 +2070,7 @@ the steganographic encoding scheme.
 
 #### Chaining
 
-Model obfuscation is a supporting technique that makes all other T6 and T13 attacks more effective by evading detection. Distributed encoding (AP165A) strengthens T6-AT-003 (Backdoor Insertion) by making backdoors undetectable. Performance masking (AP165D) strengthens T13-AT-001 (Model Repository Poisoning) by incentivizing download. Interpretability evasion (AP165E) defeats the detection methods recommended for T6-AT-003.
+Model obfuscation is a supporting technique that makes all other T6 and T13 attacks more effective by evading detection. Distributed encoding (T13-AP-015A) strengthens T6-AT-003 (Backdoor Insertion) by making backdoors undetectable. Performance masking (T13-AP-015D) strengthens T13-AT-001 (Model Repository Poisoning) by incentivizing download. Interpretability evasion (T13-AP-015E) defeats the detection methods recommended for T6-AT-003.
 
 #### Detection
 

@@ -66,59 +66,59 @@ GPU compute is the scarcest and most expensive resource in the AI ecosystem — 
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP166A`** — CUDA Driver Exploitation
+**`T14-AP-001A`** — CUDA Driver Exploitation
 - **Injection context:** Exploit delivery against GPU driver stack
 - **Payload:** Target CUDA driver vulnerabilities (CVE-2024-0132 NVIDIA Container Toolkit TOCTOU, CVE-2025-23254 TensorRT-LLM pickle deserialization) for host-level access through container escape
 - **Real-world precedent:** CVE-2024-0132 allowed container escape through NVIDIA Container Toolkit — any container with GPU access could break out to host. 25,000+ organizations running Triton Inference Server affected by CVE-2025-23319 chain.
 - **Distinguishing factor:** Targets the GPU driver stack specifically — unique attack surface not present in CPU-only infrastructure.
 
-**`AP166B`** — Cryptomining Injection into Training Jobs
+**`T14-AP-001B`** — Cryptomining Injection into Training Jobs
 - **Injection context:** Supply chain or insider access to training pipeline
 - **Payload:** Inject cryptomining payloads into distributed training job containers or modify training scripts to allocate GPU cycles to mining during idle phases
 - **Real-world precedent:** LLMjacking evolved from cryptojacking — Sysdig documented credential theft campaigns specifically targeting AI services, with cryptojacking market growing 20% in 2025 alone.
 - **Distinguishing factor:** Parasitic compute theft that coexists with legitimate workloads — may go undetected for weeks if GPU utilization appears normal.
 
-**`AP166C`** — Kubernetes GPU Operator Compromise
+**`T14-AP-001C`** — Kubernetes GPU Operator Compromise
 - **Injection context:** Network access to Kubernetes cluster management plane
 - **Payload:** Exploit NVIDIA GPU Operator or device plugin misconfigurations for cluster-wide GPU access. Target default ServiceAccount tokens, unprotected kubelet APIs, or RBAC misconfigurations granting GPU scheduling permissions.
 - **Real-world precedent:** Kubernetes misconfiguration is the primary initial access vector for cloud-native attacks. GPU operators add a privileged component that is frequently overlooked in security audits.
 - **Distinguishing factor:** Targets the Kubernetes-GPU integration layer — the GPU operator runs as a privileged daemonset with host device access.
 
-**`AP166D`** — PCIe DMA Attack
+**`T14-AP-001D`** — PCIe DMA Attack
 - **Injection context:** Physical or firmware-level access
 - **Payload:** Exploit PCIe direct memory access to read/write GPU memory from another PCIe device, extracting model weights or injecting malicious computation
 - **Real-world precedent:** GPU memory is accessible via PCIe without IOMMU protections in many configurations. Research has demonstrated cross-VM GPU memory leakage in shared environments.
 - **Distinguishing factor:** Hardware-level attack bypassing all software security — requires physical access or firmware compromise.
 
-**`AP166E`** — Cloud GPU API Credential Theft
+**`T14-AP-001E`** — Cloud GPU API Credential Theft
 - **Injection context:** Stolen credentials (phishing, exposed .env files, leaked API keys)
 - **Payload:** Use stolen AWS/GCP/Azure credentials to provision GPU instances (p4d.24xlarge, A100 instances) or access existing GPU-backed services. Automated using Shodan/Censys scanning for exposed endpoints.
 - **Real-world precedent:** Operation Bizarre Bazaar (Pillar Security, January 2026) — systematic scanning for exposed LLM endpoints, credential validation, commercial resale. 35,000+ attack sessions in 40 days.
 - **ASR data:** Kaspersky honeypot: Shodan discovery in 3 hours, recon requests within 1 hour, 113,000+ requests/month from thousands of IPs.
 - **Distinguishing factor:** Highest-volume attack vector — credential theft is the dominant initial access method for GPU hijacking.
 
-**`AP166F`** — GPU Memory Overflow DoS
+**`T14-AP-001F`** — GPU Memory Overflow DoS
 - **Injection context:** API access to inference endpoint
 - **Payload:** Submit inputs designed to exhaust GPU VRAM (extremely long sequences, adversarial inputs triggering maximum KV-cache allocation), causing OOM kills that crash the serving process
 - **Distinguishing factor:** DoS through GPU memory exhaustion rather than CPU/network — specific to GPU-served models.
 
-**`AP166G`** — Multi-GPU Synchronization Exploitation
+**`T14-AP-001G`** — Multi-GPU Synchronization Exploitation
 - **Injection context:** Network access to distributed training communication (NCCL, MPI)
 - **Payload:** Exploit unencrypted/unauthenticated NCCL all-reduce communications between GPUs in a distributed training job. Inject gradient modifications or redirect synchronization to attacker-controlled nodes.
 - **Real-world precedent:** ShadowMQ research (Oligo Security) revealed that ZeroMQ-based inter-process communication in ML frameworks uses unsafe deserialization (pickle) by default.
 - **Distinguishing factor:** Targets the distributed training communication layer — unique to multi-GPU/multi-node training infrastructure.
 
-**`AP166H`** — NVIDIA Container Runtime Escape
+**`T14-AP-001H`** — NVIDIA Container Runtime Escape
 - **Injection context:** Container with GPU access in shared cluster
 - **Payload:** Exploit NVIDIA Container Toolkit vulnerabilities (CVE-2024-0132 TOCTOU) to escape container isolation and access host-level GPU resources, potentially compromising all GPU workloads on the node
 - **Distinguishing factor:** Container escape through GPU-specific runtime — the nvidia-container-toolkit is a privileged component that bridges container isolation.
 
-**`AP166I`** — Distributed Training Job Theft
+**`T14-AP-001I`** — Distributed Training Job Theft
 - **Injection context:** Cluster access with job submission privileges
 - **Payload:** Submit training jobs that appear legitimate but dedicate GPU cycles to attacker workloads (model training for resale, cryptomining, inference serving for unauthorized users)
 - **Distinguishing factor:** Abuse of legitimate job scheduling rather than exploitation — harder to distinguish from authorized workloads.
 
-**`AP166J`** — GPU Virtualization Cross-VM Attack
+**`T14-AP-001J`** — GPU Virtualization Cross-VM Attack
 - **Injection context:** Co-tenant in shared GPU cloud environment
 - **Payload:** Exploit GPU virtualization (MIG, vGPU) isolation failures to read other tenants' GPU memory, extract model weights, or interfere with their computations
 - **Real-world precedent:** Research has demonstrated GPU memory leakage between VMs sharing the same physical GPU. NVIDIA MIG provides better isolation than vGPU but is not universally deployed.
@@ -166,56 +166,56 @@ LLM inference has a fundamental asymmetry: a short input can trigger enormous co
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP167A`** — Max-Token Flooding
+**`T14-AP-002A`** — Max-Token Flooding
 - **Injection context:** API access to inference endpoint
 - **Payload:** Flood API with prompts engineered to produce maximum-length responses (long-form instructions, "explain in maximum detail," repetitive generation triggers), exhausting token quotas and GPU time
 - **Real-world precedent:** ThinkTrap (2025) demonstrated that reasoning models can be induced into >5-minute thinking chains with crafted inputs. At $0.01–$0.06 per 1K output tokens, sustained max-token flooding at scale generates $10,000+/day in compute costs.
 - **Distinguishing factor:** Simplest DoS — high-volume max-token requests. Limited by rate limiting and quota enforcement.
 
-**`AP167B`** — Recursive Agent Loops
+**`T14-AP-002B`** — Recursive Agent Loops
 - **Injection context:** Prompt injection in agentic system
 - **Payload:** Inject instructions that cause the agent to enter infinite tool-calling loops (e.g., "search for X, then search for the results of the first search, then..."). Each loop iteration consumes a full inference cycle.
 - **Real-world precedent:** arXiv:2601.10955 demonstrated that tool-calling chains bypass single-turn token limits — a single prompt triggers multi-turn computation with cumulative cost.
 - **Distinguishing factor:** Exploits agentic architecture — cost amplification beyond single-request limits through recursive tool use.
 
-**`AP167C`** — Adversarial Crash Inputs
+**`T14-AP-002C`** — Adversarial Crash Inputs
 - **Injection context:** API access to inference endpoint
 - **Payload:** Submit inputs that trigger model crashes through edge cases in tokenization, attention computation, or output processing. Unicode edge cases, extremely long single tokens, or inputs exploiting KV-cache bugs.
 - **Real-world precedent:** CVE-2026-22778 (vLLM CVSS 9.8) — RCE via malicious video URL. Earlier vLLM vulnerabilities allowed denial of service through malformed inputs.
 - **Distinguishing factor:** Targets crash conditions rather than resource exhaustion — a single request can take down the serving process.
 
-**`AP167D`** — Memory Leak Exploitation
+**`T14-AP-002D`** — Memory Leak Exploitation
 - **Injection context:** Sustained API access over time
 - **Payload:** Submit request patterns that trigger memory leaks in the serving framework (KV-cache not freed, connection pool exhaustion, tensor memory fragmentation), causing gradual degradation until OOM.
 - **Distinguishing factor:** Slow-burn DoS — degradation over hours rather than immediate crash. Harder to detect, harder to attribute.
 
-**`AP167E`** — Distributed Endpoint Flooding
+**`T14-AP-002E`** — Distributed Endpoint Flooding
 - **Injection context:** Distributed botnet or cloud instances
 - **Payload:** Coordinate distributed max-token requests across multiple source IPs to overwhelm rate limiting per-IP while exceeding aggregate capacity
 - **Distinguishing factor:** Traditional DDoS applied to AI endpoints — scale-based rather than adversarial-input-based.
 
-**`AP167F`** — Worst-Case Algorithmic Complexity
+**`T14-AP-002F`** — Worst-Case Algorithmic Complexity
 - **Injection context:** API access with crafted inputs
 - **Payload:** Sponge examples — inputs specifically optimized (via gradient or genetic algorithms) to maximize attention computation and energy consumption. Engorgio (ICLR 2025) achieved max-length outputs with black-box optimization.
 - **ASR data:** ThinkTrap achieved highest output length across all tested LLMs. Engorgio achieved near-max-length generation on GPT-4, Claude, and Gemini.
 - **Distinguishing factor:** Adversarial optimization of input for maximum compute cost — the most efficient per-request DoS.
 
-**`AP167G`** — Multi-Account Rate Limit Evasion
+**`T14-AP-002G`** — Multi-Account Rate Limit Evasion
 - **Injection context:** Multiple accounts (free tier abuse, stolen credentials)
 - **Payload:** Distribute attack traffic across many accounts to stay below per-account rate limits while exceeding aggregate service capacity
 - **Distinguishing factor:** Circumvents per-account rate limiting through horizontal scaling of accounts.
 
-**`AP167H`** — KV-Cache Poisoning
+**`T14-AP-002H`** — KV-Cache Poisoning
 - **Injection context:** API access to cached inference endpoint
 - **Payload:** Submit inputs designed to populate the KV-cache with adversarial entries that degrade performance for subsequent legitimate requests (cache pollution with worst-case entries)
 - **Distinguishing factor:** Attacks the caching layer rather than direct computation — degrades performance for all users, not just the attacker's requests.
 
-**`AP167I`** — Autoscaling Abuse
+**`T14-AP-002I`** — Autoscaling Abuse
 - **Injection context:** API access to autoscaling-enabled endpoint
 - **Payload:** Submit burst traffic to trigger autoscaling to maximum capacity, then drop traffic. The scaling-up cost is incurred (new instances provisioned) while the attacker pays nothing. Repeated cycles create cost without sustained load.
 - **Distinguishing factor:** Exploits autoscaling economics — the cost of scaling up exceeds the cost of the requests that trigger it.
 
-**`AP167J`** — Model Loading DoS
+**`T14-AP-002J`** — Model Loading DoS
 - **Injection context:** API access to on-demand model loading endpoint
 - **Payload:** Request inference on models that are not currently loaded, forcing expensive model-load operations (loading 70B+ parameter models takes minutes and requires full GPU VRAM allocation). Rapidly switch between models to thrash the loading system.
 - **Distinguishing factor:** Targets the model loading pipeline rather than inference — each model swap costs minutes of GPU time with zero useful computation.
@@ -262,53 +262,53 @@ AI infrastructure pricing creates an amplification vulnerability: the cost of ge
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP168A`** — Competitor Account GPU Abuse
+**`T14-AP-003A`** — Competitor Account GPU Abuse
 - **Injection context:** Compromised cloud credentials
 - **Payload:** Provision maximum GPU instances on target's cloud account. Run continuous inference or training workloads to generate billing. At $30/hr for H100 instances, 10 instances for 30 days = $216,000.
 - **Real-world precedent:** LLMjacking campaigns generate $46,000–$100,000/day per compromised account (Sysdig 2026).
 - **Distinguishing factor:** Direct compute billing fraud — highest per-incident cost.
 
-**`AP168B`** — Infinite API Loop Creation
+**`T14-AP-003B`** — Infinite API Loop Creation
 - **Injection context:** Prompt injection in agentic system connected to billing API
 - **Payload:** Inject instructions creating recursive API calls: agent calls tool A, which triggers tool B, which calls tool A. Each iteration generates billing events.
 - **Distinguishing factor:** Self-sustaining cost generation through recursive agent behavior.
 
-**`AP168C`** — Free Tier to Paid Escalation
+**`T14-AP-003C`** — Free Tier to Paid Escalation
 - **Injection context:** Account abuse across multiple free-tier accounts
 - **Payload:** Create multiple free-tier accounts, exhaust free quotas triggering automatic upgrade to paid tiers, then generate maximum usage before payment fails.
 - **Distinguishing factor:** Exploits billing system design — free-to-paid transitions often have delayed payment verification.
 
-**`AP168D`** — Autoscaling Cost Manipulation
+**`T14-AP-003D`** — Autoscaling Cost Manipulation
 - **Injection context:** API access to autoscaling-enabled service
 - **Payload:** Generate traffic patterns that trigger maximum autoscaling (burst → sustain → burst), forcing provisioning of expensive instances that remain billable through cooldown periods even after traffic drops.
 - **Distinguishing factor:** Exploits autoscaling hysteresis — the gap between scale-up trigger and scale-down cooldown.
 
-**`AP168E`** — Training Job Compute Abuse
+**`T14-AP-003E`** — Training Job Compute Abuse
 - **Injection context:** Compromised training pipeline access
 - **Payload:** Submit long-running training jobs on maximum GPU configurations. A single misconfgured job on 8x A100 for 7 days = $40,000+.
 - **Distinguishing factor:** Training jobs consume orders of magnitude more compute than inference — single jobs can generate five-figure costs.
 
-**`AP168F`** — Hidden Recurring Workloads
+**`T14-AP-003F`** — Hidden Recurring Workloads
 - **Injection context:** Persistent access to cluster or cloud account
 - **Payload:** Deploy containerized workloads that run continuously on GPU instances but appear as legitimate services (renamed to match expected training job names, scheduled during low-monitoring periods).
 - **Distinguishing factor:** Persistence-focused — designed to evade detection through mimicry of legitimate workloads.
 
-**`AP168G`** — Pricing Model Exploitation
+**`T14-AP-003G`** — Pricing Model Exploitation
 - **Injection context:** API access with knowledge of pricing structure
 - **Payload:** Target the most expensive API operations (longest context windows, most expensive models, vision/multimodal endpoints) to maximize cost-per-request ratio.
 - **Distinguishing factor:** Optimization of attack for maximum cost efficiency — knowledge of pricing tiers is the weapon.
 
-**`AP168H`** — Data Egress Cost Generation
+**`T14-AP-003H`** — Data Egress Cost Generation
 - **Injection context:** Compromised cloud account
 - **Payload:** Trigger massive data egress (download model weights, export training datasets across regions) to generate inter-region and internet egress charges. Cloud egress typically costs $0.08–$0.12/GB.
 - **Distinguishing factor:** Exploits egress pricing — data transfer costs accumulate independently of compute costs.
 
-**`AP168I`** — A/B Testing Resource Waste
+**`T14-AP-003I`** — A/B Testing Resource Waste
 - **Injection context:** Access to A/B testing or experiment tracking system
 - **Payload:** Create hundreds of concurrent experiment variants, each requiring separate model serving instances. The A/B testing framework provisions resources for each variant.
 - **Distinguishing factor:** Exploits experiment management infrastructure — ML-specific cost amplification vector.
 
-**`AP168J`** — Phantom Workload Billing
+**`T14-AP-003J`** — Phantom Workload Billing
 - **Injection context:** Compromised cloud billing or resource management access
 - **Payload:** Create "phantom" resources — instances provisioned but not connected to any workload, GPU reservations that block legitimate use while incurring charges.
 - **Distinguishing factor:** Resources that generate cost without computation — pure billing fraud.
@@ -352,56 +352,56 @@ Financial markets operate on information asymmetry — prices move based on new 
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP169A`** — AI-Generated Market-Moving News
+**`T14-AP-004A`** — AI-Generated Market-Moving News
 - **Injection context:** Content distribution at scale (social media, news aggregators, financial terminals)
 - **Payload:** Generate and distribute realistic but fabricated news articles about corporate events (mergers, earnings, regulatory actions) through multiple channels simultaneously, targeting algorithmic trading systems that react to news sentiment.
 - **Real-world precedent:** AI-enabled fraud surged 1,210% in 2025 (Vectra AI). Chainalysis reported $14B in crypto scam losses in 2025, with AI-enabled scams 4.5x more profitable.
 - **Distinguishing factor:** Scale-based — hundreds of articles across platforms simultaneously, overwhelming manual verification.
 
-**`AP169B`** — Deepfake CEO Announcements
+**`T14-AP-004B`** — Deepfake CEO Announcements
 - **Injection context:** Video/audio distribution through social media, messaging apps, or compromised corporate channels
 - **Payload:** Generate deepfake video of a public company CEO announcing earnings, mergers, resignations, or regulatory issues. Distribute through channels that reach algorithmic trading feeds.
 - **Real-world precedent:** Bombay Stock Exchange warning (January 2026) — deepfake CEO videos promoting fraudulent stock tips. Bank of Italy deepfake of governor Fabio Panetta for investment fraud. Arup $25.6M CFO deepfake.
 - **ASR data:** Voice clones from 3 seconds of audio. Deepfake vishing attacks up 1,600% Q1 2025 vs Q4 2024.
 - **Distinguishing factor:** Executive impersonation — exploits the trust in identifiable authority figures to move markets.
 
-**`AP169C`** — Sentiment Analysis Manipulation
+**`T14-AP-004C`** — Sentiment Analysis Manipulation
 - **Injection context:** Social media platforms feeding financial sentiment models
 - **Payload:** Deploy AI-generated social media accounts posting coordinated sentiment about target securities. Financial sentiment models (Bloomberg, Reuters, proprietary quant) aggregate this signal into trading decisions.
 - **Distinguishing factor:** Targets the AI-to-AI pipeline — synthetic social media sentiment manipulates algorithmic trading models.
 
-**`AP169D`** — Algorithmic Trading Adversarial Inputs
+**`T14-AP-004D`** — Algorithmic Trading Adversarial Inputs
 - **Injection context:** Market data feeds consumed by HFT systems
 - **Payload:** Submit patterns of trades or order book manipulations specifically designed to trigger adverse behavior in known trading algorithms (spoofing, layering, momentum ignition adapted for AI-based trading).
 - **Distinguishing factor:** Adversarial ML applied to financial AI — crafted inputs targeting known model architectures.
 
-**`AP169E`** — Synthetic Regulatory Filings
+**`T14-AP-004E`** — Synthetic Regulatory Filings
 - **Injection context:** EDGAR, corporate communications channels
 - **Payload:** Generate realistic but fabricated SEC filings, press releases, or regulatory disclosures using LLMs trained on authentic corporate communications. Target afterhours or pre-market release windows for maximum impact before verification.
 - **Distinguishing factor:** Document-level fabrication — targets the trust in official filing channels.
 
-**`AP169F`** — Synthetic Insider Information
+**`T14-AP-004F`** — Synthetic Insider Information
 - **Injection context:** Private messaging, leaked document channels (Telegram, Discord, dark web forums)
 - **Payload:** Generate fabricated internal documents (board minutes, M&A term sheets, earnings previews) and leak them through channels that traders monitor for insider information.
 - **Distinguishing factor:** Exploits the market for insider information — creates demand-side pull for fabricated content.
 
-**`AP169G`** — Prediction Market Manipulation
+**`T14-AP-004G`** — Prediction Market Manipulation
 - **Injection context:** Prediction market platforms (Polymarket, Kalshi, Metaculus)
 - **Payload:** Combine AI-generated misinformation with coordinated prediction market positions. Fabricated events shift prediction probabilities, which feed back into news cycles and financial markets.
 - **Distinguishing factor:** Recursive amplification — prediction markets and news create a feedback loop.
 
-**`AP169H`** — HFT Adversarial Perturbation
+**`T14-AP-004H`** — HFT Adversarial Perturbation
 - **Injection context:** Market data feed manipulation or co-located exchange access
 - **Payload:** Submit microsecond-level order patterns designed to confuse ML-based HFT systems — trigger false signals that cause algorithmic cascades (flash crash induction).
 - **Distinguishing factor:** Speed-based — operates at microsecond timescales beyond human monitoring capacity.
 
-**`AP169I`** — Cryptocurrency Market Fabrication
+**`T14-AP-004I`** — Cryptocurrency Market Fabrication
 - **Injection context:** Crypto social media (Twitter/X, Telegram, Discord)
 - **Payload:** AI-generated fake partnership announcements, exchange listings, or whale wallet movements paired with coordinated trading. Crypto markets have less regulatory oversight and faster manipulation cycles.
 - **ASR data:** $14B crypto scam losses in 2025 (Chainalysis). AI-powered pump-and-dump increasingly automated.
 - **Distinguishing factor:** Crypto's lower regulatory barrier and 24/7 trading makes it the highest-ROI market manipulation target.
 
-**`AP169J`** — AI-Orchestrated Pump and Dump
+**`T14-AP-004J`** — AI-Orchestrated Pump and Dump
 - **Injection context:** Multi-channel coordinated campaign
 - **Payload:** Fully automated pipeline: accumulate position → deploy LLM-generated promotion across social media, forums, and messaging → deepfake endorsement videos → sell during price spike. AI orchestrates timing and channel selection.
 - **Distinguishing factor:** End-to-end AI-orchestrated fraud — no human intervention after campaign launch.
@@ -446,52 +446,52 @@ AI systems increasingly manage critical infrastructure — power grid load balan
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP170A`** — Power Grid AI Manipulation
+**`T14-AP-005A`** — Power Grid AI Manipulation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Power Grid AI Manipulation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the critical infrastructure attacks technique category.
 
-**`AP170B`** — Water Treatment AI Compromise
+**`T14-AP-005B`** — Water Treatment AI Compromise
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Water Treatment AI Compromise — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the critical infrastructure attacks technique category.
 
-**`AP170C`** — Traffic AI Gridlock
+**`T14-AP-005C`** — Traffic AI Gridlock
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Traffic AI Gridlock — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the critical infrastructure attacks technique category.
 
-**`AP170D`** — Hospital AI Disruption
+**`T14-AP-005D`** — Hospital AI Disruption
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Hospital AI Disruption — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the critical infrastructure attacks technique category.
 
-**`AP170E`** — Air Traffic AI Attack
+**`T14-AP-005E`** — Air Traffic AI Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Air Traffic AI Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the critical infrastructure attacks technique category.
 
-**`AP170F`** — Supply Chain AI Shortage
+**`T14-AP-005F`** — Supply Chain AI Shortage
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Supply Chain AI Shortage — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the critical infrastructure attacks technique category.
 
-**`AP170G`** — Telecom AI Infrastructure Attack
+**`T14-AP-005G`** — Telecom AI Infrastructure Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Telecom AI Infrastructure Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the critical infrastructure attacks technique category.
 
-**`AP170H`** — Emergency Response AI Compromise
+**`T14-AP-005H`** — Emergency Response AI Compromise
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Emergency Response AI Compromise — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the critical infrastructure attacks technique category.
 
-**`AP170I`** — Smart City Manipulation
+**`T14-AP-005I`** — Smart City Manipulation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Smart City Manipulation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the critical infrastructure attacks technique category.
 
-**`AP170J`** — ICS AI System Attack
+**`T14-AP-005J`** — ICS AI System Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** ICS AI System Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the critical infrastructure attacks technique category.
@@ -533,52 +533,52 @@ AI competitive advantage is fragile — model quality depends on training data, 
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP171A`** — Training Data Poisoning
+**`T14-AP-006A`** — Training Data Poisoning
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Training Data Poisoning — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the competitive sabotage technique category.
 
-**`AP171B`** — Model Extraction via Queries
+**`T14-AP-006B`** — Model Extraction via Queries
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Model Extraction via Queries — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the competitive sabotage technique category.
 
-**`AP171C`** — ML Pipeline Backdoor
+**`T14-AP-006C`** — ML Pipeline Backdoor
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** ML Pipeline Backdoor — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the competitive sabotage technique category.
 
-**`AP171D`** — Adversarial SEO
+**`T14-AP-006D`** — Adversarial SEO
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Adversarial SEO — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the competitive sabotage technique category.
 
-**`AP171E`** — Recommendation System Attack
+**`T14-AP-006E`** — Recommendation System Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Recommendation System Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the competitive sabotage technique category.
 
-**`AP171F`** — Pricing Algorithm Manipulation
+**`T14-AP-006F`** — Pricing Algorithm Manipulation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Pricing Algorithm Manipulation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the competitive sabotage technique category.
 
-**`AP171G`** — Customer Data Poisoning
+**`T14-AP-006G`** — Customer Data Poisoning
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Customer Data Poisoning — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the competitive sabotage technique category.
 
-**`AP171H`** — AI-Generated Negative Reviews
+**`T14-AP-006H`** — AI-Generated Negative Reviews
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** AI-Generated Negative Reviews — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the competitive sabotage technique category.
 
-**`AP171I`** — Competitive Intelligence Theft
+**`T14-AP-006I`** — Competitive Intelligence Theft
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Competitive Intelligence Theft — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the competitive sabotage technique category.
 
-**`AP171J`** — Product Sabotage
+**`T14-AP-006J`** — Product Sabotage
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Product Sabotage — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the competitive sabotage technique category.
@@ -620,52 +620,52 @@ Nation-states operate at a scale, persistence, and sophistication that fundament
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP172A`** — AI Disinformation Campaigns
+**`T14-AP-007A`** — AI Disinformation Campaigns
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** AI Disinformation Campaigns — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the nation-state ai warfare technique category.
 
-**`AP172B`** — AI Mass Surveillance
+**`T14-AP-007B`** — AI Mass Surveillance
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** AI Mass Surveillance — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the nation-state ai warfare technique category.
 
-**`AP172C`** — AI Cyber Weapons
+**`T14-AP-007C`** — AI Cyber Weapons
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** AI Cyber Weapons — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the nation-state ai warfare technique category.
 
-**`AP172D`** — Election Manipulation
+**`T14-AP-007D`** — Election Manipulation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Election Manipulation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the nation-state ai warfare technique category.
 
-**`AP172E`** — AI Espionage Operations
+**`T14-AP-007E`** — AI Espionage Operations
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** AI Espionage Operations — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the nation-state ai warfare technique category.
 
-**`AP172F`** — AI Research Facility Attack
+**`T14-AP-007F`** — AI Research Facility Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** AI Research Facility Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the nation-state ai warfare technique category.
 
-**`AP172G`** — IP Theft at Scale
+**`T14-AP-007G`** — IP Theft at Scale
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** IP Theft at Scale — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the nation-state ai warfare technique category.
 
-**`AP172H`** — AI Propaganda Systems
+**`T14-AP-007H`** — AI Propaganda Systems
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** AI Propaganda Systems — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the nation-state ai warfare technique category.
 
-**`AP172I`** — AI Bot Networks
+**`T14-AP-007I`** — AI Bot Networks
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** AI Bot Networks — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the nation-state ai warfare technique category.
 
-**`AP172J`** — AI Psychological Operations
+**`T14-AP-007J`** — AI Psychological Operations
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** AI Psychological Operations — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the nation-state ai warfare technique category.
@@ -707,52 +707,52 @@ AI assets have uniquely high ransom value: a model trained over months on millio
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP173A`** — Model Weight Encryption
+**`T14-AP-008A`** — Model Weight Encryption
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Model Weight Encryption — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the ransomware via ai systems technique category.
 
-**`AP173B`** — Training Data Lockout
+**`T14-AP-008B`** — Training Data Lockout
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Training Data Lockout — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the ransomware via ai systems technique category.
 
-**`AP173C`** — ML Pipeline Ransomware
+**`T14-AP-008C`** — ML Pipeline Ransomware
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** ML Pipeline Ransomware — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the ransomware via ai systems technique category.
 
-**`AP173D`** — GPU Cluster Encryption
+**`T14-AP-008D`** — GPU Cluster Encryption
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** GPU Cluster Encryption — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the ransomware via ai systems technique category.
 
-**`AP173E`** — Inference Service Hostage
+**`T14-AP-008E`** — Inference Service Hostage
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Inference Service Hostage — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the ransomware via ai systems technique category.
 
-**`AP173F`** — Model Marketplace Ransomware
+**`T14-AP-008F`** — Model Marketplace Ransomware
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Model Marketplace Ransomware — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the ransomware via ai systems technique category.
 
-**`AP173G`** — Notebook Environment Lockout
+**`T14-AP-008G`** — Notebook Environment Lockout
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Notebook Environment Lockout — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the ransomware via ai systems technique category.
 
-**`AP173H`** — Cloud AI Resource Lockout
+**`T14-AP-008H`** — Cloud AI Resource Lockout
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Cloud AI Resource Lockout — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the ransomware via ai systems technique category.
 
-**`AP173I`** — Research Compromise and Ransom
+**`T14-AP-008I`** — Research Compromise and Ransom
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Research Compromise and Ransom — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the ransomware via ai systems technique category.
 
-**`AP173J`** — AI-Negotiated Ransomware
+**`T14-AP-008J`** — AI-Negotiated Ransomware
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** AI-Negotiated Ransomware — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the ransomware via ai systems technique category.
@@ -794,52 +794,52 @@ AI compute resources are shared and finite — cloud GPU instances are oversubsc
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP174A`** — Regional GPU Monopolization
+**`T14-AP-009A`** — Regional GPU Monopolization
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Regional GPU Monopolization — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the resource starvation technique category.
 
-**`AP174B`** — API Quota Exhaustion
+**`T14-AP-009B`** — API Quota Exhaustion
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** API Quota Exhaustion — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the resource starvation technique category.
 
-**`AP174C`** — Compute Scarcity Creation
+**`T14-AP-009C`** — Compute Scarcity Creation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Compute Scarcity Creation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the resource starvation technique category.
 
-**`AP174D`** — Dataset Access Blocking
+**`T14-AP-009D`** — Dataset Access Blocking
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Dataset Access Blocking — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the resource starvation technique category.
 
-**`AP174E`** — Shared Endpoint Overload
+**`T14-AP-009E`** — Shared Endpoint Overload
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Shared Endpoint Overload — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the resource starvation technique category.
 
-**`AP174F`** — Cluster Memory Exhaustion
+**`T14-AP-009F`** — Cluster Memory Exhaustion
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Cluster Memory Exhaustion — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the resource starvation technique category.
 
-**`AP174G`** — Network Bandwidth Consumption
+**`T14-AP-009G`** — Network Bandwidth Consumption
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Network Bandwidth Consumption — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the resource starvation technique category.
 
-**`AP174H`** — Credit Depletion
+**`T14-AP-009H`** — Credit Depletion
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Credit Depletion — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the resource starvation technique category.
 
-**`AP174I`** — Pipeline Bottleneck Creation
+**`T14-AP-009I`** — Pipeline Bottleneck Creation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Pipeline Bottleneck Creation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the resource starvation technique category.
 
-**`AP174J`** — Training Data Starvation
+**`T14-AP-009J`** — Training Data Starvation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Training Data Starvation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the resource starvation technique category.
@@ -881,52 +881,52 @@ AI compute is geographically concentrated — a small number of data centers hou
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP175A`** — Cooling System Attack
+**`T14-AP-010A`** — Cooling System Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Cooling System Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the data center attacks technique category.
 
-**`AP175B`** — Power Distribution Attack
+**`T14-AP-010B`** — Power Distribution Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Power Distribution Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the data center attacks technique category.
 
-**`AP175C`** — Physical Security Compromise
+**`T14-AP-010C`** — Physical Security Compromise
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Physical Security Compromise — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the data center attacks technique category.
 
-**`AP175D`** — Hardware Supply Chain Backdoor
+**`T14-AP-010D`** — Hardware Supply Chain Backdoor
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Hardware Supply Chain Backdoor — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the data center attacks technique category.
 
-**`AP175E`** — Network Infrastructure Attack
+**`T14-AP-010E`** — Network Infrastructure Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Network Infrastructure Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the data center attacks technique category.
 
-**`AP175F`** — Environmental Control Manipulation
+**`T14-AP-010F`** — Environmental Control Manipulation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Environmental Control Manipulation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the data center attacks technique category.
 
-**`AP175G`** — Backup System Compromise
+**`T14-AP-010G`** — Backup System Compromise
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Backup System Compromise — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the data center attacks technique category.
 
-**`AP175H`** — Orchestration System Attack
+**`T14-AP-010H`** — Orchestration System Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Orchestration System Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the data center attacks technique category.
 
-**`AP175I`** — Maintenance Access Exploitation
+**`T14-AP-010I`** — Maintenance Access Exploitation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Maintenance Access Exploitation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the data center attacks technique category.
 
-**`AP175J`** — Cascading Infrastructure Failure
+**`T14-AP-010J`** — Cascading Infrastructure Failure
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Cascading Infrastructure Failure — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the data center attacks technique category.
@@ -968,52 +968,52 @@ The AI ecosystem operates through a complex API economy — models are served th
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP176A`** — Fake API Provider
+**`T14-AP-011A`** — Fake API Provider
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Fake API Provider — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the api economy attacks technique category.
 
-**`AP176B`** — API Billing Exploitation
+**`T14-AP-011B`** — API Billing Exploitation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** API Billing Exploitation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the api economy attacks technique category.
 
-**`AP176C`** — API Gateway Attack
+**`T14-AP-011C`** — API Gateway Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** API Gateway Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the api economy attacks technique category.
 
-**`AP176D`** — Marketplace Ranking Manipulation
+**`T14-AP-011D`** — Marketplace Ranking Manipulation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Marketplace Ranking Manipulation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the api economy attacks technique category.
 
-**`AP176E`** — Malicious API Aggregator
+**`T14-AP-011E`** — Malicious API Aggregator
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Malicious API Aggregator — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the api economy attacks technique category.
 
-**`AP176F`** — OAuth Flow Exploitation
+**`T14-AP-011F`** — OAuth Flow Exploitation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** OAuth Flow Exploitation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the api economy attacks technique category.
 
-**`AP176G`** — API Documentation Poisoning
+**`T14-AP-011G`** — API Documentation Poisoning
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** API Documentation Poisoning — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the api economy attacks technique category.
 
-**`AP176H`** — API Key Management Compromise
+**`T14-AP-011H`** — API Key Management Compromise
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** API Key Management Compromise — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the api economy attacks technique category.
 
-**`AP176I`** — API Dependency Attack
+**`T14-AP-011I`** — API Dependency Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** API Dependency Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the api economy attacks technique category.
 
-**`AP176J`** — API Version Exploitation
+**`T14-AP-011J`** — API Version Exploitation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** API Version Exploitation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the api economy attacks technique category.
@@ -1055,52 +1055,52 @@ Major cloud AI platforms (AWS SageMaker, Azure ML, GCP Vertex AI) serve thousand
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP177A`** — SageMaker Exploitation
+**`T14-AP-012A`** — SageMaker Exploitation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** SageMaker Exploitation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the cloud provider exploitation technique category.
 
-**`AP177B`** — Azure Cognitive Services Attack
+**`T14-AP-012B`** — Azure Cognitive Services Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Azure Cognitive Services Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the cloud provider exploitation technique category.
 
-**`AP177C`** — GCP AI Platform Compromise
+**`T14-AP-012C`** — GCP AI Platform Compromise
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** GCP AI Platform Compromise — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the cloud provider exploitation technique category.
 
-**`AP177D`** — Multi-Tenancy Isolation Failure
+**`T14-AP-012D`** — Multi-Tenancy Isolation Failure
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Multi-Tenancy Isolation Failure — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the cloud provider exploitation technique category.
 
-**`AP177E`** — Cloud Orchestration Attack
+**`T14-AP-012E`** — Cloud Orchestration Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Cloud Orchestration Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the cloud provider exploitation technique category.
 
-**`AP177F`** — Cloud Identity Compromise
+**`T14-AP-012F`** — Cloud Identity Compromise
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Cloud Identity Compromise — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the cloud provider exploitation technique category.
 
-**`AP177G`** — Cloud Network Lateral Movement
+**`T14-AP-012G`** — Cloud Network Lateral Movement
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Cloud Network Lateral Movement — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the cloud provider exploitation technique category.
 
-**`AP177H`** — Cloud Storage Data Theft
+**`T14-AP-012H`** — Cloud Storage Data Theft
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Cloud Storage Data Theft — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the cloud provider exploitation technique category.
 
-**`AP177I`** — Cloud Logging Compromise
+**`T14-AP-012I`** — Cloud Logging Compromise
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Cloud Logging Compromise — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the cloud provider exploitation technique category.
 
-**`AP177J`** — Cloud Rate Limit Exploitation
+**`T14-AP-012J`** — Cloud Rate Limit Exploitation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Cloud Rate Limit Exploitation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the cloud provider exploitation technique category.
@@ -1142,52 +1142,52 @@ AI assets represent extraordinary value concentration: a frontier model represen
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP178A`** — Model Extraction via API
+**`T14-AP-013A`** — Model Extraction via API
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Model Extraction via API — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the economic espionage technique category.
 
-**`AP178B`** — Training Data Theft
+**`T14-AP-013B`** — Training Data Theft
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Training Data Theft — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the economic espionage technique category.
 
-**`AP178C`** — Pre-Publication Research Compromise
+**`T14-AP-013C`** — Pre-Publication Research Compromise
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Pre-Publication Research Compromise — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the economic espionage technique category.
 
-**`AP178D`** — Trade Secret Extraction
+**`T14-AP-013D`** — Trade Secret Extraction
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Trade Secret Extraction — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the economic espionage technique category.
 
-**`AP178E`** — Customer Data Exfiltration
+**`T14-AP-013E`** — Customer Data Exfiltration
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Customer Data Exfiltration — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the economic espionage technique category.
 
-**`AP178F`** — Competitive Intelligence Compromise
+**`T14-AP-013F`** — Competitive Intelligence Compromise
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Competitive Intelligence Compromise — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the economic espionage technique category.
 
-**`AP178G`** — Pricing Algorithm Extraction
+**`T14-AP-013G`** — Pricing Algorithm Extraction
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Pricing Algorithm Extraction — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the economic espionage technique category.
 
-**`AP178H`** — Recommendation Logic Theft
+**`T14-AP-013H`** — Recommendation Logic Theft
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Recommendation Logic Theft — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the economic espionage technique category.
 
-**`AP178I`** — Private Research Compromise
+**`T14-AP-013I`** — Private Research Compromise
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Private Research Compromise — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the economic espionage technique category.
 
-**`AP178J`** — Business Logic Extraction
+**`T14-AP-013J`** — Business Logic Extraction
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Business Logic Extraction — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the economic espionage technique category.
@@ -1229,52 +1229,52 @@ The AI ecosystem has developed deep interdependencies: a small number of foundat
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP179A`** — Service Interdependency Failure
+**`T14-AP-014A`** — Service Interdependency Failure
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Service Interdependency Failure — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the systemic risk creation technique category.
 
-**`AP179B`** — Cascade Trigger in Distributed Systems
+**`T14-AP-014B`** — Cascade Trigger in Distributed Systems
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Cascade Trigger in Distributed Systems — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the systemic risk creation technique category.
 
-**`AP179C`** — Single Point of Failure Exploitation
+**`T14-AP-014C`** — Single Point of Failure Exploitation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Single Point of Failure Exploitation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the systemic risk creation technique category.
 
-**`AP179D`** — Feedback Loop Collapse
+**`T14-AP-014D`** — Feedback Loop Collapse
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Feedback Loop Collapse — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the systemic risk creation technique category.
 
-**`AP179E`** — Consensus Mechanism Attack
+**`T14-AP-014E`** — Consensus Mechanism Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Consensus Mechanism Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the systemic risk creation technique category.
 
-**`AP179F`** — Update Mechanism Compromise
+**`T14-AP-014F`** — Update Mechanism Compromise
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Update Mechanism Compromise — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the systemic risk creation technique category.
 
-**`AP179G`** — Supply Chain Cascade
+**`T14-AP-014G`** — Supply Chain Cascade
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Supply Chain Cascade — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the systemic risk creation technique category.
 
-**`AP179H`** — Synchronization Exploitation
+**`T14-AP-014H`** — Synchronization Exploitation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Synchronization Exploitation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the systemic risk creation technique category.
 
-**`AP179I`** — Failover Mechanism Attack
+**`T14-AP-014I`** — Failover Mechanism Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Failover Mechanism Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the systemic risk creation technique category.
 
-**`AP179J`** — AI Ecosystem Pandemic
+**`T14-AP-014J`** — AI Ecosystem Pandemic
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** AI Ecosystem Pandemic — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the systemic risk creation technique category.
@@ -1315,52 +1315,52 @@ AI regulations (GDPR, EU AI Act, sector-specific requirements) create compliance
 <details>
 <summary><b>Attack Procedures (10)</b></summary>
 
-**`AP180A`** — GDPR Deletion Weaponization
+**`T14-AP-015A`** — GDPR Deletion Weaponization
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** GDPR Deletion Weaponization — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the regulatory exploitation technique category.
 
-**`AP180B`** — Compliance Access Abuse
+**`T14-AP-015B`** — Compliance Access Abuse
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Compliance Access Abuse — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the regulatory exploitation technique category.
 
-**`AP180C`** — Audit System Manipulation
+**`T14-AP-015C`** — Audit System Manipulation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Audit System Manipulation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the regulatory exploitation technique category.
 
-**`AP180D`** — Data Residency Exploitation
+**`T14-AP-015D`** — Data Residency Exploitation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Data Residency Exploitation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the regulatory exploitation technique category.
 
-**`AP180E`** — Compliance Monitoring Attack
+**`T14-AP-015E`** — Compliance Monitoring Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Compliance Monitoring Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the regulatory exploitation technique category.
 
-**`AP180F`** — Regulatory Reporting Manipulation
+**`T14-AP-015F`** — Regulatory Reporting Manipulation
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Regulatory Reporting Manipulation — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the regulatory exploitation technique category.
 
-**`AP180G`** — Privacy Regulation Intelligence Gathering
+**`T14-AP-015G`** — Privacy Regulation Intelligence Gathering
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Privacy Regulation Intelligence Gathering — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the regulatory exploitation technique category.
 
-**`AP180H`** — Transparency Requirement Abuse
+**`T14-AP-015H`** — Transparency Requirement Abuse
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Transparency Requirement Abuse — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the regulatory exploitation technique category.
 
-**`AP180I`** — Certification Process Attack
+**`T14-AP-015I`** — Certification Process Attack
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Certification Process Attack — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the regulatory exploitation technique category.
 
-**`AP180J`** — Regulatory Arbitrage
+**`T14-AP-015J`** — Regulatory Arbitrage
 - **Injection context:** Infrastructure/economic attack
 - **Payload:** Regulatory Arbitrage — targeting AI infrastructure trust boundaries and economic dependencies
 - **Distinguishing factor:** Unique operational vector within the regulatory exploitation technique category.
