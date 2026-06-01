@@ -1,0 +1,31 @@
+name: AATMF Integrity
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate framework integrity
+        run: python scripts/validate.py
+
+      - name: Verify machine-readable export is current
+        run: |
+          python scripts/build_export.py
+          if ! git diff --quiet -- data/; then
+            echo "::error::data/ export is out of date. Run 'python scripts/build_export.py' and commit the result."
+            git --no-pager diff -- data/
+            exit 1
+          fi

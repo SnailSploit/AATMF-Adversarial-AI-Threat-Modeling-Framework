@@ -51,7 +51,7 @@
 ## Techniques
 
 
-### T14-AT-001 — GPU Farm Hijacking
+### `T14-AT-001` — GPU Farm Hijacking
 
 **Risk Score:** 265 🔴 CRITICAL
 **OWASP LLM:** LLM06 (Excessive Agency) | **OWASP ASI:** ASI04 (Cascading Hallucination Attacks)
@@ -151,7 +151,7 @@ GPU farm hijacking provides compute resources that enable **T14-AT-003 (Cost Inf
 ---
 
 
-### T14-AT-002 — Denial of Service Attacks
+### `T14-AT-002` — Denial of Service Attacks
 
 **Risk Score:** 240 🟠 HIGH
 **OWASP LLM:** LLM04 (Model Denial of Service) | **OWASP ASI:** ASI06 (Cascading Failures)
@@ -247,7 +247,7 @@ DoS attacks enable **T14-AT-003 (Cost Inflation)** directly through compute cost
 ---
 
 
-### T14-AT-003 — Cost Inflation Attacks
+### `T14-AT-003` — Cost Inflation Attacks
 
 **Risk Score:** 235 🟠 HIGH
 **OWASP LLM:** LLM04 (Model Denial of Service) | **OWASP ASI:** ASI06 (Cascading Failures)
@@ -337,7 +337,7 @@ Cost inflation chains from **T14-AT-001 (GPU Farm Hijacking)** when stolen crede
 
 ---
 
-### T14-AT-004 — Market Manipulation via AI
+### `T14-AT-004` — Market Manipulation via AI
 
 **Risk Score:** 255 🔴 CRITICAL
 **OWASP LLM:** LLM05 (Insecure Output Handling) | **OWASP ASI:** ASI01 (Agent Goal Hijack)
@@ -431,7 +431,7 @@ Market manipulation chains from **T8 (External Deception)** for content generati
 ---
 
 
-### T14-AT-005 — Critical Infrastructure Attacks
+### `T14-AT-005` — Critical Infrastructure Attacks
 
 **Risk Score:** 270 🔴 CRITICAL
 **OWASP LLM:** LLM06 (Excessive Agency) | **OWASP ASI:** ASI03 (Tool Misuse)
@@ -518,7 +518,7 @@ Monitor AI control system inputs for anomalous sensor data patterns; implement i
 ---
 
 
-### T14-AT-006 — Competitive Sabotage
+### `T14-AT-006` — Competitive Sabotage
 
 **Risk Score:** 245 🟠 HIGH
 **OWASP LLM:** LLM03 (Supply Chain Vulnerabilities) | **OWASP ASI:** ASI05 (Memory and Context Manipulation)
@@ -605,7 +605,7 @@ Monitor training data sources for anomalous content changes; track model perform
 ---
 
 
-### T14-AT-007 — Nation-State AI Warfare
+### `T14-AT-007` — Nation-State AI Warfare
 
 **Risk Score:** 280 🔴 CRITICAL
 **OWASP LLM:** —
@@ -692,7 +692,7 @@ Attribution is the primary challenge — nation-state operations use criminal pr
 ---
 
 
-### T14-AT-008 — Ransomware via AI Systems
+### `T14-AT-008` — Ransomware via AI Systems
 
 **Risk Score:** 260 🔴 CRITICAL
 **OWASP LLM:** LLM06 (Excessive Agency) | **OWASP ASI:** ASI03 (Tool Misuse)
@@ -779,7 +779,7 @@ Monitor for anomalous file access patterns on model storage (mass reads followed
 ---
 
 
-### T14-AT-009 — Resource Starvation
+### `T14-AT-009` — Resource Starvation
 
 **Risk Score:** 230 🟠 HIGH
 **OWASP LLM:** LLM04 (Model Denial of Service) | **OWASP ASI:** ASI06 (Cascading Failures)
@@ -866,7 +866,7 @@ Monitor resource utilization for anomalous concentration patterns (single tenant
 ---
 
 
-### T14-AT-010 — Data Center Attacks
+### `T14-AT-010` — Data Center Attacks
 
 **Risk Score:** 250 🔴 CRITICAL
 **OWASP LLM:** —
@@ -953,7 +953,7 @@ Physical security monitoring (CCTV, access logs, environmental sensors); cooling
 ---
 
 
-### T14-AT-011 — API Economy Attacks
+### `T14-AT-011` — API Economy Attacks
 
 **Risk Score:** 225 🟠 HIGH
 **OWASP LLM:** LLM01 (Prompt Injection) | **OWASP ASI:** ASI04 (Cascading Hallucination Attacks)
@@ -1040,7 +1040,7 @@ Monitor API key usage for anomalous patterns (new consumers, unusual endpoints, 
 ---
 
 
-### T14-AT-012 — Cloud Provider Exploitation
+### `T14-AT-012` — Cloud Provider Exploitation
 
 **Risk Score:** 265 🔴 CRITICAL
 **OWASP LLM:** LLM06 (Excessive Agency) | **OWASP ASI:** ASI03 (Tool Misuse)
@@ -1127,7 +1127,7 @@ Cloud security posture management (CSPM) for AI-specific misconfigurations; IAM 
 ---
 
 
-### T14-AT-013 — Economic Espionage
+### `T14-AT-013` — Economic Espionage
 
 **Risk Score:** 255 🔴 CRITICAL
 **OWASP LLM:** LLM02 (Sensitive Information Disclosure) | **OWASP ASI:** ASI09 (Information Leakage)
@@ -1214,7 +1214,7 @@ Monitor API query patterns for model extraction signatures (systematic input spa
 ---
 
 
-### T14-AT-014 — Systemic Risk Creation
+### `T14-AT-014` — Systemic Risk Creation
 
 **Risk Score:** 270 🔴 CRITICAL
 **OWASP LLM:** — | **OWASP ASI:** ASI06 (Cascading Failures)
@@ -1301,7 +1301,7 @@ Dependency mapping — understand which components your AI systems share with th
 ---
 
 
-### T14-AT-015 — Regulatory Exploitation
+### `T14-AT-015` — Regulatory Exploitation
 
 **Risk Score:** 210 🟠 HIGH
 **OWASP LLM:** —

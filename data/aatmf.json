@@ -1,0 +1,3901 @@
+{
+  "framework": "AATMF",
+  "name": "Adversarial AI Threat Modeling Framework",
+  "version": "3",
+  "source": "generated from docs/ by scripts/build_export.py — do not edit by hand",
+  "risk_scale": [
+    {
+      "min": 250,
+      "rating": "CRITICAL",
+      "emoji": "🔴"
+    },
+    {
+      "min": 200,
+      "rating": "HIGH",
+      "emoji": "🟠"
+    },
+    {
+      "min": 150,
+      "rating": "MEDIUM",
+      "emoji": "🟡"
+    },
+    {
+      "min": 100,
+      "rating": "LOW",
+      "emoji": "🔵"
+    },
+    {
+      "min": 0,
+      "rating": "INFO",
+      "emoji": "⚪"
+    }
+  ],
+  "counts": {
+    "tactics": 15,
+    "techniques": 240,
+    "procedures": 2152
+  },
+  "tactics": [
+    {
+      "id": "T1",
+      "number": 1,
+      "name": "Prompt & Context Subversion",
+      "volume": "vol-2-core-tactics",
+      "file": "docs/vol-2-core-tactics/04-t01-prompt-subversion.md",
+      "technique_count": 16,
+      "techniques": [
+        {
+          "id": "T1-AT-001",
+          "title": "Dialogue Hijacking",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0051"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-002",
+          "title": "Time-Based Context Manipulation",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-003",
+          "title": "Language Model Confusion",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-004",
+          "title": "Instruction Prefix/Suffix",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 6,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-005",
+          "title": "Permission Escalation Claims",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-006",
+          "title": "Prompt Template Injection",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-007",
+          "title": "Cognitive Overload",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 4,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-008",
+          "title": "Boundary Testing",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-009",
+          "title": "Simulation Requests",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-010",
+          "title": "Negative Instruction Reversal",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-011",
+          "title": "Error Message Exploitation",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 4,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-012",
+          "title": "Consent Manufacturing",
+          "risk_score": 205,
+          "rating": "HIGH",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-013",
+          "title": "Instruction Commenting",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 4,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-014",
+          "title": "Authority Spoofing",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 4,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-015",
+          "title": "Obfuscation Through Complexity",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 4,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T1-AT-016",
+          "title": "Session State Manipulation",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T2",
+      "number": 2,
+      "name": "Semantic & Linguistic Evasion",
+      "volume": "vol-2-core-tactics",
+      "file": "docs/vol-2-core-tactics/05-t02-semantic-evasion.md",
+      "technique_count": 20,
+      "techniques": [
+        {
+          "id": "T2-AT-001",
+          "title": "Euphemism and Metaphor Exploitation",
+          "risk_score": 180,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T2-AT-002",
+          "title": "Multi-Language Evasion",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 7,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T2-AT-003",
+          "title": "Encoding and Obfuscation",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T2-AT-004",
+          "title": "Unicode and Bidirectional Attacks",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T2-AT-005",
+          "title": "Semantic Drift",
+          "risk_score": 175,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-006",
+          "title": "Linguistic Camouflage",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-007",
+          "title": "Phonetic Manipulation",
+          "risk_score": 170,
+          "rating": "MEDIUM",
+          "procedures": 2,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-008",
+          "title": "Synonym and Paraphrase Chains",
+          "risk_score": 165,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-009",
+          "title": "Code-Switching Attacks",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 1,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-010",
+          "title": "Transliteration Exploitation",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-011",
+          "title": "Abbreviation and Acronym Abuse",
+          "risk_score": 160,
+          "rating": "MEDIUM",
+          "procedures": 2,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-012",
+          "title": "Cultural Reference Encoding",
+          "risk_score": 170,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-013",
+          "title": "Grammatical Manipulation",
+          "risk_score": 175,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-014",
+          "title": "Semantic Bleaching",
+          "risk_score": 180,
+          "rating": "MEDIUM",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-015",
+          "title": "Noise Injection",
+          "risk_score": 165,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-016",
+          "title": "Dialectical Variations",
+          "risk_score": 155,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-017",
+          "title": "Compression Techniques",
+          "risk_score": 170,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-018",
+          "title": "Semantic Field Manipulation",
+          "risk_score": 175,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-019",
+          "title": "Pragmatic Implication",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 4,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T2-AT-020",
+          "title": "Register Shifting",
+          "risk_score": 160,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "T3",
+      "number": 3,
+      "name": "Reasoning & Constraint Exploitation",
+      "volume": "vol-2-core-tactics",
+      "file": "docs/vol-2-core-tactics/06-t03-reasoning-exploitation.md",
+      "technique_count": 19,
+      "techniques": [
+        {
+          "id": "T3-AT-001",
+          "title": "Fictional Framing",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0051",
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-002",
+          "title": "Academic Pretense",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051",
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-003",
+          "title": "Counterfactual Reasoning",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-004",
+          "title": "Step-by-Step Extraction",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 9,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0051",
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-005",
+          "title": "Goal Substitution",
+          "risk_score": 205,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-006",
+          "title": "Constraint Negation",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-007",
+          "title": "Socratic Method Exploitation",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 8,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-008",
+          "title": "Comparative Analysis",
+          "risk_score": 180,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-009",
+          "title": "Expertise Assumption",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-010",
+          "title": "Reverse Psychology",
+          "risk_score": 175,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-011",
+          "title": "Information Completion",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-012",
+          "title": "Capability Testing",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-013",
+          "title": "Logical Paradox Creation",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-014",
+          "title": "Incremental Boundary Pushing",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-015",
+          "title": "Context Weaponization",
+          "risk_score": 205,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-016",
+          "title": "Rationalization Chains",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 6,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-017",
+          "title": "Scenario Anchoring",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-018",
+          "title": "Debate Positioning",
+          "risk_score": 180,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T3-AT-019",
+          "title": "Misdirection Through Complexity",
+          "risk_score": 175,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T4",
+      "number": 4,
+      "name": "Multi-Turn & Memory Manipulation",
+      "volume": "vol-2-core-tactics",
+      "file": "docs/vol-2-core-tactics/07-t04-multi-turn.md",
+      "technique_count": 16,
+      "techniques": [
+        {
+          "id": "T4-AT-001",
+          "title": "Conversation Context Poisoning",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.000"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-002",
+          "title": "Memory Instruction Injection",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.000",
+              "AML.T0080"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-003",
+          "title": "Session State Manipulation",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-004",
+          "title": "Cross-Conversation Contamination",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI06",
+              "ASI07"
+            ],
+            "mitre_atlas": [
+              "AML.T0080"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-005",
+          "title": "Incremental Jailbreak Assembly",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-006",
+          "title": "False History Creation",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI09"
+            ],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-007",
+          "title": "Context Window Exhaustion",
+          "risk_score": 205,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.000"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-008",
+          "title": "Conversation Forking",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 3,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.000"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-009",
+          "title": "Temporal Anchoring",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-010",
+          "title": "State Confusion Attack",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 4,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI06",
+              "ASI09"
+            ],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-011",
+          "title": "Memory Poisoning",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0080"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-012",
+          "title": "Trust Building Exploitation",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI09"
+            ],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-013",
+          "title": "Session Hijacking",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI03"
+            ],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-014",
+          "title": "Conversation Replay Attack",
+          "risk_score": 205,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.000"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-015",
+          "title": "Multi-Turn Social Engineering",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI09"
+            ],
+            "mitre_atlas": [
+              "AML.T0054"
+            ]
+          }
+        },
+        {
+          "id": "T4-AT-016",
+          "title": "Context Fragmentation",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.000"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T5",
+      "number": 5,
+      "name": "Model & API Exploitation",
+      "volume": "vol-2-core-tactics",
+      "file": "docs/vol-2-core-tactics/08-t05-model-api.md",
+      "technique_count": 16,
+      "techniques": [
+        {
+          "id": "T5-AT-001",
+          "title": "Parameter Manipulation",
+          "risk_score": 180,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM04"
+            ],
+            "owasp_asi": [
+              "ASI08"
+            ],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-002",
+          "title": "Token Probability Extraction",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM06"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0024",
+              "AML.T0044"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-003",
+          "title": "Cache Poisoning",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM05"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0018"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-004",
+          "title": "Rate Limit Evasion",
+          "risk_score": 170,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM10"
+            ],
+            "owasp_asi": [
+              "ASI05"
+            ],
+            "mitre_atlas": [
+              "AML.T0040"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-005",
+          "title": "Model Fingerprinting",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 1,
+          "mappings": {
+            "owasp_llm": [
+              "LLM06"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0001",
+              "AML.T0014"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-006",
+          "title": "API Endpoint Abuse",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI05"
+            ],
+            "mitre_atlas": [
+              "AML.T0040"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-007",
+          "title": "Context Length Exploitation",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-008",
+          "title": "Response Streaming Exploitation",
+          "risk_score": 175,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM05"
+            ],
+            "owasp_asi": [
+              "ASI08"
+            ],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-009",
+          "title": "Tokenization Exploits",
+          "risk_score": 180,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI05"
+            ],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-010",
+          "title": "Batch Processing Attacks",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM05"
+            ],
+            "owasp_asi": [
+              "ASI05"
+            ],
+            "mitre_atlas": [
+              "AML.T0040"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-011",
+          "title": "Error Message Mining",
+          "risk_score": 165,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM06"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0001"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-012",
+          "title": "Resource Exhaustion",
+          "risk_score": 205,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM10"
+            ],
+            "owasp_asi": [
+              "ASI09"
+            ],
+            "mitre_atlas": [
+              "AML.T0029"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-013",
+          "title": "Version Downgrade Attacks",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 1,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI05"
+            ],
+            "mitre_atlas": [
+              "AML.T0040"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-014",
+          "title": "Side Channel Attacks",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM06"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-015",
+          "title": "API Authentication Bypass",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI03"
+            ],
+            "mitre_atlas": [
+              "AML.T0040"
+            ]
+          }
+        },
+        {
+          "id": "T5-AT-016",
+          "title": "Request Smuggling",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI05"
+            ],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T6",
+      "number": 6,
+      "name": "Training & Feedback Poisoning",
+      "volume": "vol-2-core-tactics",
+      "file": "docs/vol-2-core-tactics/09-t06-training-poisoning.md",
+      "technique_count": 15,
+      "techniques": [
+        {
+          "id": "T6-AT-001",
+          "title": "Reward Hacking",
+          "risk_score": 250,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM04"
+            ],
+            "owasp_asi": [
+              "ASI07"
+            ],
+            "mitre_atlas": [
+              "AML.T0020"
+            ]
+          }
+        },
+        {
+          "id": "T6-AT-002",
+          "title": "Dataset Contamination",
+          "risk_score": 260,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM04"
+            ],
+            "owasp_asi": [
+              "ASI10"
+            ],
+            "mitre_atlas": [
+              "AML.T0020"
+            ]
+          }
+        },
+        {
+          "id": "T6-AT-003",
+          "title": "Backdoor Insertion",
+          "risk_score": 270,
+          "rating": "CRITICAL",
+          "procedures": 1,
+          "mappings": {
+            "owasp_llm": [
+              "LLM04"
+            ],
+            "owasp_asi": [
+              "ASI10"
+            ],
+            "mitre_atlas": [
+              "AML.T0018"
+            ]
+          }
+        },
+        {
+          "id": "T6-AT-004",
+          "title": "Fine-Tuning Attacks",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T6-AT-005",
+          "title": "Synthetic Data Poisoning",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T6-AT-006",
+          "title": "Annotation Manipulation",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T6-AT-007",
+          "title": "Preference Learning Corruption",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T6-AT-008",
+          "title": "Model Update Hijacking",
+          "risk_score": 245,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T6-AT-009",
+          "title": "Evaluation Set Contamination",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T6-AT-010",
+          "title": "Knowledge Distillation Attacks",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T6-AT-011",
+          "title": "Reinforcement Signal Manipulation",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T6-AT-012",
+          "title": "Curriculum Learning Exploitation",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T6-AT-013",
+          "title": "Active Learning Exploitation",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T6-AT-014",
+          "title": "Self-Supervised Poisoning",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T6-AT-015",
+          "title": "Few-Shot Learning Attacks",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "T7",
+      "number": 7,
+      "name": "Output Manipulation & Exfiltration",
+      "volume": "vol-2-core-tactics",
+      "file": "docs/vol-2-core-tactics/10-t07-output-manipulation.md",
+      "technique_count": 15,
+      "techniques": [
+        {
+          "id": "T7-AT-001",
+          "title": "Reasoning Chain Disclosure",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02",
+              "LLM07"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-002",
+          "title": "Information Fragmentation",
+          "risk_score": 180,
+          "rating": "MEDIUM",
+          "procedures": 6,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI08"
+            ],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-003",
+          "title": "Output Format Exploitation",
+          "risk_score": 175,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM05"
+            ],
+            "owasp_asi": [
+              "ASI02"
+            ],
+            "mitre_atlas": [
+              "AML.T0048.004"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-004",
+          "title": "Side Channel Leakage",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI08"
+            ],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-005",
+          "title": "Metadata Extraction",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM07"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0046"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-006",
+          "title": "Steganographic Output",
+          "risk_score": 170,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM05"
+            ],
+            "owasp_asi": [
+              "ASI10"
+            ],
+            "mitre_atlas": [
+              "AML.T0048"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-007",
+          "title": "Iterative Refinement Extraction",
+          "risk_score": 175,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI08"
+            ],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-008",
+          "title": "Translation Leakage",
+          "risk_score": 165,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0048.003"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-009",
+          "title": "Analogy Extraction",
+          "risk_score": 180,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI09"
+            ],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-010",
+          "title": "Differential Response Analysis",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI08"
+            ],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-011",
+          "title": "Schema-Based Extraction",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM05"
+            ],
+            "owasp_asi": [
+              "ASI02"
+            ],
+            "mitre_atlas": [
+              "AML.T0048.004"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-012",
+          "title": "Aggregation Attacks",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI08"
+            ],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-013",
+          "title": "Capability Probing",
+          "risk_score": 175,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM07"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0046"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-014",
+          "title": "Output Redirection",
+          "risk_score": 180,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM05"
+            ],
+            "owasp_asi": [
+              "ASI02"
+            ],
+            "mitre_atlas": [
+              "AML.T0062"
+            ]
+          }
+        },
+        {
+          "id": "T7-AT-015",
+          "title": "Compression-Based Extraction",
+          "risk_score": 170,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM05"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0048"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T8",
+      "number": 8,
+      "name": "External Deception & Misinformation",
+      "volume": "vol-2-core-tactics",
+      "file": "docs/vol-2-core-tactics/11-t08-deception.md",
+      "technique_count": 15,
+      "techniques": [
+        {
+          "id": "T8-AT-001",
+          "title": "Authority Impersonation",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-002",
+          "title": "Synthetic Evidence Generation",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-003",
+          "title": "Conspiracy Theory Amplification",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-004",
+          "title": "Deepfake Narrative Creation",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-005",
+          "title": "Social Engineering Scripts",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-006",
+          "title": "Targeted Harassment Content",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-007",
+          "title": "Disinformation Campaign Content",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-008",
+          "title": "Synthetic Testimony Generation",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-009",
+          "title": "Radicalization Content",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-010",
+          "title": "False Flag Content",
+          "risk_score": 205,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-011",
+          "title": "Election Manipulation Content",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-012",
+          "title": "Synthetic Media Support",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-013",
+          "title": "Psychological Manipulation Content",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-014",
+          "title": "False Crisis Generation",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T8-AT-015",
+          "title": "Identity Fabrication",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "T9",
+      "number": 9,
+      "name": "Multimodal & Cross-Channel Attacks",
+      "volume": "vol-3-advanced-tactics",
+      "file": "docs/vol-3-advanced-tactics/12-t09-multimodal.md",
+      "technique_count": 17,
+      "techniques": [
+        {
+          "id": "T9-AT-001",
+          "title": "Image-Based Prompt Injection",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-002",
+          "title": "Audio Instruction Embedding",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-003",
+          "title": "Video Manipulation Attacks",
+          "risk_score": 245,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-004",
+          "title": "Cross-Modal Confusion",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 4,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.000"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-005",
+          "title": "OCR Bypass Techniques",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-006",
+          "title": "Visual Adversarial Examples",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-007",
+          "title": "Synthetic Media Attacks",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI09"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-008",
+          "title": "File Format Exploitation",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI05"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-009",
+          "title": "Multimodal Chaining",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 1,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-010",
+          "title": "Accessibility Feature Abuse",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-011",
+          "title": "Sensor Fusion Attacks",
+          "risk_score": 205,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI08"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-012",
+          "title": "Document Structure Exploitation",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI05"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-013",
+          "title": "Embedding Vector Manipulation",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-014",
+          "title": "Codec and Compression Exploits",
+          "risk_score": 180,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-015",
+          "title": "Temporal Synchronization Attacks",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI08"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-016",
+          "title": "Multimodal Model Inversion",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 2,
+          "mappings": {
+            "owasp_llm": [
+              "LLM06"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T9-AT-017",
+          "title": "Malicious Image Patches (MIP)",
+          "risk_score": 248,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI01",
+              "ASI02"
+            ],
+            "mitre_atlas": [
+              "AML.T0051.001"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T10",
+      "number": 10,
+      "name": "Integrity & Confidentiality Breach",
+      "volume": "vol-3-advanced-tactics",
+      "file": "docs/vol-3-advanced-tactics/13-t10-integrity-breach.md",
+      "technique_count": 15,
+      "techniques": [
+        {
+          "id": "T10-AT-001",
+          "title": "Training Data Extraction",
+          "risk_score": 245,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T10-AT-002",
+          "title": "PII Extraction Techniques",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T10-AT-003",
+          "title": "Membership Inference Attacks",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0024.000"
+            ]
+          }
+        },
+        {
+          "id": "T10-AT-004",
+          "title": "Privacy Boundary Probing",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02",
+              "LLM07"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T10-AT-005",
+          "title": "Differential Privacy Attacks",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 9,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T10-AT-006",
+          "title": "Inference Attack Chains",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T10-AT-007",
+          "title": "Model Inversion Attacks",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0024.001"
+            ]
+          }
+        },
+        {
+          "id": "T10-AT-008",
+          "title": "Attribute Inference Attacks",
+          "risk_score": 205,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI09"
+            ],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T10-AT-009",
+          "title": "Data Poisoning Detection Bypass",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM04"
+            ],
+            "owasp_asi": [
+              "ASI04",
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0020"
+            ]
+          }
+        },
+        {
+          "id": "T10-AT-010",
+          "title": "Federated Learning Exploits",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM04"
+            ],
+            "owasp_asi": [
+              "ASI04",
+              "ASI07"
+            ],
+            "mitre_atlas": [
+              "AML.T0020"
+            ]
+          }
+        },
+        {
+          "id": "T10-AT-011",
+          "title": "Homomorphic Encryption Exploits",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 9,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T10-AT-012",
+          "title": "Secure Enclave Bypasses",
+          "risk_score": 250,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T10-AT-013",
+          "title": "Audit Log Manipulation",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [
+              "ASI03"
+            ],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T10-AT-014",
+          "title": "Data Lineage Attacks",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 9,
+          "mappings": {
+            "owasp_llm": [
+              "LLM03",
+              "LLM04"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0020"
+            ]
+          }
+        },
+        {
+          "id": "T10-AT-015",
+          "title": "Anonymization Reversal",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0024.000"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T11",
+      "number": 11,
+      "name": "Agentic & Orchestrator Exploitation",
+      "volume": "vol-3-advanced-tactics",
+      "file": "docs/vol-3-advanced-tactics/14-t11-agentic.md",
+      "technique_count": 16,
+      "techniques": [
+        {
+          "id": "T11-AT-001",
+          "title": "Browser Automation Hijacking",
+          "risk_score": 265,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-002",
+          "title": "Tool Chain Exploitation",
+          "risk_score": 255,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-003",
+          "title": "Goal Hijacking",
+          "risk_score": 245,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-004",
+          "title": "Planning Corruption",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-005",
+          "title": "Multi-Agent Collision",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-006",
+          "title": "Reflection Loop Exploitation",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-007",
+          "title": "Environment Manipulation",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-008",
+          "title": "Credential Harvesting",
+          "risk_score": 250,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-009",
+          "title": "Persistence Installation",
+          "risk_score": 245,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-010",
+          "title": "Lateral Movement",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-011",
+          "title": "Data Exfiltration via Agent",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-012",
+          "title": "Resource Exhaustion Attacks",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-013",
+          "title": "Supply Chain Attacks via Agents",
+          "risk_score": 260,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-014",
+          "title": "Physical World Interactions",
+          "risk_score": 255,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-015",
+          "title": "Autonomous Replication",
+          "risk_score": 270,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T11-AT-016",
+          "title": "Tool-Induced SSRF & Local Resource",
+          "risk_score": 275,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "T12",
+      "number": 12,
+      "name": "RAG & Knowledge Base Manipulation",
+      "volume": "vol-3-advanced-tactics",
+      "file": "docs/vol-3-advanced-tactics/15-t12-rag.md",
+      "technique_count": 15,
+      "techniques": [
+        {
+          "id": "T12-AT-001",
+          "title": "Vector Database Poisoning",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM08"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0020"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-002",
+          "title": "Retrieval Manipulation",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM08"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-003",
+          "title": "Knowledge Graph Attacks",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM08"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0020"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-004",
+          "title": "Document Store Corruption",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM08"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0020"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-005",
+          "title": "Embedding Space Manipulation",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM08"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-006",
+          "title": "Query Injection Attacks",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 9,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01",
+              "LLM08"
+            ],
+            "owasp_asi": [
+              "ASI02"
+            ],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-007",
+          "title": "Context Window Stuffing",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM10"
+            ],
+            "owasp_asi": [
+              "ASI08"
+            ],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-008",
+          "title": "Source Authority Spoofing",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM09"
+            ],
+            "owasp_asi": [
+              "ASI09"
+            ],
+            "mitre_atlas": [
+              "AML.T0020"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-009",
+          "title": "Temporal Manipulation",
+          "risk_score": 200,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM08"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-010",
+          "title": "Feedback Loop Poisoning",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM08"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0020"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-011",
+          "title": "Cross-Collection Attacks",
+          "risk_score": 205,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI03"
+            ],
+            "mitre_atlas": [
+              "AML.T0024"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-012",
+          "title": "Index Manipulation",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM08"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-013",
+          "title": "Chunking Exploitation",
+          "risk_score": 185,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM08"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-014",
+          "title": "Similarity Search Hijacking",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM08"
+            ],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        },
+        {
+          "id": "T12-AT-015",
+          "title": "Metadata Exploitation",
+          "risk_score": 190,
+          "rating": "MEDIUM",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM08"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0043"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T13",
+      "number": 13,
+      "name": "AI Supply Chain & Artifact Trust",
+      "volume": "vol-4-infrastructure-human",
+      "file": "docs/vol-4-infrastructure-human/16-t13-supply-chain.md",
+      "technique_count": 15,
+      "techniques": [
+        {
+          "id": "T13-AT-001",
+          "title": "Model Repository Poisoning",
+          "risk_score": 255,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-002",
+          "title": "Dataset Contamination",
+          "risk_score": 245,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-003",
+          "title": "Pipeline Injection Attacks",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-004",
+          "title": "Dependency Confusion",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-005",
+          "title": "Model Card Manipulation",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-006",
+          "title": "Checkpoint Poisoning",
+          "risk_score": 250,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-007",
+          "title": "Transfer Learning Attacks",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-008",
+          "title": "Model Conversion Exploits",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-009",
+          "title": "Cloud Training Attacks",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-010",
+          "title": "Hardware Supply Chain",
+          "risk_score": 260,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-011",
+          "title": "Model Marketplace Attacks",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-012",
+          "title": "Artifact Signature Attacks",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-013",
+          "title": "Container Registry Poisoning",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-014",
+          "title": "Development Tool Compromise",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T13-AT-015",
+          "title": "Model Obfuscation Attacks",
+          "risk_score": 205,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "T14",
+      "number": 14,
+      "name": "Infrastructure & Economic Warfare",
+      "volume": "vol-4-infrastructure-human",
+      "file": "docs/vol-4-infrastructure-human/17-t14-infrastructure.md",
+      "technique_count": 15,
+      "techniques": [
+        {
+          "id": "T14-AT-001",
+          "title": "GPU Farm Hijacking",
+          "risk_score": 265,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM06"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0048",
+              "AML.T0049"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-002",
+          "title": "Denial of Service Attacks",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM04"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0029"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-003",
+          "title": "Cost Inflation Attacks",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM04"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0029"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-004",
+          "title": "Market Manipulation via AI",
+          "risk_score": 255,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM05"
+            ],
+            "owasp_asi": [
+              "ASI01"
+            ],
+            "mitre_atlas": [
+              "AML.T0048"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-005",
+          "title": "Critical Infrastructure Attacks",
+          "risk_score": 270,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM06"
+            ],
+            "owasp_asi": [
+              "ASI03"
+            ],
+            "mitre_atlas": [
+              "AML.T0049"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-006",
+          "title": "Competitive Sabotage",
+          "risk_score": 245,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM03"
+            ],
+            "owasp_asi": [
+              "ASI05"
+            ],
+            "mitre_atlas": [
+              "AML.T0020",
+              "AML.T0044"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-007",
+          "title": "Nation-State AI Warfare",
+          "risk_score": 280,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0048",
+              "AML.T0049"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-008",
+          "title": "Ransomware via AI Systems",
+          "risk_score": 260,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM06"
+            ],
+            "owasp_asi": [
+              "ASI03"
+            ],
+            "mitre_atlas": [
+              "AML.T0049"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-009",
+          "title": "Resource Starvation",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM04"
+            ],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0029"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-010",
+          "title": "Data Center Attacks",
+          "risk_score": 250,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": [
+              "AML.T0049"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-011",
+          "title": "API Economy Attacks",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM01"
+            ],
+            "owasp_asi": [
+              "ASI04"
+            ],
+            "mitre_atlas": [
+              "AML.T0012",
+              "AML.T0049"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-012",
+          "title": "Cloud Provider Exploitation",
+          "risk_score": 265,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM06"
+            ],
+            "owasp_asi": [
+              "ASI03"
+            ],
+            "mitre_atlas": [
+              "AML.T0012",
+              "AML.T0049"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-013",
+          "title": "Economic Espionage",
+          "risk_score": 255,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [
+              "LLM02"
+            ],
+            "owasp_asi": [
+              "ASI09"
+            ],
+            "mitre_atlas": [
+              "AML.T0024",
+              "AML.T0044"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-014",
+          "title": "Systemic Risk Creation",
+          "risk_score": 270,
+          "rating": "CRITICAL",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [
+              "ASI06"
+            ],
+            "mitre_atlas": [
+              "AML.T0048"
+            ]
+          }
+        },
+        {
+          "id": "T14-AT-015",
+          "title": "Regulatory Exploitation",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "T15",
+      "number": 15,
+      "name": "Human Workflow Exploitation",
+      "volume": "vol-4-infrastructure-human",
+      "file": "docs/vol-4-infrastructure-human/18-t15-human-workflow.md",
+      "technique_count": 15,
+      "techniques": [
+        {
+          "id": "T15-AT-001",
+          "title": "Reviewer Fatigue Exploitation",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-002",
+          "title": "Social Engineering of Moderators",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-003",
+          "title": "Feedback Loop Manipulation",
+          "risk_score": 240,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-004",
+          "title": "Reviewer Bribery & Coercion",
+          "risk_score": 250,
+          "rating": "CRITICAL",
+          "procedures": 4,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-005",
+          "title": "Playbook & Runbook Injection",
+          "risk_score": 235,
+          "rating": "HIGH",
+          "procedures": 4,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-006",
+          "title": "Queue Manipulation",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 9,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-007",
+          "title": "Escalation Chain Exploitation",
+          "risk_score": 225,
+          "rating": "HIGH",
+          "procedures": 3,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-008",
+          "title": "Cultural & Language Arbitrage",
+          "risk_score": 210,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-009",
+          "title": "Synthetic Empathy Exploitation",
+          "risk_score": 195,
+          "rating": "MEDIUM",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-010",
+          "title": "Annotation Quality Attacks",
+          "risk_score": 230,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-011",
+          "title": "Reviewer Impersonation",
+          "risk_score": 245,
+          "rating": "HIGH",
+          "procedures": 5,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-012",
+          "title": "Timing Attack Exploitation",
+          "risk_score": 205,
+          "rating": "HIGH",
+          "procedures": 7,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-013",
+          "title": "Cognitive Overload Attacks",
+          "risk_score": 220,
+          "rating": "HIGH",
+          "procedures": 10,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-014",
+          "title": "Review Gaming Through A/B Testing",
+          "risk_score": 215,
+          "rating": "HIGH",
+          "procedures": 9,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        },
+        {
+          "id": "T15-AT-015",
+          "title": "Insider Threat Recruitment",
+          "risk_score": 260,
+          "rating": "CRITICAL",
+          "procedures": 2,
+          "mappings": {
+            "owasp_llm": [],
+            "owasp_asi": [],
+            "mitre_atlas": []
+          }
+        }
+      ]
+    }
+  ]
+}
