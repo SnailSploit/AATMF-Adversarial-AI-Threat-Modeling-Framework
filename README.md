@@ -344,7 +344,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). High-value contributions: new techniques
   title   = {AATMF v3: Adversarial AI Threat Modeling Framework},
   author  = {Aizen, Kai},
   year    = {2026},
-  url     = {https://github.com/snailsploit/aatmf},
+  url     = {https://github.com/SnailSploit/AATMF-Adversarial-AI-Threat-Modeling-Framework},
   note    = {15 tactics, 240 techniques, 2,152+ procedures}
 }
 ```
