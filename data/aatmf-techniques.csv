@@ -116,21 +116,21 @@ T7,Output Manipulation & Exfiltration,T7-AT-012,Aggregation Attacks,200,HIGH,10,
 T7,Output Manipulation & Exfiltration,T7-AT-013,Capability Probing,175,MEDIUM,10,LLM07,AML.T0046
 T7,Output Manipulation & Exfiltration,T7-AT-014,Output Redirection,180,MEDIUM,10,LLM05,AML.T0062
 T7,Output Manipulation & Exfiltration,T7-AT-015,Compression-Based Extraction,170,MEDIUM,10,LLM05,AML.T0048
-T8,External Deception & Misinformation,T8-AT-001,Authority Impersonation,230,HIGH,10,,
-T8,External Deception & Misinformation,T8-AT-002,Synthetic Evidence Generation,220,HIGH,10,,
-T8,External Deception & Misinformation,T8-AT-003,Conspiracy Theory Amplification,210,HIGH,10,,
-T8,External Deception & Misinformation,T8-AT-004,Deepfake Narrative Creation,215,HIGH,10,,
-T8,External Deception & Misinformation,T8-AT-005,Social Engineering Scripts,200,HIGH,10,,
-T8,External Deception & Misinformation,T8-AT-006,Targeted Harassment Content,195,MEDIUM,10,,
-T8,External Deception & Misinformation,T8-AT-007,Disinformation Campaign Content,225,HIGH,10,,
-T8,External Deception & Misinformation,T8-AT-008,Synthetic Testimony Generation,190,MEDIUM,10,,
-T8,External Deception & Misinformation,T8-AT-009,Radicalization Content,240,HIGH,10,,
-T8,External Deception & Misinformation,T8-AT-010,False Flag Content,205,HIGH,10,,
-T8,External Deception & Misinformation,T8-AT-011,Election Manipulation Content,235,HIGH,10,,
-T8,External Deception & Misinformation,T8-AT-012,Synthetic Media Support,185,MEDIUM,10,,
-T8,External Deception & Misinformation,T8-AT-013,Psychological Manipulation Content,200,HIGH,10,,
-T8,External Deception & Misinformation,T8-AT-014,False Crisis Generation,210,HIGH,10,,
-T8,External Deception & Misinformation,T8-AT-015,Identity Fabrication,195,MEDIUM,10,,
+T8,External Deception & Misinformation,T8-AT-001,Authority Impersonation,230,HIGH,10,LLM09,AML.T0048
+T8,External Deception & Misinformation,T8-AT-002,Synthetic Evidence Generation,220,HIGH,10,LLM05;LLM09,AML.T0048
+T8,External Deception & Misinformation,T8-AT-003,Conspiracy Theory Amplification,210,HIGH,10,LLM09,AML.T0048
+T8,External Deception & Misinformation,T8-AT-004,Deepfake Narrative Creation,215,HIGH,10,LLM09,AML.T0048
+T8,External Deception & Misinformation,T8-AT-005,Social Engineering Scripts,200,HIGH,10,LLM01;LLM09,AML.T0048
+T8,External Deception & Misinformation,T8-AT-006,Targeted Harassment Content,195,MEDIUM,10,LLM09,AML.T0048.004
+T8,External Deception & Misinformation,T8-AT-007,Disinformation Campaign Content,225,HIGH,10,LLM01;LLM09,AML.T0048
+T8,External Deception & Misinformation,T8-AT-008,Synthetic Testimony Generation,190,MEDIUM,10,LLM09,AML.T0048.004
+T8,External Deception & Misinformation,T8-AT-009,Radicalization Content,240,HIGH,10,LLM09,AML.T0048
+T8,External Deception & Misinformation,T8-AT-010,False Flag Content,205,HIGH,10,LLM09,AML.T0048
+T8,External Deception & Misinformation,T8-AT-011,Election Manipulation Content,235,HIGH,10,LLM09,AML.T0048
+T8,External Deception & Misinformation,T8-AT-012,Synthetic Media Support,185,MEDIUM,10,LLM09,AML.T0048
+T8,External Deception & Misinformation,T8-AT-013,Psychological Manipulation Content,200,HIGH,10,LLM09,
+T8,External Deception & Misinformation,T8-AT-014,False Crisis Generation,210,HIGH,10,LLM09,AML.T0048
+T8,External Deception & Misinformation,T8-AT-015,Identity Fabrication,195,MEDIUM,10,LLM09,AML.T0048.004
 T9,Multimodal & Cross-Channel Attacks,T9-AT-001,Image-Based Prompt Injection,240,HIGH,10,LLM01,AML.T0051.001
 T9,Multimodal & Cross-Channel Attacks,T9-AT-002,Audio Instruction Embedding,235,HIGH,10,LLM01,AML.T0051.001
 T9,Multimodal & Cross-Channel Attacks,T9-AT-003,Video Manipulation Attacks,245,HIGH,10,LLM01,AML.T0051.001
@@ -163,22 +163,22 @@ T10,Integrity & Confidentiality Breach,T10-AT-012,Secure Enclave Bypasses,250,CR
 T10,Integrity & Confidentiality Breach,T10-AT-013,Audit Log Manipulation,215,HIGH,10,,
 T10,Integrity & Confidentiality Breach,T10-AT-014,Data Lineage Attacks,190,MEDIUM,9,LLM03;LLM04,AML.T0020
 T10,Integrity & Confidentiality Breach,T10-AT-015,Anonymization Reversal,225,HIGH,10,LLM02,AML.T0024.000
-T11,Agentic & Orchestrator Exploitation,T11-AT-001,Browser Automation Hijacking,265,CRITICAL,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-002,Tool Chain Exploitation,255,CRITICAL,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-003,Goal Hijacking,245,HIGH,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-004,Planning Corruption,240,HIGH,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-005,Multi-Agent Collision,235,HIGH,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-006,Reflection Loop Exploitation,230,HIGH,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-007,Environment Manipulation,225,HIGH,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-008,Credential Harvesting,250,CRITICAL,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-009,Persistence Installation,245,HIGH,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-010,Lateral Movement,240,HIGH,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-011,Data Exfiltration via Agent,235,HIGH,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-012,Resource Exhaustion Attacks,210,HIGH,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-013,Supply Chain Attacks via Agents,260,CRITICAL,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-014,Physical World Interactions,255,CRITICAL,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-015,Autonomous Replication,270,CRITICAL,10,,
-T11,Agentic & Orchestrator Exploitation,T11-AT-016,Tool-Induced SSRF & Local Resource,275,CRITICAL,10,,
+T11,Agentic & Orchestrator Exploitation,T11-AT-001,Browser Automation Hijacking,265,CRITICAL,10,LLM06,AML.T0051
+T11,Agentic & Orchestrator Exploitation,T11-AT-002,Tool Chain Exploitation,255,CRITICAL,10,LLM06,AML.T0051
+T11,Agentic & Orchestrator Exploitation,T11-AT-003,Goal Hijacking,245,HIGH,10,LLM01,AML.T0051
+T11,Agentic & Orchestrator Exploitation,T11-AT-004,Planning Corruption,240,HIGH,10,LLM06,AML.T0051
+T11,Agentic & Orchestrator Exploitation,T11-AT-005,Multi-Agent Collision,235,HIGH,10,LLM06,AML.T0051
+T11,Agentic & Orchestrator Exploitation,T11-AT-006,Reflection Loop Exploitation,230,HIGH,10,LLM06,AML.T0054
+T11,Agentic & Orchestrator Exploitation,T11-AT-007,Environment Manipulation,225,HIGH,10,LLM06,AML.T0051
+T11,Agentic & Orchestrator Exploitation,T11-AT-008,Credential Harvesting,250,CRITICAL,10,LLM02,
+T11,Agentic & Orchestrator Exploitation,T11-AT-009,Persistence Installation,245,HIGH,10,LLM06,
+T11,Agentic & Orchestrator Exploitation,T11-AT-010,Lateral Movement,240,HIGH,10,LLM06,
+T11,Agentic & Orchestrator Exploitation,T11-AT-011,Data Exfiltration via Agent,235,HIGH,10,LLM02,
+T11,Agentic & Orchestrator Exploitation,T11-AT-012,Resource Exhaustion Attacks,210,HIGH,10,LLM10,
+T11,Agentic & Orchestrator Exploitation,T11-AT-013,Supply Chain Attacks via Agents,260,CRITICAL,10,LLM03,
+T11,Agentic & Orchestrator Exploitation,T11-AT-014,Physical World Interactions,255,CRITICAL,10,LLM06,
+T11,Agentic & Orchestrator Exploitation,T11-AT-015,Autonomous Replication,270,CRITICAL,10,LLM06,
+T11,Agentic & Orchestrator Exploitation,T11-AT-016,Tool-Induced SSRF & Local Resource,275,CRITICAL,10,LLM06,AML.T0051
 T12,RAG & Knowledge Base Manipulation,T12-AT-001,Vector Database Poisoning,240,HIGH,10,LLM08,AML.T0020
 T12,RAG & Knowledge Base Manipulation,T12-AT-002,Retrieval Manipulation,225,HIGH,10,LLM08,AML.T0043
 T12,RAG & Knowledge Base Manipulation,T12-AT-003,Knowledge Graph Attacks,215,HIGH,10,LLM08,AML.T0020
@@ -224,18 +224,18 @@ T14,Infrastructure & Economic Warfare,T14-AT-012,Cloud Provider Exploitation,265
 T14,Infrastructure & Economic Warfare,T14-AT-013,Economic Espionage,255,CRITICAL,10,LLM02,AML.T0024;AML.T0044
 T14,Infrastructure & Economic Warfare,T14-AT-014,Systemic Risk Creation,270,CRITICAL,10,,AML.T0048
 T14,Infrastructure & Economic Warfare,T14-AT-015,Regulatory Exploitation,210,HIGH,10,,
-T15,Human Workflow Exploitation,T15-AT-001,Reviewer Fatigue Exploitation,215,HIGH,10,,
-T15,Human Workflow Exploitation,T15-AT-002,Social Engineering of Moderators,230,HIGH,10,,
-T15,Human Workflow Exploitation,T15-AT-003,Feedback Loop Manipulation,240,HIGH,10,,
-T15,Human Workflow Exploitation,T15-AT-004,Reviewer Bribery & Coercion,250,CRITICAL,4,,
-T15,Human Workflow Exploitation,T15-AT-005,Playbook & Runbook Injection,235,HIGH,4,,
-T15,Human Workflow Exploitation,T15-AT-006,Queue Manipulation,220,HIGH,9,,
-T15,Human Workflow Exploitation,T15-AT-007,Escalation Chain Exploitation,225,HIGH,3,,
-T15,Human Workflow Exploitation,T15-AT-008,Cultural & Language Arbitrage,210,HIGH,10,,
-T15,Human Workflow Exploitation,T15-AT-009,Synthetic Empathy Exploitation,195,MEDIUM,5,,
-T15,Human Workflow Exploitation,T15-AT-010,Annotation Quality Attacks,230,HIGH,10,,
-T15,Human Workflow Exploitation,T15-AT-011,Reviewer Impersonation,245,HIGH,5,,
-T15,Human Workflow Exploitation,T15-AT-012,Timing Attack Exploitation,205,HIGH,7,,
-T15,Human Workflow Exploitation,T15-AT-013,Cognitive Overload Attacks,220,HIGH,10,,
-T15,Human Workflow Exploitation,T15-AT-014,Review Gaming Through A/B Testing,215,HIGH,9,,
-T15,Human Workflow Exploitation,T15-AT-015,Insider Threat Recruitment,260,CRITICAL,2,,
+T15,Human Workflow Exploitation,T15-AT-001,Reviewer Fatigue Exploitation,215,HIGH,10,LLM09,
+T15,Human Workflow Exploitation,T15-AT-002,Social Engineering of Moderators,230,HIGH,10,LLM09,
+T15,Human Workflow Exploitation,T15-AT-003,Feedback Loop Manipulation,240,HIGH,10,LLM04,AML.T0020
+T15,Human Workflow Exploitation,T15-AT-004,Reviewer Bribery & Coercion,250,CRITICAL,4,LLM04,
+T15,Human Workflow Exploitation,T15-AT-005,Playbook & Runbook Injection,235,HIGH,4,LLM01,AML.T0051
+T15,Human Workflow Exploitation,T15-AT-006,Queue Manipulation,220,HIGH,9,LLM09,
+T15,Human Workflow Exploitation,T15-AT-007,Escalation Chain Exploitation,225,HIGH,3,LLM09,
+T15,Human Workflow Exploitation,T15-AT-008,Cultural & Language Arbitrage,210,HIGH,10,LLM09,
+T15,Human Workflow Exploitation,T15-AT-009,Synthetic Empathy Exploitation,195,MEDIUM,5,LLM09,
+T15,Human Workflow Exploitation,T15-AT-010,Annotation Quality Attacks,230,HIGH,10,LLM04,AML.T0020
+T15,Human Workflow Exploitation,T15-AT-011,Reviewer Impersonation,245,HIGH,5,LLM09,
+T15,Human Workflow Exploitation,T15-AT-012,Timing Attack Exploitation,205,HIGH,7,LLM09,
+T15,Human Workflow Exploitation,T15-AT-013,Cognitive Overload Attacks,220,HIGH,10,LLM09,
+T15,Human Workflow Exploitation,T15-AT-014,Review Gaming Through A/B Testing,215,HIGH,9,LLM09,
+T15,Human Workflow Exploitation,T15-AT-015,Insider Threat Recruitment,260,CRITICAL,2,LLM04,
