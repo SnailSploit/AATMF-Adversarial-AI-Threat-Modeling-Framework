@@ -10,8 +10,44 @@
 <p align="center">
   <a href="#quick-start"><img src="https://img.shields.io/badge/version-3-0D1B2A?style=flat-square&labelColor=2E86AB" alt="Version 3"/></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-CC_BY--SA_4.0-27AE60?style=flat-square" alt="License"/></a>
+  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-27AE60?style=flat-square" alt="PRs Welcome"/></a>
+  <a href="https://github.com/SnailSploit/AATMF-Adversarial-AI-Threat-Modeling-Framework/stargazers"><img src="https://img.shields.io/github/stars/SnailSploit/AATMF-Adversarial-AI-Threat-Modeling-Framework?style=flat-square&labelColor=2E86AB&color=0D1B2A" alt="GitHub stars"/></a>
   <a href="https://snailsploit.com"><img src="https://img.shields.io/badge/snailsploit.com-research-F39C12?style=flat-square" alt="SnailSploit"/></a>
 </p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/tactics-15-0D1B2A?style=flat-square&labelColor=2E86AB" alt="15 Tactics"/>
+  <img src="https://img.shields.io/badge/techniques-240-0D1B2A?style=flat-square&labelColor=2E86AB" alt="240 Techniques"/>
+  <img src="https://img.shields.io/badge/procedures-2%2C152%2B-0D1B2A?style=flat-square&labelColor=2E86AB" alt="2,152+ Procedures"/>
+  <img src="https://img.shields.io/badge/prompts-4%2C980%2B-0D1B2A?style=flat-square&labelColor=2E86AB" alt="4,980+ Prompts"/>
+</p>
+
+<p align="center">
+  <a href="#quick-start"><b>Quick Start</b></a> ·
+  <a href="#the-15-tactics"><b>The 15 Tactics</b></a> ·
+  <a href="#who-is-this-for"><b>Who It's For</b></a> ·
+  <a href="docs/vol-1-foundations/01-introduction.md"><b>Start Reading →</b></a>
+</p>
+
+---
+
+<details>
+<summary><b>📖 Table of Contents</b></summary>
+
+<br>
+
+- [What is AATMF?](#what-is-aatmf) · [Why v3?](#why-v3)
+- [Who Is This For?](#who-is-this-for)
+- [Quick Start](#quick-start)
+- [The 15 Tactics](#the-15-tactics)
+- [How It Fits Together](#how-it-fits-together)
+- [Framework Structure](#framework-structure) · [Identifier System](#identifier-system) · [Risk Scoring](#risk-scoring-aatmf-r-v3)
+- [Full Table of Contents](#full-table-of-contents)
+- [Cross-Framework Mapping](#cross-framework-mapping)
+- [Detection Signatures](#detection-signatures)
+- [Ethical Use](#ethical-use) · [Contributing](#contributing) · [Citation](#citation)
+
+</details>
 
 ---
 
@@ -38,6 +74,19 @@ The threat landscape shifted fundamentally in 2025–2026:
 | Deepfake fraud tripled to **$1.1 billion** | Real-world harm at scale |
 
 v3 integrates all of this. Every tactic updated. New operational volumes. Namespaced IDs. No more collisions.
+
+---
+
+## Who Is This For?
+
+| You are a… | Use AATMF to… | Start here |
+|:---|:---|:---|
+| 🔴 **Red Teamer / Pentester** | Plan and run structured adversarial AI assessments with reproducible procedure IDs | [Red Team Ops](docs/vol-5-operations/22-red-team-ops.md) · [Attack Catalog](docs/vol-7-appendices/appendix-a-attack-catalog.md) |
+| 🔵 **Blue Team / SOC** | Build detections, harden defenses, and respond to AI-specific incidents | [Blue Team Defense](docs/vol-5-operations/23-blue-team-defense.md) · [Signatures](signatures/) |
+| 🧠 **AI / ML Engineer** | Threat-model and harden models, RAG, and agents *before* they ship | [Architecture](docs/vol-1-foundations/03-architecture.md) · [Mitigation](docs/vol-5-operations/20-mitigation.md) |
+| 🔬 **Security Researcher** | Publish against a shared taxonomy with collision-free identifiers | [Identifier System](#identifier-system) · [Attack Catalog](docs/vol-7-appendices/appendix-a-attack-catalog.md) |
+| 📋 **GRC / Compliance** | Map AI risk to EU AI Act, NIST AI RMF, and OWASP | [Compliance Mapping](docs/vol-6-governance/25-compliance-mapping.md) · [Risk Management](docs/vol-6-governance/24-risk-management.md) |
+| 🏛️ **CISO / Leadership** | Quantify, prioritize, and report AI risk to the board | [Risk Scoring](#risk-scoring-aatmf-r-v3) · [Risk Management](docs/vol-6-governance/24-risk-management.md) |
 
 ---
 
@@ -81,6 +130,34 @@ v3 integrates all of this. Every tactic updated. New operational volumes. Namesp
 <tr><td><code>T15</code></td><td><b>Human Workflow Exploitation</b></td><td>15</td><td>Manipulate human reviewers and workflows</td><td><a href="docs/vol-4-infrastructure-human/18-t15-human-workflow.md">→</a></td></tr>
 </tbody>
 </table>
+
+---
+
+## How It Fits Together
+
+Every attack maps to one of 15 tactics across three domains, scores against a single risk model, and resolves to concrete detection, mitigation, and response:
+
+```mermaid
+flowchart TB
+    AI(["AI System Under Test"])
+    AI --> CORE["Core Tactics — T1-T8<br/>Prompt · Semantic · Reasoning · Memory<br/>API · Training · Output · Deception"]
+    AI --> ADV["Advanced Tactics — T9-T12<br/>Multimodal · Integrity · Agentic · RAG"]
+    AI --> INFRA["Infrastructure & Human — T13-T15<br/>Supply Chain · Infrastructure · Human Workflow"]
+    CORE --> R["AATMF-R v3 Risk Scoring<br/>L × I × E ÷ 6 × D ÷ 6 × R × C"]
+    ADV --> R
+    INFRA --> R
+    R --> DEF{"Detect · Mitigate · Respond"}
+    classDef surface fill:#0D1B2A,stroke:#2E86AB,color:#fff;
+    classDef group fill:#1B263B,stroke:#2E86AB,color:#fff;
+    classDef score fill:#F39C12,stroke:#b9770e,color:#1a1a1a;
+    classDef def fill:#27AE60,stroke:#1e8449,color:#fff;
+    class AI surface;
+    class CORE,ADV,INFRA group;
+    class R score;
+    class DEF def;
+```
+
+> The same human-manipulation playbook that works on people works on models. AATMF catalogs that translation end to end — from initial access through detection and response.
 
 ---
 
@@ -267,7 +344,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). High-value contributions: new techniques
   title   = {AATMF v3: Adversarial AI Threat Modeling Framework},
   author  = {Aizen, Kai},
   year    = {2026},
-  url     = {https://github.com/snailsploit/aatmf},
+  url     = {https://github.com/SnailSploit/AATMF-Adversarial-AI-Threat-Modeling-Framework},
   note    = {15 tactics, 240 techniques, 2,152+ procedures}
 }
 ```
