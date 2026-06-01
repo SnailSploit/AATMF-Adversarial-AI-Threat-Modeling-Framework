@@ -36,6 +36,23 @@
 | LLM09 | Misinformation | T8 | T15 |
 | LLM10 | Unbounded Consumption | T14 | T5 |
 
+## OWASP Top 10 for Agentic Applications 2026 (ASI)
+
+| ASI | Risk | AATMF Primary | AATMF Secondary | Key Evidence |
+|:---|:---|:---|:---|:---|
+| ASI01 | Agent Goal Hijack | T11 (AT-003 Goal Hijacking) | T1, T4 | EchoLeak — hidden prompts turning copilots into exfiltration engines |
+| ASI02 | Tool Misuse & Exploitation | T11 (AT-002 Tool Chain Exploitation, AT-016 Tool-Induced SSRF) | T5 | Amazon Q — agents bending legitimate tools into destructive outputs |
+| ASI03 | Identity & Privilege Abuse | T11 (AT-008 Credential Harvesting, AT-010 Lateral Movement) | T10 | Leaked credentials enabling operation beyond intended scope |
+| ASI04 | Agentic Supply Chain Vulnerabilities | T13 | T11 (AT-013) | GitHub MCP exploit — runtime components poisoned via dynamic MCP/A2A ecosystems |
+| ASI05 | Unexpected Code Execution (RCE) | T11 (AT-002), T14 | T7 | AutoGPT RCE — natural-language execution paths unlocking code execution. ShadowMQ (CVE-2025-30165, CVE-2025-23254) |
+| ASI06 | Memory & Context Poisoning | T4 (Multi-Turn), T12 (RAG) | T6 | Gemini Memory Attack — memory poisoning reshaping behavior across sessions |
+| ASI07 | Insecure Inter-Agent Communication | T11 (AT-005 Multi-Agent Collision) | T9 | Spoofed inter-agent messages misdirecting agent clusters |
+| ASI08 | Cascading Failures | T11 (AT-012 Resource Exhaustion), T14 | T11 (AT-015 Autonomous Replication) | False signals propagating through automated pipelines with escalating impact |
+| ASI09 | Human-Agent Trust Exploitation | T15 | T8 | Users approving unsafe actions due to authority bias toward agent recommendations |
+| ASI10 | Rogue Agents | T11 (AT-009 Persistence, AT-015 Autonomous Replication) | T11 (AT-010 Lateral Movement) | Behavioral drift, collusion, and self-replication beyond initial compromise |
+
+**Coverage note:** AATMF's T11 (Agentic & Orchestrator Exploitation) maps to 7 of 10 ASI categories as primary or secondary. This reflects the architectural reality that agentic risks concentrate at the orchestration layer. The remaining ASI categories map to AATMF's infrastructure (T13, T14), human workflow (T15), and multi-turn/RAG (T4, T12) tactics.
+
 ## MITRE ATLAS v4.6.0 (October 2025)
 
 ATLAS v4.6.0 added 14 new agentic AI techniques, bringing the total to 15 tactics, 66 techniques, and 46 sub-techniques. AATMF v3 provides finer-grained coverage:
