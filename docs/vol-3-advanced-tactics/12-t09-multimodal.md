@@ -24,7 +24,7 @@
 | `T9-AT-014` | Codec and Compression Exploits | 180 | 🟡 MEDIUM | 10 |
 | `T9-AT-015` | Temporal Synchronization Attacks | 195 | 🟡 MEDIUM | 10 |
 | `T9-AT-016` | Multimodal Model Inversion | 210 | 🟠 HIGH | 2 |
-| `T9-AT-017` | Malicious Image Patches (MIP) | 248 | 🔴 CRITICAL | 10 |
+| `T9-AT-017` | Malicious Image Patches (MIP) | 248 | 🟠 HIGH | 10 |
 
 ---
 
