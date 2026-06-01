@@ -30,7 +30,7 @@
 
 Deepfake fraud reached **$1.1 billion in 2025** (3x from 2024). Voice phishing surged **442%**. Notable: Arup $25.5M deepfake video call theft, Ferrari CEO voice clone, Italian defense minister impersonation.
 
-**North Korean IT worker infiltrations** grew 220%, generating $250M–$600M annually. Synthetic interview identity created in **70 minutes**.
+**North Korean IT worker infiltrations** grew 220%, generating $250M–$600M annually.
 
 AI-generated CSAM reports: **440,419 in H1 2025** (624% increase from all of 2024).
 
@@ -1351,7 +1351,7 @@ False-crisis content is a high-velocity trigger that supercharges other techniqu
 
 #### Mechanism
 
-Identity fabrication uses LLMs to construct complete, internally consistent false personas: full life histories, professional backgrounds, social-media post histories, believable biographies, credential and employment records, synthetic social networks, academic records, and references. It works because a persona's credibility comes from coherent breadth across many surfaces — a profile that posts plausibly over time, has a consistent backstory, and is embedded in a network reads as a real person. LLMs make manufacturing that breadth cheap and consistent, and can backfill years of plausible "history" in minutes. The asymmetry is between rapid generation of many rich, distinct identities and the cost of verifying each one against authoritative records. Moderation gaps are central: any single profile element is unremarkable, so detection must rely on provenance, network structure, and behavioral signals rather than content. The trust exploited is identity itself — the assumption that an account with a detailed, consistent history corresponds to a genuine, accountable person. This is the persona-supply layer behind sock-puppet and infiltration operations, including synthetic-interview identities reportedly stood up in as little as 70 minutes.
+Identity fabrication uses LLMs to construct complete, internally consistent false personas: full life histories, professional backgrounds, social-media post histories, believable biographies, credential and employment records, synthetic social networks, academic records, and references. It works because a persona's credibility comes from coherent breadth across many surfaces — a profile that posts plausibly over time, has a consistent backstory, and is embedded in a network reads as a real person. LLMs make manufacturing that breadth cheap and consistent, and can backfill years of plausible "history" in minutes. The asymmetry is between rapid generation of many rich, distinct identities and the cost of verifying each one against authoritative records. Moderation gaps are central: any single profile element is unremarkable, so detection must rely on provenance, network structure, and behavioral signals rather than content. The trust exploited is identity itself — the assumption that an account with a detailed, consistent history corresponds to a genuine, accountable person. This is the persona-supply layer behind sock-puppet and infiltration operations, including synthetic-interview identities stood up rapidly.
 
 #### Attack Procedures
 

@@ -135,6 +135,27 @@ def check_export_fresh(taxonomy):
         err("data/aatmf.json is stale — run scripts/build_export.py and commit the result")
 
 
+def check_inline_refs(taxonomy):
+    """Flag inline TX-AT-NNN references that don't resolve to a defined technique."""
+    import re
+
+    defined = set()
+    for tactic in taxonomy["tactics"]:
+        for tech in tactic["techniques"]:
+            m = re.match(r"T(\d+)-AT-(\d+)", tech["id"])
+            defined.add((int(m.group(1)), int(m.group(2))))
+
+    seen: dict[str, set] = {}
+    for path in [A.README, *sorted(A.DOCS.glob("**/*.md"))]:
+        for m in re.finditer(r"\bT(\d+)-AT-(\d+)\b", path.read_text(encoding="utf-8")):
+            key = (int(m.group(1)), int(m.group(2)))
+            if key not in defined:
+                rid = f"T{m.group(1)}-AT-{m.group(2)}"
+                seen.setdefault(rid, set()).add(str(path.relative_to(A.REPO_ROOT)))
+    for rid, locs in sorted(seen.items()):
+        err(f"reference to undefined technique {rid} in {sorted(locs)}")
+
+
 def main() -> None:
     taxonomy = A.build_taxonomy()
     readme = A.parse_readme()
@@ -143,6 +164,7 @@ def main() -> None:
     check_risk_badges(taxonomy)
     check_links()
     check_fences()
+    check_inline_refs(taxonomy)
     check_export_fresh(taxonomy)
 
     counts = taxonomy["counts"]

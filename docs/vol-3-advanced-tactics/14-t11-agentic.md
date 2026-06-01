@@ -669,7 +669,7 @@ Agents calibrate how cautiously to act based on their understanding of the envir
 
 #### Chaining
 
-Environment manipulation is a precondition softener: delivered via T1 prompt injection or T12 RAG poisoning, it lowers the agent's perceived consequences so subsequent T11-AT-002 tool chains, T11-AT-011 exfiltration, and T11-AT-022/016-style SSRF run without refusal. The "firewall disabled / air-gapped" claims directly enable T11-AT-010 lateral movement, and the spoofed-privilege claims (AP127E/AP127I) precede T11-AT-009 persistence attempts.
+Environment manipulation is a precondition softener: delivered via T1 prompt injection or T12 RAG poisoning, it lowers the agent's perceived consequences so subsequent T11-AT-002 tool chains, T11-AT-011 exfiltration, and T11-AT-016 SSRF run without refusal. The "firewall disabled / air-gapped" claims directly enable T11-AT-010 lateral movement, and the spoofed-privilege claims (AP127E/AP127I) precede T11-AT-009 persistence attempts.
 
 #### Detection
 
