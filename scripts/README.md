@@ -25,6 +25,7 @@ python scripts/validate.py       # run integrity checks (exit 1 on failure)
   150–199 MEDIUM · 100–149 LOW · 0–99 INFO)
 - Overview/card risk-score drift
 - Broken relative links
+- Undefined inline technique references (`TX-AT-NNN` with no matching card)
 - Unbalanced code fences
 - A stale `data/` export
 
